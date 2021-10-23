@@ -6,15 +6,18 @@
     "extends": ["plugin:react/recommended", "airbnb", "prettier"],
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true
+            "jsx": true,
+            "modules": true
         },
-        "ecmaVersion": "latest",
+        "ecmaVersion": 6,
         "sourceType": "module"
     },
     "plugins": ["react"],
     "rules": {
         "react/react-in-jsx-scope": "off",
-        "semi": ["error", "never"]
+        "semi": ["error", "never"],
+        "no-unused-vars": "warn",
+        "max-len": ["error", { "code": 80 }]
     },
     "settings": {
         "react": {
