@@ -1,10 +1,4 @@
 body {
   /* background-color: #212121; */
-  cursor: url('https://7psew.csb.app//images/ellipse.svg'), pointer;
-  cursor: -webkit-image-set(
-      url('https://7psew.csb.app//images/ellipse.svg') 1x,
-      url('https://7psew.csb.app//images/ellipse.svg') 2x
-    ),
-    pointer;
-  background-image: linear-gradient(-225deg, #cbbacc 0%, #2580b3 100%);
+  /* background-image: linear-gradient(-225deg, #cbbacc 0%, #2580b3 100%); */
 }

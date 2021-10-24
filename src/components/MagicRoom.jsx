@@ -1,7 +1,6 @@
 import React, { Suspense, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
-import * as THREE from'three'
-import { useGLTF, Stars, useAnimations, Sky, Html, OrbitControls, Billboard } from '@react-three/drei'
+import { useGLTF, OrbitControls, Stars, useAnimations, Sky } from '@react-three/drei'
 
 const MagicRoom = () => {
   // Importing model
@@ -16,9 +15,9 @@ const MagicRoom = () => {
         object={gltf.scene}
         ref={ref}
         dispose={null}
-        scale={8}
+        scale={10}
         rotation={[0, Math.PI * 1.18, 0]}
-        position={[0, -13, 0]}
+        position={[0, -20, 0]}
       />
     )
   }
@@ -26,17 +25,14 @@ const MagicRoom = () => {
   return (
     <Canvas
       dpr={[1, 2]}
-      linear
       camera={{ position: [0, 0, 100], fov: 45 }}
       style={{ height: '100vh', width: '100%' }}
     >
       <Suspense fallback={null}>
-        {/* <OrbitControls mouseButtons={{ "Left": null}} touches={{"ONE": THREE.TOUCH.DOLLY_PAN}} autoRotate enableScroll={false} enablePan={false} enableZoom={false} maxPolarAngle={Math.PI / 200} minPolarAngle={Math.PI / 20} /> */}
-        {/* <Sky azimuth={1} inclination={0.6} distance={1000} /> */}
-        <fog attach="fog" args={['#ffffff', 0, 300]} />
-        <Billboard>
+        <OrbitControls enablePan enableZoom enableRotate />
+        <Sky azimuth={1} inclination={0.6} distance={1000} />
+        <fog attach="fog" args={['#ffffff', 0, 300 ]} />
         <Model />
-        </Billboard>
           <Stars
           radius={8} // Radius of the inner sphere (default=100)
           depth={50} // Depth of area where stars should fit (default=50)
