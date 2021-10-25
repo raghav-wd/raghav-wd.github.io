@@ -1,6 +1,12 @@
 import React, { Suspense, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { useGLTF, OrbitControls, Stars, useAnimations, Sky } from '@react-three/drei'
+import {
+  useGLTF,
+  OrbitControls,
+  Stars,
+  useAnimations,
+  Sky,
+} from '@react-three/drei'
 
 const MagicRoom = () => {
   // Importing model
@@ -8,8 +14,8 @@ const MagicRoom = () => {
     const gltf = useGLTF('./libs/3_seconds_of_vacations/scene.gltf', true)
     const { ref, names, actions } = useAnimations(gltf.animations)
     useEffect(() => {
-    actions[names[0]].play()
-  })
+      actions[names[0]].play()
+    })
     return (
       <primitive
         object={gltf.scene}
@@ -31,9 +37,9 @@ const MagicRoom = () => {
       <Suspense fallback={null}>
         <OrbitControls enablePan enableZoom enableRotate />
         <Sky azimuth={1} inclination={0.6} distance={1000} />
-        <fog attach="fog" args={['#ffffff', 0, 300 ]} />
+        <fog attach="fog" args={['#ffffff', 0, 300]} />
         <Model />
-          <Stars
+        <Stars
           radius={8} // Radius of the inner sphere (default=100)
           depth={50} // Depth of area where stars should fit (default=50)
           count={10000} // Amount of stars (default=5000)

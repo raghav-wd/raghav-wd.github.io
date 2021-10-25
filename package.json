@@ -2,6 +2,7 @@
   "name": "raghav-wd.github.io",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://raghav-wd.github.io",
   "dependencies": {
     "@react-three/drei": "^7.17.1",
     "@react-three/fiber": "^7.0.17",
@@ -18,7 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
