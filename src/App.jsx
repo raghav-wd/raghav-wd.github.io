@@ -1,10 +1,10 @@
 import './App.css'
-import PersonMdl from './components/Models/PersonMdl'
+import Person from './components/Models/Person'
 
 function App() {
   return (
     <div className="App">
-      <PersonMdl />
+      <Person />
     </div>
   )
 }
