@@ -1,12 +1,10 @@
 import './App.css'
-import MagicRoom from './components/MagicRoom'
+import PersonMdl from './components/Models/PersonMdl'
 
 function App() {
   return (
     <div className="App">
-      {/* <div className="text-2 overlay">&lt;राghaわ/&gt;</div> */}
-      <div className="text-2 overlay">Raghav Gupta</div>
-      <MagicRoom />
+      <PersonMdl />
     </div>
   )
 }
