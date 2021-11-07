@@ -11,22 +11,29 @@ import {
 import { GUI } from 'dat.gui'
 
 const Person = () => {
-  let panel, personGuiPanel
+  const blendDuration = 0.4
+  let panel, personGuiPanel, cameraGuiPanel
   const camera = useRef()
 
   useEffect(() => {
     panel = new GUI()
     personGuiPanel = panel.addFolder('Person')
-  }, [])
+    cameraGuiPanel = panel.addFolder('Camera')
+  })
 
   // Importing model
   const Model = () => {
     const gltf = useGLTF('./libs/Xbot.glb', '/draco-gltf')
     const { ref, mixer, names, actions, clips } = useAnimations(gltf.animations)
+    const [currentAction, setCurrentAction] = useState('idle')
 
-    // console.log(gltf.scene)
     useEffect(() => {
-      // console.log(ref)
+      console.log(currentAction)
+      actions[currentAction]?.reset().fadeIn(blendDuration).play()
+      return () => void actions[currentAction]?.fadeOut(blendDuration)
+    }, [currentAction])
+
+    useEffect(() => {
       document.addEventListener('keydown', function (event) {
         console.log(
           `Key: ${event.key} with keycode ${event.keyCode} has been pressed`
@@ -34,6 +41,7 @@ const Person = () => {
         switch (event.key) {
           case 'w': {
             ref.current.position.z += 0.04
+            setCurrentAction('walk')
             break
           }
           case 'a': {
@@ -42,6 +50,7 @@ const Person = () => {
           }
           case 's': {
             ref.current.position.z -= 0.04
+            setCurrentAction('idle')
             break
           }
           case 'd': {
@@ -50,53 +59,55 @@ const Person = () => {
           }
         }
       })
-      personGuiPanel
-        .add(ref.current.position, 'x')
-        .min(0)
-        .max(5)
-        .step(0.1)
-        .name('x')
-      personGuiPanel
-        .add(ref.current.position, 'y')
-        .min(0)
-        .max(5)
-        .step(0.1)
-        .name('y')
-      personGuiPanel
-        .add(ref.current.position, 'z')
-        .min(0)
-        .max(5)
-        .step(0.05)
-        .name('z')
-      personGuiPanel.add(ref.current, 'visible')
-      actions.walk.play()
-    })
+
+      if (personGuiPanel && personGuiPanel) {
+        personGuiPanel
+          .add(ref.current.position, 'x')
+          .min(0)
+          .max(5)
+          .step(0.1)
+          .name('x')
+        personGuiPanel
+          .add(ref.current.position, 'y')
+          .min(0)
+          .max(5)
+          .step(0.1)
+          .name('y')
+        personGuiPanel
+          .add(ref.current.position, 'z')
+          .min(0)
+          .max(5)
+          .step(0.05)
+          .name('z')
+        personGuiPanel.add(ref.current, 'visible')
+      }
+    }, [])
     return <primitive ref={ref} object={gltf.scene} dispose={null} />
   }
 
   function PersonCamera() {
     const ref = useRef()
     useEffect(() => {
-      let cameraGuiPanel = panel.addFolder('Camera')
-      console.log(ref.current)
-      cameraGuiPanel
-        .add(ref.current.position, 'x')
-        .min(0)
-        .max(5)
-        .step(0.1)
-        .name('x')
-      cameraGuiPanel
-        .add(ref.current.position, 'y')
-        .min(0)
-        .max(5)
-        .step(0.1)
-        .name('y')
-      cameraGuiPanel
-        .add(ref.current.position, 'z')
-        .min(-5)
-        .max(5)
-        .step(0.05)
-        .name('z')
+      if (cameraGuiPanel) {
+        cameraGuiPanel
+          .add(ref.current.position, 'x')
+          .min(0)
+          .max(5)
+          .step(0.1)
+          .name('x')
+        cameraGuiPanel
+          .add(ref.current.position, 'y')
+          .min(0)
+          .max(5)
+          .step(0.1)
+          .name('y')
+        cameraGuiPanel
+          .add(ref.current.position, 'z')
+          .min(-5)
+          .max(5)
+          .step(0.05)
+          .name('z')
+      }
     })
     return (
       <PerspectiveCamera
