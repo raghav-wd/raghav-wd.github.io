@@ -1510,6 +1510,14 @@
     "schema-utils" "^2.6.5"
     "source-map" "^0.7.3"
 
+"@react-three/cannon@^4.0.1":
+  "integrity" "sha512-3JL37ftIBvHpOz7ev1yYkssTFImnbc00YhUulaICqdTGqK5zSw4AbsITKNtC7OeT5UmrL9XlLQpL51nsdjKX+w=="
+  "resolved" "https://registry.npmjs.org/@react-three/cannon/-/cannon-4.0.1.tgz"
+  "version" "4.0.1"
+  dependencies:
+    "cannon-es" "^0.18.0"
+    "cannon-es-debugger" "^0.1.4"
+
 "@react-three/drei@^7.17.1":
   "integrity" "sha512-LKNze1U5TF6QGhyPo/1BRXK4XRZASLfzUEYahsMxq7b4vdenlLcqPMm50A619gZwHxreVkDF8LjMNeiW9koW/g=="
   "resolved" "https://registry.npmjs.org/@react-three/drei/-/drei-7.17.1.tgz"
@@ -3177,6 +3185,16 @@
   "integrity" "sha512-BBruZFWmt3HFdVPS8kceTBIguKxu4f99n5JNp06OlPD/luoAMIaIK5ieV5YjnBLH3Nysai9sxj9rpJj4ZisXOA=="
   "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001271.tgz"
   "version" "1.0.30001271"
+
+"cannon-es-debugger@^0.1.4":
+  "integrity" "sha512-RefSPWX6gDMQsx3UWoQpkGW3R03Wwn8p1JteexQUYxDC5DnOS3U3iKhns2vVpFp6Q3AKiSSmRf7NIXnGN8L0RA=="
+  "resolved" "https://registry.npmjs.org/cannon-es-debugger/-/cannon-es-debugger-0.1.4.tgz"
+  "version" "0.1.4"
+
+"cannon-es@^0.18.0", "cannon-es@0.x.x":
+  "integrity" "sha512-GiQ1bd0etZsMVSnUhNc+p+FEh0R/cULpp8uRSAhEK4Kax+y/31Au03m6h1h1xdDivAMnFg8YDwevHgzLynOHlw=="
+  "resolved" "https://registry.npmjs.org/cannon-es/-/cannon-es-0.18.0.tgz"
+  "version" "0.18.0"
 
 "capture-exit@^2.0.0":
   "integrity" "sha512-PiT/hQmTonHhl/HFGN+Lx3JJUznrVYJ3+AQsnthneZbvW7x+f08Tk7yLJTLEOUvBTbduLeeBkxEaYXUOUrRq6g=="
@@ -10878,7 +10896,7 @@
     "potpack" "^1.0.1"
     "zstddec" "^0.0.2"
 
-"three@^0.133.1", "three@>= 0.102.0 < 0.134.0", "three@>= 0.123.0", "three@>=0.103.0", "three@>=0.126", "three@>=0.128.0", "three@>=0.130.1":
+"three@^0.133.1", "three@>= 0.102.0 < 0.134.0", "three@>= 0.123.0", "three@>=0.103.0", "three@>=0.126", "three@>=0.128.0", "three@>=0.130.1", "three@0.x.x":
   "integrity" "sha512-WydohO8ll949B0FTD6MGz59Yv2Lwj8hvObg/0Heh2r42S6+tQC1WByfCNRdmG4D7+odfGod+n8JPV1I2xrboWw=="
   "resolved" "https://registry.npmjs.org/three/-/three-0.133.1.tgz"
   "version" "0.133.1"
