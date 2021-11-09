@@ -12,10 +12,14 @@ import {
 } from '@react-three/cannon'
 import {
   useGLTF,
+  Stars,
   OrbitControls,
   useAnimations,
   PerspectiveCamera,
+  Sky,
+  PointerLockControls,
   Stats,
+  useFBX,
 } from '@react-three/drei'
 import { GUI } from 'dat.gui'
 
@@ -24,7 +28,7 @@ const Person = () => {
   let panel, personGuiPanel, cameraGuiPanel
   const [currentAction, setCurrentAction] = useState('walk')
 
-  const SPEED = 5
+  const SPEED = 2
   const direction = new THREE.Vector3()
   const frontVector = new THREE.Vector3()
   const sideVector = new THREE.Vector3()
@@ -70,10 +74,33 @@ const Person = () => {
     }, [])
     return movement
   }
+  const Tree = (props) => {
+    const gltf = useGLTF('./libs/stylized_tree/scene.gltf')
+
+    return (
+        <primitive {...props} scale={[0.01, 0.01, 0.01]} object={gltf.scene} dispose={null} />
+    )
+  }
+
+  const JuiceCup = (props) => {
+    const gltf = useGLTF('./libs/low_poly_stylized_juice_cup/scene.gltf')
+
+    return (
+        <primitive {...props} position={[4, 1, 4]} object={gltf.scene} dispose={null} />
+    )
+  }
+
+  const Piano = (props) => {
+    const gltf = useGLTF('./libs/piano/scene.gltf')
+
+    return (
+        <primitive {...props} rotation={[0, -Math.PI / 2, 0]} position={[4, 0.2, 7]} object={gltf.scene} dispose={null} />
+    )
+  }
 
   // Importing model
   const Model = () => {
-    const gltf = useGLTF('./libs/Xbot.glb', '/draco-gltf')
+    const gltf = useFBX('./libs/walking.fbx')
     const { ref, mixer, names, actions, clips } = useAnimations(gltf.animations)
     const { forward, backward, left, right, jump } = usePlayerControls()
     const personCameraRef = useRef(null)
@@ -81,7 +108,7 @@ const Person = () => {
     const velocity = useRef([0, 0, 0])
 
     const [mesh, api] = useSphere(() => ({
-      mass: 1,
+      mass: 10,
       position: [0, 1, 0],
       type: 'Dynamic',
     }))
@@ -94,22 +121,35 @@ const Person = () => {
         .normalize()
         .multiplyScalar(SPEED)
 
+      // if (forward || right || left) {
+      //   actions.idle.reset().fadeOut(blendDuration)
+      //   actions.walk.reset().fadeIn(blendDuration).play()
+      // }
+      // return () => {
+      //   if (forward || right || left) {
+      //     actions.idle.reset().fadeIn(blendDuration).play()
+      //     actions.walk.reset().fadeOut(blendDuration)
+      //   }
+      // }
+
       if (forward || right || left) {
-        actions.idle.reset().fadeOut(blendDuration)
-        actions.walk.reset().fadeIn(blendDuration).play()
+        actions['Take 001'].reset().fadeOut(blendDuration)
+        actions['mixamo.com'].reset().fadeIn(blendDuration).play()
       }
       return () => {
         if (forward || right || left) {
-          actions.idle.reset().fadeIn(blendDuration).play()
-          actions.walk.reset().fadeOut(blendDuration)
+          actions['Take 001'].reset().fadeIn(blendDuration).play()
+          actions['mixamo.com'].reset().fadeOut(blendDuration)
         }
       }
     }, [forward, backward, right, left])
 
     useEffect(() => {
-      actions.idle.play()
-      camera.position.set(0, 1.45, -4.25)
-      camera.lookAt(0, 1.45, 0)
+      // actions.idle.play()
+      actions['Take 001'].play()
+      console.log(names)
+      camera.position.set(0, 0, -4)
+      camera.lookAt(0, 0, 0)
       api.velocity.subscribe((v) => (velocity.current = v))
     }, [])
 
@@ -148,7 +188,7 @@ const Person = () => {
     return (
       <mesh>
         <mesh ref={mesh}></mesh>
-        <primitive ref={ref} object={gltf.scene} dispose={null} />
+        <primitive scale={0.015} ref={ref} object={gltf} dispose={null} />
       </mesh>
     )
   }
@@ -163,8 +203,27 @@ const Person = () => {
         showPanel={0} // Start-up panel (default=0)
         className="stats" // Optional className to add to the stats container dom element
       />
+      <Sky
+        distance={450000} // Camera distance (default=450000)
+        sunPosition={[0, 1, 0]} // Sun position normal (defaults to inclination and azimuth if not set)
+        inclination={0} // Sun elevation angle from 0 to 1 (default=0)
+        azimuth={0.25} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
+        // {...props} // All three-stdlib/objects/Sky props are valid
+      />
+      {/* <fog attach="fog" args={['#cc7b32', 0, 34]} /> */}
+      {/* <PointerLockControls maxPolarAngle={Math.PI/2} minPolarAngle={Math.PI/5} args/> */}
       <ambientLight />
       <axesHelper args={[100]} />
+      <pointLight position={[-5, 10, 0]} />
+      <Suspense fallback={null}>
+        <Tree position={[2, 0, 0]}/>
+      </Suspense>
+      <Suspense fallback={null}>
+        <JuiceCup/>
+      </Suspense>
+      <Suspense fallback={null}>
+        <Piano/>
+      </Suspense>
       <Physics>
         <Plane />
         <Suspense fallback={null}>
@@ -172,6 +231,15 @@ const Person = () => {
         </Suspense>
       </Physics>
     </Canvas>
+  )
+}
+
+function Cube(props) {
+  const [ref] = useBox(() => ({ mass: 1, position: [0, 5, 0], ...props }))
+  return (
+    <mesh ref={ref}>
+      <boxGeometry />
+    </mesh>
   )
 }
 
