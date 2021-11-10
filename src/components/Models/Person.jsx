@@ -8,16 +8,13 @@ import {
   usePlane,
   useBox,
   Debug,
-  useCylinder,
 } from '@react-three/cannon'
 import {
   useGLTF,
-  Stars,
-  OrbitControls,
   useAnimations,
-  PerspectiveCamera,
   Sky,
   PointerLockControls,
+  Shadow,
   Stats,
   useFBX,
 } from '@react-three/drei'
@@ -26,6 +23,7 @@ import { GUI } from 'dat.gui'
 const Person = () => {
   const blendDuration = 0.15
   let panel, personGuiPanel, cameraGuiPanel
+  const orbitcontrols = useRef(null)
   const [currentAction, setCurrentAction] = useState('walk')
 
   const SPEED = 2
@@ -96,6 +94,14 @@ const Person = () => {
     return (
         <primitive {...props} rotation={[0, -Math.PI / 2, 0]} position={[4, 0.2, 7]} object={gltf.scene} dispose={null} />
     )
+  
+  }
+  const SunsetGirl = (props) => {
+    const gltf = useGLTF('./libs/sunset_walking_low_poly_girl_rigged/scene.gltf')
+
+    return (
+        <primitive {...props} rotation={[0, Math.PI/2, 0]} position={[0, 0.001, 20]} scale={0.8} object={gltf.scene} dispose={null} />
+    )
   }
 
   // Importing model
@@ -103,9 +109,10 @@ const Person = () => {
     const gltf = useFBX('./libs/walking.fbx')
     const { ref, mixer, names, actions, clips } = useAnimations(gltf.animations)
     const { forward, backward, left, right, jump } = usePlayerControls()
-    const personCameraRef = useRef(null)
-    const { camera } = useThree()
+    const { camera, mouse } = useThree()
     const velocity = useRef([0, 0, 0])
+    const personShadowRef = useRef(null)
+    
 
     const [mesh, api] = useSphere(() => ({
       mass: 10,
@@ -121,23 +128,12 @@ const Person = () => {
         .normalize()
         .multiplyScalar(SPEED)
 
-      // if (forward || right || left) {
-      //   actions.idle.reset().fadeOut(blendDuration)
-      //   actions.walk.reset().fadeIn(blendDuration).play()
-      // }
-      // return () => {
-      //   if (forward || right || left) {
-      //     actions.idle.reset().fadeIn(blendDuration).play()
-      //     actions.walk.reset().fadeOut(blendDuration)
-      //   }
-      // }
-
-      if (forward || right || left) {
+      if (forward || right || left || backward) {
         actions['Take 001'].reset().fadeOut(blendDuration)
         actions['mixamo.com'].reset().fadeIn(blendDuration).play()
       }
       return () => {
-        if (forward || right || left) {
+        if (forward || right || left || backward) {
           actions['Take 001'].reset().fadeIn(blendDuration).play()
           actions['mixamo.com'].reset().fadeOut(blendDuration)
         }
@@ -147,16 +143,18 @@ const Person = () => {
     useEffect(() => {
       // actions.idle.play()
       actions['Take 001'].play()
-      console.log(names)
-      camera.position.set(0, 0, -4)
-      camera.lookAt(0, 0, 0)
+      camera.position.set(0, 2, -6)
+      camera.lookAt(0, 1, 0)
       api.velocity.subscribe((v) => (velocity.current = v))
     }, [])
-
+    
     useFrame(() => {
       mesh.current.getWorldPosition(camera.position)
+      camera.position.z -= 6
+      camera.position.y = 2
       mesh.current.getWorldPosition(ref.current.position)
-      camera.position.z -= 4
+      personShadowRef.current.position.x = ref.current.position.x
+      personShadowRef.current.position.z = ref.current.position.z
       api.velocity.set(direction.x, velocity.current[1], direction.z)
       ref.current.position.y -= 1
     })
@@ -189,6 +187,7 @@ const Person = () => {
       <mesh>
         <mesh ref={mesh}></mesh>
         <primitive scale={0.015} ref={ref} object={gltf} dispose={null} />
+        <Shadow ref={personShadowRef} scale={[0.5, 0.5, 0.5]} position-y={0.01} rotation-x={-Math.PI / 2} />
       </mesh>
     )
   }
@@ -211,11 +210,16 @@ const Person = () => {
         // {...props} // All three-stdlib/objects/Sky props are valid
       />
       {/* <fog attach="fog" args={['#cc7b32', 0, 34]} /> */}
-      {/* <PointerLockControls maxPolarAngle={Math.PI/2} minPolarAngle={Math.PI/5} args/> */}
+      <PointerLockControls maxPolarAngle={Math.PI/2} minPolarAngle={Math.PI/5} args/>
+      {/* <OrbitControls ref={orbitcontrols} makeDefault target={[0, 1, 0]} makeDefault/> */}
       <ambientLight />
       <axesHelper args={[100]} />
       <pointLight position={[-5, 10, 0]} />
+      {/* <Rig/> */}
       <Suspense fallback={null}>
+        <SunsetGirl />
+      </Suspense>
+      {/* <Suspense fallback={null}>
         <Tree position={[2, 0, 0]}/>
       </Suspense>
       <Suspense fallback={null}>
@@ -223,12 +227,14 @@ const Person = () => {
       </Suspense>
       <Suspense fallback={null}>
         <Piano/>
-      </Suspense>
+      </Suspense> */}
       <Physics>
-        <Plane />
-        <Suspense fallback={null}>
-          <Model />
-        </Suspense>
+        {/* <Debug> */}
+          <Plane />
+          <Suspense fallback={null}>
+            <Model />
+          </Suspense>
+        {/* </Debug> */}
       </Physics>
     </Canvas>
   )
