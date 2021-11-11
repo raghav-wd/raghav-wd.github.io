@@ -17,6 +17,8 @@ import {
   Shadow,
   Stats,
 } from '@react-three/drei'
+import { SunsetGirl } from '../Models/index.jsx'
+import { usePersonControls } from '../hooks'
 import { GUI } from 'dat.gui'
 
 const Person = () => {
@@ -36,39 +38,6 @@ const Person = () => {
     cameraGuiPanel = panel.addFolder('Camera')
   }, [])
 
-  const keys = {
-    KeyW: 'forward',
-    KeyS: 'backward',
-    KeyA: 'left',
-    KeyD: 'right',
-    Space: 'jump',
-  }
-  const moveFieldByKey = (key) => keys[key]
-
-  const usePlayerControls = () => {
-    const [movement, setMovement] = useState({
-      forward: false,
-      backward: false,
-      left: false,
-      right: false,
-      jump: false,
-    })
-    useEffect(() => {
-      const handleKeyDown = (e) => {
-        setMovement((m) => ({ ...m, [moveFieldByKey(e.code)]: true }))
-      }
-      const handleKeyUp = (e) => {
-        setMovement((m) => ({ ...m, [moveFieldByKey(e.code)]: false }))
-      }
-      document.addEventListener('keydown', handleKeyDown)
-      document.addEventListener('keyup', handleKeyUp)
-      return () => {
-        document.removeEventListener('keydown', handleKeyDown)
-        document.removeEventListener('keyup', handleKeyUp)
-      }
-    }, [])
-    return movement
-  }
   const Tree = (props) => {
     const gltf = useGLTF('./libs/stylized_tree/scene.gltf')
 
@@ -108,28 +77,12 @@ const Person = () => {
       />
     )
   }
-  const SunsetGirl = (props) => {
-    const gltf = useGLTF(
-      './libs/sunset_walking_low_poly_girl_rigged/scene.gltf'
-    )
-
-    return (
-      <primitive
-        {...props}
-        rotation={[0, Math.PI / 2, 0]}
-        position={[0, 0.001, 20]}
-        scale={0.8}
-        object={gltf.scene}
-        dispose={null}
-      />
-    )
-  }
 
   // Importing model
   const Model = () => {
     const gltf = useGLTF('./libs/Pikachu.glb', true)
     const { ref, mixer, names, actions, clips } = useAnimations(gltf.animations)
-    const { forward, backward, left, right, jump } = usePlayerControls()
+    const { forward, backward, left, right, jump } = usePersonControls()
     const { camera, mouse } = useThree()
     const velocity = useRef([0, 0, 0])
 
@@ -271,6 +224,9 @@ const Person = () => {
       <Suspense fallback={null}>
         <JuiceCup />
       </Suspense>
+      {/* <Suspense fallback={null}>
+        <SpruceTree />
+      </Suspense> */}
       <Suspense fallback={null}>
         <Piano />
       </Suspense>
