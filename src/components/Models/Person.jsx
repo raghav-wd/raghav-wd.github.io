@@ -16,17 +16,14 @@ import {
   PointerLockControls,
   Shadow,
   Stats,
-  useFBX,
 } from '@react-three/drei'
 import { GUI } from 'dat.gui'
 
 const Person = () => {
   const blendDuration = 0.15
   let panel, personGuiPanel, cameraGuiPanel
-  const orbitcontrols = useRef(null)
-  const [currentAction, setCurrentAction] = useState('walk')
 
-  const SPEED = 2
+  const SPEED = 3
   const direction = new THREE.Vector3()
   const frontVector = new THREE.Vector3()
   const sideVector = new THREE.Vector3()
@@ -76,7 +73,12 @@ const Person = () => {
     const gltf = useGLTF('./libs/stylized_tree/scene.gltf')
 
     return (
-        <primitive {...props} scale={[0.01, 0.01, 0.01]} object={gltf.scene} dispose={null} />
+      <primitive
+        {...props}
+        scale={[0.01, 0.01, 0.01]}
+        object={gltf.scene}
+        dispose={null}
+      />
     )
   }
 
@@ -84,7 +86,12 @@ const Person = () => {
     const gltf = useGLTF('./libs/low_poly_stylized_juice_cup/scene.gltf')
 
     return (
-        <primitive {...props} position={[4, 1, 4]} object={gltf.scene} dispose={null} />
+      <primitive
+        {...props}
+        position={[4, 1, 4]}
+        object={gltf.scene}
+        dispose={null}
+      />
     )
   }
 
@@ -92,27 +99,41 @@ const Person = () => {
     const gltf = useGLTF('./libs/piano/scene.gltf')
 
     return (
-        <primitive {...props} rotation={[0, -Math.PI / 2, 0]} position={[4, 0.2, 7]} object={gltf.scene} dispose={null} />
+      <primitive
+        {...props}
+        rotation={[0, -Math.PI / 2, 0]}
+        position={[4, 0.2, 7]}
+        object={gltf.scene}
+        dispose={null}
+      />
     )
-  
   }
   const SunsetGirl = (props) => {
-    const gltf = useGLTF('./libs/sunset_walking_low_poly_girl_rigged/scene.gltf')
+    const gltf = useGLTF(
+      './libs/sunset_walking_low_poly_girl_rigged/scene.gltf'
+    )
 
     return (
-        <primitive {...props} rotation={[0, Math.PI/2, 0]} position={[0, 0.001, 20]} scale={0.8} object={gltf.scene} dispose={null} />
+      <primitive
+        {...props}
+        rotation={[0, Math.PI / 2, 0]}
+        position={[0, 0.001, 20]}
+        scale={0.8}
+        object={gltf.scene}
+        dispose={null}
+      />
     )
   }
 
   // Importing model
   const Model = () => {
-    const gltf = useFBX('./libs/walking.fbx')
+    const gltf = useGLTF('./libs/Pikachu.glb', true)
     const { ref, mixer, names, actions, clips } = useAnimations(gltf.animations)
     const { forward, backward, left, right, jump } = usePlayerControls()
     const { camera, mouse } = useThree()
     const velocity = useRef([0, 0, 0])
+
     const personShadowRef = useRef(null)
-    
 
     const [mesh, api] = useSphere(() => ({
       mass: 10,
@@ -129,25 +150,24 @@ const Person = () => {
         .multiplyScalar(SPEED)
 
       if (forward || right || left || backward) {
-        actions['Take 001'].reset().fadeOut(blendDuration)
-        actions['mixamo.com'].reset().fadeIn(blendDuration).play()
+        actions['Happy Idle'].reset().fadeOut(blendDuration)
+        actions['Walking'].reset().fadeIn(blendDuration).play()
       }
       return () => {
         if (forward || right || left || backward) {
-          actions['Take 001'].reset().fadeIn(blendDuration).play()
-          actions['mixamo.com'].reset().fadeOut(blendDuration)
+          actions['Happy Idle'].reset().fadeIn(blendDuration).play()
+          actions['Walking'].reset().fadeOut(blendDuration)
         }
       }
-    }, [forward, backward, right, left])
+    }, [forward, backward, right, left, jump])
 
     useEffect(() => {
-      // actions.idle.play()
-      actions['Take 001'].play()
+      actions['Happy Idle'].play()
       camera.position.set(0, 2, -6)
       camera.lookAt(0, 1, 0)
       api.velocity.subscribe((v) => (velocity.current = v))
     }, [])
-    
+
     useFrame(() => {
       mesh.current.getWorldPosition(camera.position)
       camera.position.z -= 6
@@ -156,8 +176,29 @@ const Person = () => {
       personShadowRef.current.position.x = ref.current.position.x
       personShadowRef.current.position.z = ref.current.position.z
       api.velocity.set(direction.x, velocity.current[1], direction.z)
+      ref.current.rotation.y = THREE.MathUtils.lerp(
+        ref.current.rotation.y,
+        rotateModelWithMovement(),
+        0.2
+      )
       ref.current.position.y -= 1
     })
+
+    const rotateModelWithMovement = () => {
+      let rotation = 0
+      if (!((forward || backward) && (left || right))) {
+        if (forward) rotation = 0
+        else if (backward) rotation = Math.PI
+        else if (left) rotation = Math.PI / 2
+        else if (right) rotation = -Math.PI / 2
+      } else {
+        if (forward && left) rotation = Math.PI / 4
+        else if (forward && right) rotation = -Math.PI / 4
+        else if (backward && left) rotation = (3 * Math.PI) / 4
+        else if (backward && right) rotation = -(3 * Math.PI) / 4
+      }
+      return rotation
+    }
 
     useEffect(() => {
       if (personGuiPanel && personGuiPanel) {
@@ -186,8 +227,13 @@ const Person = () => {
     return (
       <mesh>
         <mesh ref={mesh}></mesh>
-        <primitive scale={0.015} ref={ref} object={gltf} dispose={null} />
-        <Shadow ref={personShadowRef} scale={[0.5, 0.5, 0.5]} position-y={0.01} rotation-x={-Math.PI / 2} />
+        <primitive scale={0.6} ref={ref} object={gltf.scene} dispose={null} />
+        <Shadow
+          ref={personShadowRef}
+          scale={[0.5, 0.5, 0.5]}
+          position-y={0.01}
+          rotation-x={-Math.PI / 2}
+        />
       </mesh>
     )
   }
@@ -210,30 +256,30 @@ const Person = () => {
         // {...props} // All three-stdlib/objects/Sky props are valid
       />
       {/* <fog attach="fog" args={['#cc7b32', 0, 34]} /> */}
-      <PointerLockControls maxPolarAngle={Math.PI/2} minPolarAngle={Math.PI/5} args/>
+      {/* <PointerLockControls maxPolarAngle={Math.PI/2} minPolarAngle={Math.PI/5} args/> */}
       {/* <OrbitControls ref={orbitcontrols} makeDefault target={[0, 1, 0]} makeDefault/> */}
       <ambientLight />
       <axesHelper args={[100]} />
-      <pointLight position={[-5, 10, 0]} />
+      <pointLight position={[-5, 10, -2]} intensity={2} />
       {/* <Rig/> */}
       <Suspense fallback={null}>
         <SunsetGirl />
       </Suspense>
-      {/* <Suspense fallback={null}>
-        <Tree position={[2, 0, 0]}/>
+      <Suspense fallback={null}>
+        <Tree position={[2, 0, 0]} />
       </Suspense>
       <Suspense fallback={null}>
-        <JuiceCup/>
+        <JuiceCup />
       </Suspense>
       <Suspense fallback={null}>
-        <Piano/>
-      </Suspense> */}
+        <Piano />
+      </Suspense>
       <Physics>
         {/* <Debug> */}
-          <Plane />
-          <Suspense fallback={null}>
-            <Model />
-          </Suspense>
+        <Plane />
+        <Suspense fallback={null}>
+          <Model />
+        </Suspense>
         {/* </Debug> */}
       </Physics>
     </Canvas>
