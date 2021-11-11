@@ -18,6 +18,7 @@
     "semi": ["error", "never"],
     "no-unused-vars": "warn"
   },
+  "parser": "@babel/eslint-parser",
   "settings": {
     "react": {
       "version": "latest"

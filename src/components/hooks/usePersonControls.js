@@ -18,6 +18,7 @@ const usePersonControls = () => {
     right: false,
     jump: false,
   })
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       setMovement((m) => ({ ...m, [moveFieldByKey(e.code)]: true }))
