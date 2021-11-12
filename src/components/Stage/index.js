@@ -2,8 +2,13 @@
 import React, { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Physics, usePlane, useBox } from '@react-three/cannon'
-import { useGLTF, Sky, Stats } from '@react-three/drei'
-import { Person, SunsetGirl, SpruceTree } from '../Models/index.jsx'
+import { useGLTF, Sky, Stats, PerspectiveCamera } from '@react-three/drei'
+import {
+  Person,
+  SunsetGirl,
+  SpruceTree,
+  HologramConsole,
+} from '../Models/index.jsx'
 
 const Stage = () => {
   const Tree = (props) => {
@@ -49,7 +54,7 @@ const Stage = () => {
   return (
     <Canvas
       dpr={[1, 2]}
-      camera={{ fov: 45 }}
+      // camera={{ fov: 45 }}
       style={{ height: '100vh', width: '100%' }}
     >
       <Stats
@@ -66,10 +71,10 @@ const Stage = () => {
       <ambientLight />
       <axesHelper args={[100]} />
       <pointLight position={[-5, 10, -2]} intensity={2} />
-      <Suspense fallback={null}>
+      {/* <Suspense fallback={null}>
         <SunsetGirl />
       </Suspense>
-      {/* <Suspense fallback={null}>
+      <Suspense fallback={null}>
         <Tree position={[2, 0, 0]} />
       </Suspense>
       <Suspense fallback={null}>
@@ -81,11 +86,14 @@ const Stage = () => {
       <Suspense fallback={null}>
         <Piano />
       </Suspense> */}
+      <Suspense fallback={null}>
+        <HologramConsole />
+      </Suspense>
       <Physics>
         <Plane />
-        <Suspense fallback={null}>
+        {/* <Suspense fallback={null}>
           <Person />
-        </Suspense>
+        </Suspense> */}
       </Physics>
     </Canvas>
   )
