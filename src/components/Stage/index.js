@@ -1,7 +1,7 @@
 /* eslint-disable */
-import React, { Suspense } from 'react'
+import React, { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Physics, usePlane, useBox } from '@react-three/cannon'
+import { Physics, usePlane, useBox, Debug } from '@react-three/cannon'
 import { useGLTF, Sky, Stats, PerspectiveCamera } from '@react-three/drei'
 import {
   Person,
@@ -11,6 +11,9 @@ import {
 } from '../Models/index.jsx'
 
 const Stage = () => {
+  const pages = { skill: 'skills', hobbies: 'hobbies' }
+  const [page, setPage] = useState('')
+
   const Tree = (props) => {
     const gltf = useGLTF('./libs/stylized_tree/scene.gltf')
 
@@ -54,7 +57,7 @@ const Stage = () => {
   return (
     <Canvas
       dpr={[1, 2]}
-      // camera={{ fov: 45 }}
+      camera={{ fov: 45 }}
       style={{ height: '100vh', width: '100%' }}
     >
       <Stats
@@ -86,14 +89,14 @@ const Stage = () => {
       <Suspense fallback={null}>
         <Piano />
       </Suspense> */}
-      <Suspense fallback={null}>
-        <HologramConsole />
-      </Suspense>
       <Physics>
+        <Suspense fallback={null}>
+          <HologramConsole page={page} setPage={setPage} />
+        </Suspense>
         <Plane />
-        {/* <Suspense fallback={null}>
-          <Person />
-        </Suspense> */}
+        <Suspense fallback={null}>
+          <Person page={page} setPage={setPage} />
+        </Suspense>
       </Physics>
     </Canvas>
   )

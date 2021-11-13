@@ -6,8 +6,10 @@ import { useSphere } from '@react-three/cannon'
 import { usePersonControls } from '../../hooks'
 
 // Importing Person
-const Person = () => {
+// eslint-disable-next-line react/prop-types
+const Person = ({ page, setPage }) => {
   const blendDuration = 0.15
+  const { camera } = useThree()
 
   const SPEED = 3
   const direction = new THREE.Vector3()
@@ -19,7 +21,6 @@ const Person = () => {
   const gltf = useGLTF('./libs/Pikachu.glb', true)
   const { ref, mixer, names, actions, clips } = useAnimations(gltf.animations)
   const { forward, backward, left, right, jump } = usePersonControls()
-  const { camera, mouse } = useThree()
   const velocity = useRef([0, 0, 0])
 
   const personShadowRef = useRef(null)
@@ -49,6 +50,18 @@ const Person = () => {
 
   // Person movement animation ...
   useEffect(() => {
+    if (page !== '') {
+      const frustum = new THREE.Frustum()
+      const matrix = new THREE.Matrix4().multiplyMatrices(
+        camera.projectionMatrix,
+        camera.matrixWorldInverse
+      )
+      frustum.setFromProjectionMatrix(matrix)
+      if (!frustum.containsPoint(ref.current.position)) {
+        console.log('Out of view')
+        setPage('')
+      }
+    }
     if (forward || right || left || backward) {
       actions['Happy Idle'].reset().fadeOut(blendDuration)
       actions.Walking.reset().fadeIn(blendDuration).play()
@@ -64,19 +77,12 @@ const Person = () => {
   useEffect(() => {
     actions['Happy Idle'].play()
     camera.position.set(0, 2, -6)
-    camera.lookAt(0, 1, 0)
+    // camera.lookAt(0, 1, 0)
     // eslint-disable-next-line no-return-assign
     api.velocity.subscribe((v) => (velocity.current = v))
   }, [])
 
   useFrame(() => {
-    // Setting camera position to sphere body position ...
-    mesh.current.getWorldPosition(camera.position)
-    camera.position.z -= 6
-    camera.position.y = 2
-    // Setting person model position to sphere body position ...
-    mesh.current.getWorldPosition(ref.current.position)
-
     // Calculating front/side movement ...
     frontVector.set(0, 0, Number(forward) - Number(backward))
     sideVector.set(Number(right) - Number(left), 0, 0)
@@ -96,7 +102,19 @@ const Person = () => {
       rotatePersonWithMovement(),
       0.2
     )
+
+    // Setting person model position to sphere body position ...
+    mesh.current.getWorldPosition(ref.current.position)
     ref.current.position.y -= 1
+    if (page === '') {
+      camera.lookAt(ref.current.position)
+      camera.fov = 45
+      camera.updateProjectionMatrix()
+      // Setting camera position to sphere body position ...
+      mesh.current.getWorldPosition(camera.position)
+      camera.position.z -= 6
+      camera.position.y = 2
+    }
   })
 
   return (
