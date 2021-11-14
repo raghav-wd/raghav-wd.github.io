@@ -51,6 +51,7 @@ const Person = ({ page, setPage }) => {
   // Person movement animation ...
   useEffect(() => {
     if (page !== '') {
+      // Detects person out of view ...
       const frustum = new THREE.Frustum()
       const matrix = new THREE.Matrix4().multiplyMatrices(
         camera.projectionMatrix,
@@ -58,10 +59,11 @@ const Person = ({ page, setPage }) => {
       )
       frustum.setFromProjectionMatrix(matrix)
       if (!frustum.containsPoint(ref.current.position)) {
-        console.log('Out of view')
         setPage('')
       }
     }
+
+    // animation clips for movement ...
     if (forward || right || left || backward) {
       actions['Happy Idle'].reset().fadeOut(blendDuration)
       actions.Walking.reset().fadeIn(blendDuration).play()
@@ -77,7 +79,7 @@ const Person = ({ page, setPage }) => {
   useEffect(() => {
     actions['Happy Idle'].play()
     camera.position.set(0, 2, -6)
-    // camera.lookAt(0, 1, 0)
+    camera.lookAt(0, 1, 0)
     // eslint-disable-next-line no-return-assign
     api.velocity.subscribe((v) => (velocity.current = v))
   }, [])
@@ -107,13 +109,16 @@ const Person = ({ page, setPage }) => {
     mesh.current.getWorldPosition(ref.current.position)
     ref.current.position.y -= 1
     if (page === '') {
-      camera.lookAt(ref.current.position)
-      camera.fov = 45
-      camera.updateProjectionMatrix()
       // Setting camera position to sphere body position ...
       mesh.current.getWorldPosition(camera.position)
       camera.position.z -= 6
       camera.position.y = 2
+      camera.lookAt(ref.current.position)
+      camera.fov = 45
+      camera.updateMatrix()
+      camera.updateMatrixWorld()
+      camera.updateWorldMatrix()
+      camera.updateProjectionMatrix()
     }
   })
 
