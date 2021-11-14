@@ -8,8 +8,6 @@
   width: 100vw;
   height: 100vh;
   color: black;
-  font-size: 2em;
-  /* line-height: 1em; */
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: auto;
   -webkit-font-smoothing: antialiased;
@@ -21,15 +19,37 @@
 }
 
 .page {
-  padding: 24px;
+  padding: 24px 12px 24px 48px;
   width: 50vw;
 }
 
 .jumbo {
-  font-size: 2.4em;
+  font-size: 3.4em;
   font-weight: 800;
+  text-decoration: underline;
 }
 
 .featured-text {
-  font-size: 0.6em;
+  padding-left: 1.4em;
+  font-size: 1em;
+}
+
+.trailsText {
+  position: relative;
+  width: 100%;
+  color: black;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  will-change: transform, opacity;
+}
+
+.trailsText > div {
+  overflow: hidden;
+}
+
+.container {
+  /* display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center; */
 }

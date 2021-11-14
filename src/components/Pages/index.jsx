@@ -3,7 +3,7 @@ import './pages.css'
 // eslint-disable-next-line react/prop-types
 const Pages = ({ page }) => (
   <div className="Pages">
-    <Skills page={page} />
+    {page === 'skills' ? <Skills page={page} /> : null}
   </div>
 )
 
