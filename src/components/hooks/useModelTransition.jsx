@@ -2,8 +2,8 @@ import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 
 const useModelTransition = (page) => {
-  const focusOnPosition = new THREE.Vector3(-10, 0.5, 10)
-  const animateToPosition = new THREE.Vector3(0, 2, 5)
+  const focusOnPosition = new THREE.Vector3(-10, 0.8, 12)
+  const animateToPosition = new THREE.Vector3(0, 2.4, 5)
 
   const damp = (target, to, step, delta, v = new THREE.Vector3()) => {
     if (target instanceof THREE.Vector3) {

@@ -9,6 +9,8 @@ import {
   SpruceTree,
   HologramConsole,
 } from '../Models/index.jsx'
+import Pages from '../Pages'
+import '../../App.css'
 
 const Stage = () => {
   const pages = { skill: 'skills', hobbies: 'hobbies' }
@@ -55,26 +57,27 @@ const Stage = () => {
   }
 
   return (
-    <Canvas
-      dpr={[1, 2]}
-      camera={{ fov: 45 }}
-      style={{ height: '100vh', width: '100%' }}
-    >
-      <Stats
-        showPanel={0} // Start-up panel (default=0)
-        className="stats" // Optional className to add to the stats container dom element
-      />
-      <Sky
-        distance={450000} // Camera distance (default=450000)
-        sunPosition={[0, 1, 0]} // Sun position normal (defaults to inclination and azimuth if not set)
-        inclination={0} // Sun elevation angle from 0 to 1 (default=0)
-        azimuth={0.25} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
-        // {...props} // All three-stdlib/objects/Sky props are valid
-      />
-      <ambientLight />
-      <axesHelper args={[100]} />
-      <pointLight position={[-5, 10, -2]} intensity={2} />
-      {/* <Suspense fallback={null}>
+    <div>
+      <Canvas
+        dpr={[1, 2]}
+        camera={{ fov: 45 }}
+        style={{ height: '100vh', width: '100%' }}
+      >
+        <Stats
+          showPanel={0} // Start-up panel (default=0)
+          className="stats" // Optional className to add to the stats container dom element
+        />
+        <Sky
+          distance={450000} // Camera distance (default=450000)
+          sunPosition={[0, 1, 0]} // Sun position normal (defaults to inclination and azimuth if not set)
+          inclination={0} // Sun elevation angle from 0 to 1 (default=0)
+          azimuth={0.25} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
+          // {...props} // All three-stdlib/objects/Sky props are valid
+        />
+        <ambientLight />
+        <axesHelper args={[100]} />
+        <pointLight position={[-5, 10, -2]} intensity={2} />
+        {/* <Suspense fallback={null}>
         <SunsetGirl />
       </Suspense>
       <Suspense fallback={null}>
@@ -89,16 +92,18 @@ const Stage = () => {
       <Suspense fallback={null}>
         <Piano />
       </Suspense> */}
-      <Physics>
-        <Suspense fallback={null}>
-          <HologramConsole page={page} setPage={setPage} />
-        </Suspense>
-        <Plane />
-        <Suspense fallback={null}>
-          <Person page={page} setPage={setPage} />
-        </Suspense>
-      </Physics>
-    </Canvas>
+        <Physics>
+          <Suspense fallback={null}>
+            <HologramConsole page={page} setPage={setPage} />
+          </Suspense>
+          <Plane />
+          <Suspense fallback={null}>
+            <Person page={page} setPage={setPage} />
+          </Suspense>
+        </Physics>
+      </Canvas>
+      <Pages page={page} />
+    </div>
   )
 }
 

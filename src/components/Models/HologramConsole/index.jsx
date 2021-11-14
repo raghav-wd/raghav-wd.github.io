@@ -1,4 +1,4 @@
-import { PerspectiveCamera, useGLTF } from '@react-three/drei'
+import { PerspectiveCamera, useGLTF, Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { useEffect, useRef } from 'react'
 import { useSphere } from '@react-three/cannon'
@@ -44,7 +44,7 @@ const HologramConsole = ({ page, setPage }) => {
         fov={60}
         ref={skillCamRef}
         makeDefault // Registers it as the default camera system-wide (default=false)
-      /> */}
+        /> */}
     </mesh>
   )
 }
