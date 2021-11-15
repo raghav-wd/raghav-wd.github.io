@@ -95,6 +95,7 @@ const Person = ({ page, setPage }) => {
 
     // Person shadow ...
     personShadowRef.current.position.x = ref.current.position.x
+    personShadowRef.current.position.y = 0.005
     personShadowRef.current.position.z = ref.current.position.z
     api.velocity.set(direction.x, velocity.current[1], direction.z)
 
