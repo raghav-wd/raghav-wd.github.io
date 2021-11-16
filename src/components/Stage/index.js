@@ -104,10 +104,10 @@ const Stage = () => {
         <Suspense fallback={null}>
           <Skybox />
         </Suspense>
-        <Suspense fallback={null}>
-          <Rhetorician />
-        </Suspense>
         <Physics>
+          <Suspense fallback={null}>
+            <Rhetorician page={page} setPage={setPage} />
+          </Suspense>
           {/* <Suspense fallback={null}>
             <HologramConsole page={page} setPage={setPage} />
           </Suspense> */}
