@@ -29,6 +29,11 @@
   text-decoration: underline;
 }
 
+.jumbo-2 {
+  font-size: 2.4em;
+  font-weight: 400;
+}
+
 .featured-text {
   padding-left: 1.4em;
   font-size: 1em;
@@ -38,7 +43,7 @@
   position: relative;
   width: 100%;
   color: black;
-  font-weight: 800;
+  /* font-weight: 800; */
   letter-spacing: -0.05em;
   will-change: transform, opacity;
 }

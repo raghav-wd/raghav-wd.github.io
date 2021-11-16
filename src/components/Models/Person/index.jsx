@@ -95,7 +95,6 @@ const Person = ({ page, setPage }) => {
 
     // Person shadow ...
     personShadowRef.current.position.x = ref.current.position.x
-    personShadowRef.current.position.y = 0.005
     personShadowRef.current.position.z = ref.current.position.z
     api.velocity.set(direction.x, velocity.current[1], direction.z)
 
@@ -129,8 +128,8 @@ const Person = ({ page, setPage }) => {
       <primitive scale={0.6} ref={ref} object={gltf.scene} dispose={null} />
       <Shadow
         ref={personShadowRef}
+        position-Y={0.01}
         scale={[0.5, 0.5, 0.5]}
-        position-y={0.01}
         rotation-x={-Math.PI / 2}
       />
     </mesh>

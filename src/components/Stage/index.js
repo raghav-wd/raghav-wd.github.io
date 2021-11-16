@@ -1,13 +1,24 @@
 /* eslint-disable */
 import React, { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
+import * as THREE from 'three'
 import { Physics, usePlane, useBox, Debug } from '@react-three/cannon'
-import { useGLTF, Sky, Stats, PerspectiveCamera } from '@react-three/drei'
+import {
+  useGLTF,
+  Sky,
+  Stats,
+  PerspectiveCamera,
+  Text,
+  Center,
+  OrbitControls,
+} from '@react-three/drei'
 import {
   Person,
   SunsetGirl,
   SpruceTree,
   HologramConsole,
+  Skybox,
+  Trees,
 } from '../Models/index.jsx'
 import Pages from '../Pages'
 import '../../App.css'
@@ -60,49 +71,56 @@ const Stage = () => {
     <div>
       <Canvas
         dpr={[1, 2]}
-        camera={{ fov: 45 }}
+        camera={{ fov: 65, position: [0, 0.1, -10] }}
         style={{ height: '100vh', width: '100%' }}
       >
         <Stats
           showPanel={0} // Start-up panel (default=0)
           className="stats" // Optional className to add to the stats container dom element
         />
-        <Sky
+        <OrbitControls />
+        {/* <Sky
           distance={450000} // Camera distance (default=450000)
           sunPosition={[0, 1, 0]} // Sun position normal (defaults to inclination and azimuth if not set)
           inclination={0} // Sun elevation angle from 0 to 1 (default=0)
           azimuth={0.25} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
           // {...props} // All three-stdlib/objects/Sky props are valid
-        />
+        /> */}
+        {/* <fog attach="fog" args={['#ddddff', 0, 100]} /> */}
+        <Text
+          color="black"
+          position={[0, 0.001, -2]}
+          fontSize={0.2}
+          letterSpacing={0.2}
+          // strokeWidth={1}
+          // strokeColor="black"
+          fillOpacity={0}
+          outlineColor="black"
+          outlineWidth={0.01}
+          rotation={[Math.PI / 2, Math.PI, 0]}
+        >
+          Let's Go!
+        </Text>
         <ambientLight />
         <axesHelper args={[100]} />
         <pointLight position={[-5, 10, -2]} intensity={2} />
-        {/* <Suspense fallback={null}>
-        <SunsetGirl />
-      </Suspense>
-      <Suspense fallback={null}>
-        <Tree position={[2, 0, 0]} />
-      </Suspense>
-      <Suspense fallback={null}>
-        <JuiceCup />
-      </Suspense>
-      <Suspense fallback={null}>
-        <SpruceTree />
-      </Suspense>
-      <Suspense fallback={null}>
-        <Piano />
-      </Suspense> */}
+        <Suspense fallback={null}>
+          <Trees />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Skybox />
+        </Suspense>
         <Physics>
-          <Suspense fallback={null}>
+          {/* <Suspense fallback={null}>
             <HologramConsole page={page} setPage={setPage} />
-          </Suspense>
+          </Suspense> */}
           <Plane />
-          <Suspense fallback={null}>
+          {/* <Suspense fallback={null}>
             <Person page={page} setPage={setPage} />
-          </Suspense>
+          </Suspense> */}
         </Physics>
       </Canvas>
-      <Pages page={page} />
+      {/* <Pages page={page} /> */}
     </div>
   )
 }
@@ -123,7 +141,7 @@ function Plane(props) {
   return (
     <mesh ref={mesh} {...props} rotation={[-Math.PI / 2, 0, 0]}>
       <planeBufferGeometry args={[100, 100]} />
-      <meshStandardMaterial color="orange" />
+      <meshStandardMaterial color={new THREE.Color(0xe65100)} />
     </mesh>
   )
 }
