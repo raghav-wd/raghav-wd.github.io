@@ -19,6 +19,7 @@ import {
   HologramConsole,
   Skybox,
   Trees,
+  Rhetorician,
 } from '../Models/index.jsx'
 import Pages from '../Pages'
 import '../../App.css'
@@ -78,15 +79,8 @@ const Stage = () => {
           showPanel={0} // Start-up panel (default=0)
           className="stats" // Optional className to add to the stats container dom element
         />
-        <OrbitControls />
-        {/* <Sky
-          distance={450000} // Camera distance (default=450000)
-          sunPosition={[0, 1, 0]} // Sun position normal (defaults to inclination and azimuth if not set)
-          inclination={0} // Sun elevation angle from 0 to 1 (default=0)
-          azimuth={0.25} // Sun rotation around the Y axis from 0 to 1 (default=0.25)
-          // {...props} // All three-stdlib/objects/Sky props are valid
-        /> */}
-        {/* <fog attach="fog" args={['#ddddff', 0, 100]} /> */}
+        {/* <OrbitControls /> */}
+        <fog attach="fog" args={['#ddddff', 0, 160]} />
         <Text
           color="black"
           position={[0, 0.001, -2]}
@@ -110,14 +104,17 @@ const Stage = () => {
         <Suspense fallback={null}>
           <Skybox />
         </Suspense>
+        <Suspense fallback={null}>
+          <Rhetorician />
+        </Suspense>
         <Physics>
           {/* <Suspense fallback={null}>
             <HologramConsole page={page} setPage={setPage} />
           </Suspense> */}
           <Plane />
-          {/* <Suspense fallback={null}>
+          <Suspense fallback={null}>
             <Person page={page} setPage={setPage} />
-          </Suspense> */}
+          </Suspense>
         </Physics>
       </Canvas>
       {/* <Pages page={page} /> */}
@@ -140,7 +137,7 @@ function Plane(props) {
   // console.log(mesh.current.x)
   return (
     <mesh ref={mesh} {...props} rotation={[-Math.PI / 2, 0, 0]}>
-      <planeBufferGeometry args={[100, 100]} />
+      <planeBufferGeometry args={[140, 140]} />
       <meshStandardMaterial color={new THREE.Color(0xe65100)} />
     </mesh>
   )

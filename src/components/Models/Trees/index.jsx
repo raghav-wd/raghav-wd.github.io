@@ -19,46 +19,53 @@ export default function Tree({ ...props }) {
       const r = 40,
         θ = 1 * Math.PI * Math.random() - Math.PI / 2
       let x = r * Math.sin(θ)
-      let z = r * Math.cos(θ) + Math.random() * 5
+      let z = r * Math.cos(θ) + Math.random() * 20
       return { x, z }
     }
     const randCords = []
-    for (let x = 0; x < 5; x++) randCords.push(randCord())
+    for (let x = 0; x < 6; x++) randCords.push(randCord())
     return (
       <group>
-        <group position={[randCords[0].x, 1.4, randCords[0].z]}>
+        <group position={[randCords[0].x, 1.66, randCords[0].z]}>
           <mesh
             scale={0.25}
             geometry={nodes.mesh_0.geometry}
             material={nodes.mesh_0.material}
           />
         </group>
-        <group position={[randCords[1].x, 2.2, randCords[1].z]}>
+        <group position={[randCords[1].x, 3.1, randCords[1].z]}>
           <mesh
-            scale={0.25}
+            scale={0.28}
             geometry={nodes.mesh_1.geometry}
             material={nodes.mesh_1.material}
           />
         </group>
-        <group position={[randCords[2].x, 2.3, randCords[2].z]}>
+        <group position={[randCords[2].x, 2.39, randCords[2].z]}>
           <mesh
-            scale={0.25}
+            scale={0.22}
             geometry={nodes.mesh_2.geometry}
             material={nodes.mesh_2.material}
           />
         </group>
         <group position={[randCords[3].x, 1.6, randCords[3].z]}>
           <mesh
-            scale={0.25}
+            scale={0.2}
             geometry={nodes.mesh_3.geometry}
             material={nodes.mesh_3.material}
           />
         </group>
-        <group position={[randCords[4], 1, randCords[4]]}>
+        <group position={[randCords[4].x, 3.1, randCords[4].z]}>
           <mesh
-            scale={0.1}
+            scale={0.3}
             geometry={nodes.mesh_10.geometry}
             material={nodes.mesh_10.material}
+          />
+        </group>
+        <group position={[randCords[5].x, 0.85, randCords[5].z]}>
+          <mesh
+            scale={0.18}
+            geometry={nodes.mesh_22.geometry}
+            material={nodes.mesh_22.material}
           />
         </group>
       </group>
@@ -66,7 +73,7 @@ export default function Tree({ ...props }) {
   }
   const Trees = () => {
     const trees = []
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 30; i++) {
       trees.push(<RandTree />)
     }
     return trees
