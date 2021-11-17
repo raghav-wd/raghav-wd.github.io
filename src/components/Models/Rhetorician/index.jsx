@@ -12,6 +12,12 @@ const Rhetorician = ({ page, setPage }) => {
   const animateToPosition = new THREE.Vector3(0, 2.4, 5)
   const gltf = useGLTF('./libs/rhetorician/scene.gltf')
 
+  const options = {
+    focusOnPosition,
+    animateToPosition,
+    fov: 7,
+  }
+
   const collisionHandler = () => {
     setPage('about')
   }
@@ -27,7 +33,7 @@ const Rhetorician = ({ page, setPage }) => {
     [page]
   )
 
-  useModelTransition(isActive, focusOnPosition, animateToPosition)
+  useModelTransition(isActive, options)
 
   return (
     <mesh>

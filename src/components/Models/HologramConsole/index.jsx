@@ -15,6 +15,12 @@ const HologramConsole = ({ page, setPage }) => {
     './libs/smol_ame_in_an_upcycled_terrarium_hololiveen/scene.gltf'
   )
 
+  const options = {
+    focusOnPosition,
+    animateToPosition,
+    fov: 20,
+  }
+
   const collisionHandler = () => {
     setPage('skills')
   }
@@ -29,7 +35,7 @@ const HologramConsole = ({ page, setPage }) => {
     [page]
   )
 
-  useModelTransition(isActive, focusOnPosition, animateToPosition)
+  useModelTransition(isActive, options)
 
   return (
     <mesh>
