@@ -1,15 +1,16 @@
 import { PerspectiveCamera, useGLTF, Html } from '@react-three/drei'
 import * as THREE from 'three'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSphere } from '@react-three/cannon'
 import { useFrame } from '@react-three/fiber'
 import { useModelTransition } from '../../hooks'
 
 // eslint-disable-next-line react/prop-types
 const HologramConsole = ({ page, setPage }) => {
+  const [isActive, setIsActive] = useState(false)
   const position = new THREE.Vector3(-10, 0.05, 10)
-  const skillCamRef = useRef(null)
-  const dummy = useRef(null)
+  const focusOnPosition = new THREE.Vector3(-10, 0.8, 12)
+  const animateToPosition = new THREE.Vector3(0, 2.4, 5)
   const gltf = useGLTF(
     './libs/smol_ame_in_an_upcycled_terrarium_hololiveen/scene.gltf'
   )
@@ -23,11 +24,12 @@ const HologramConsole = ({ page, setPage }) => {
     args: [2.6],
     onCollide: collisionHandler,
   }))
-  useEffect(() => {
-    console.log(page)
-  }, [page])
+  useEffect(
+    () => (page === 'skills' ? setIsActive(true) : setIsActive(false)),
+    [page]
+  )
 
-  useModelTransition(page, 'skills')
+  useModelTransition(isActive, focusOnPosition, animateToPosition)
 
   return (
     <mesh>

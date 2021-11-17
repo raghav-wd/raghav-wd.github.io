@@ -1,26 +1,9 @@
 @import url('https://rsms.me/inter/inter.css');
 
-.Pages {
-  position: fixed;
-  z-index: 1;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  color: black;
-  font-variant-numeric: tabular-nums;
-  -webkit-font-smoothing: auto;
-  -webkit-font-smoothing: antialiased;
-  font-family: 'Inter var', sans-serif;
-}
-
-.skills-page-container {
+.page-container {
   display: flex;
-}
-
-.about-page-container {
-  display: flex;
-  flex-direction: row-reverse;
+  flex-flow: row nowrap;
+  /* flex-direction: row-reverse; */
 }
 
 .page {

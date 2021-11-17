@@ -1,7 +1,7 @@
 import React from 'react'
 import { animated, useSpring, useTrail } from 'react-spring'
 // eslint-disable-next-line react/prop-types
-const Skills = ({ page }) => {
+const About = ({ page }) => {
   // eslint-disable-next-line react/prop-types
   const Trail = ({ children }) => {
     const items = React.Children.toArray(children)
@@ -38,7 +38,7 @@ const Skills = ({ page }) => {
     config: { duration: 400 },
   })
   return (
-    <div className="skills-page-container">
+    <div className="about-page-container">
       <div className="page">
         <div className="container">
           <Trail>
@@ -99,4 +99,4 @@ const Skills = ({ page }) => {
   )
 }
 
-export default Skills
+export default About

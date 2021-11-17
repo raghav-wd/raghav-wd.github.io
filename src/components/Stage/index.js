@@ -108,16 +108,16 @@ const Stage = () => {
           <Suspense fallback={null}>
             <Rhetorician page={page} setPage={setPage} />
           </Suspense>
-          {/* <Suspense fallback={null}>
+          <Suspense fallback={null}>
             <HologramConsole page={page} setPage={setPage} />
-          </Suspense> */}
+          </Suspense>
           <Plane />
           <Suspense fallback={null}>
             <Person page={page} setPage={setPage} />
           </Suspense>
         </Physics>
       </Canvas>
-      {/* <Pages page={page} /> */}
+      <Pages page={page} />
     </div>
   )
 }

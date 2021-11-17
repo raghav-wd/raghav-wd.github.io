@@ -1,10 +1,7 @@
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 
-const useModelTransition = (page) => {
-  const focusOnPosition = new THREE.Vector3(-10, 0.8, 12)
-  const animateToPosition = new THREE.Vector3(0, 2.4, 5)
-
+const useModelTransition = (page, focusOnPosition, animateToPosition) => {
   const damp = (target, to, step, delta, v = new THREE.Vector3()) => {
     if (target instanceof THREE.Vector3) {
       // eslint-disable-next-line no-param-reassign
@@ -15,12 +12,14 @@ const useModelTransition = (page) => {
       target.z = THREE.MathUtils.damp(target.z, to[2], step, delta)
     }
   }
+
   // Takes default camera for transistion ...
   useFrame((state, delta) => {
-    if (page === 'skills') {
+    state.camera.updateProjectionMatrix()
+    if (page) {
       const step = 2
       // eslint-disable-next-line no-param-reassign
-      state.camera.fov = THREE.MathUtils.damp(state.camera.fov, 20, step, delta)
+      state.camera.fov = THREE.MathUtils.damp(state.camera.fov, 7, step, delta)
       damp(state.camera.position, [...animateToPosition], step, delta)
       state.camera.lookAt(...focusOnPosition)
       state.camera.updateProjectionMatrix()
