@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, Text } from '@react-three/drei'
 import { useSphere } from '@react-three/cannon'
 import { useModelTransition } from '../../hooks'
+import BillboardHoarding from '../BillboardHoarding'
 
 const AshWithFriends = ({ page, setPage }) => {
   const [isActive, setIsActive] = useState(false)
@@ -39,11 +40,23 @@ const AshWithFriends = ({ page, setPage }) => {
 
   return (
     <mesh>
-      {/* <mesh rotation={[0, (6 * Math.PI) / 5, 0]} position={[4, 2, 21]}>
-        <planeBufferGeometry args={[7, 5]} />
-        <meshStandardMaterial color="white" />
-      </mesh> */}
-      {/* <pointLight position={[2, 3, 20]} color={0x311b92} intensity={1} /> */}
+      <BillboardHoarding
+        position={[position.x + 2, 0, position.z - 2]}
+        scale={0.2}
+        rotation={[0, (6 * Math.PI) / 5, 0]}
+      />
+      <Text
+        color="#212121"
+        position={[position.x + 2, 1.5, position.z - 2.2]}
+        fontSize={0.2}
+        letterSpacing={0.2}
+        fillOpacity={0}
+        outlineColor="#212121"
+        outlineWidth={0.01}
+        rotation={[0, (6 * Math.PI) / 5, 0]}
+      >
+        Connect
+      </Text>
       <mesh ref={mesh} />
       <mesh
         rotation={[0, (6 * Math.PI) / 5, 0]}

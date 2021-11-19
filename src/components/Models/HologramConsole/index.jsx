@@ -1,4 +1,4 @@
-import { PerspectiveCamera, useGLTF, Html } from '@react-three/drei'
+import { PerspectiveCamera, useGLTF, Text } from '@react-three/drei'
 import * as THREE from 'three'
 import { useEffect, useRef, useState } from 'react'
 import { useSphere } from '@react-three/cannon'
@@ -14,6 +14,35 @@ const HologramConsole = ({ page, setPage }) => {
   const gltf = useGLTF(
     './libs/smol_ame_in_an_upcycled_terrarium_hololiveen/scene.gltf'
   )
+
+  const Billboard = () => {
+    const billboard = useGLTF('./libs/billboard_hoarding/scene.gltf')
+    return (
+      <mesh>
+        <Text
+          color="#212121"
+          position={[position.x + 0.1, 1.5, position.z - 3]}
+          fontSize={0.2}
+          letterSpacing={0.2}
+          // strokeWidth={1}
+          // strokeColor="black"
+          fillOpacity={0}
+          outlineColor="#212121"
+          outlineWidth={0.01}
+          rotation={[0, Math.PI / 2, 0]}
+        >
+          Projects
+        </Text>
+        <primitive
+          rotation={[0, Math.PI / 2, 0]}
+          position={[position.x, 0, position.z - 3]}
+          scale={0.2}
+          object={billboard.scene}
+          dispose={null}
+        />
+      </mesh>
+    )
+  }
 
   const options = {
     focusOnPosition,
@@ -43,6 +72,7 @@ const HologramConsole = ({ page, setPage }) => {
         <boxBufferGeometry args={[3.6, 0.5, 3.6]} />
         <meshBasicMaterial color="white" />
       </mesh>
+      <Billboard />
       <mesh ref={mesh} />
       <primitive
         rotation={[0, Math.PI / 2, 0]}

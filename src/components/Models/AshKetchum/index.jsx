@@ -9,7 +9,7 @@ const AshKetchum = () => {
     <mesh>
       <mesh position={[...position]} rotation={[0, Math.PI / 2, 0]}>
         <boxBufferGeometry args={[3.6, 0.01, 3.6]} />
-        <meshBasicMaterial color="white" />
+        <meshBasicMaterial color="white" wireframe />
       </mesh>
       <primitive
         rotation={[0, -Math.PI / 2, 0]}

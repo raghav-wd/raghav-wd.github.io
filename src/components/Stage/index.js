@@ -84,14 +84,14 @@ const Stage = () => {
         {/* <OrbitControls /> */}
         <fog attach="fog" args={['#ddddff', 0, 80]} />
         <Text
-          color="black"
+          color="white"
           position={[0, 0.001, -2]}
           fontSize={0.2}
           letterSpacing={0.2}
           // strokeWidth={1}
-          // strokeColor="black"
+          // strokeColor="white"
           fillOpacity={0}
-          outlineColor="black"
+          outlineColor="white"
           outlineWidth={0.01}
           rotation={[Math.PI / 2, Math.PI, 0]}
         >
