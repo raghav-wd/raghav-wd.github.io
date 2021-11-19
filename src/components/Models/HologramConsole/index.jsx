@@ -39,20 +39,18 @@ const HologramConsole = ({ page, setPage }) => {
 
   return (
     <mesh>
+      <mesh position={[...position]} rotation={[0, Math.PI / 2, 0]}>
+        <boxBufferGeometry args={[3.6, 0.5, 3.6]} />
+        <meshBasicMaterial color="white" />
+      </mesh>
       <mesh ref={mesh} />
       <primitive
         rotation={[0, Math.PI / 2, 0]}
-        position={[...position]}
+        position={[position.x, 0.38, position.z]}
         scale={1}
         object={gltf.scene}
         dispose={null}
       />
-      {/* <PerspectiveCamera
-        position={[-10, 1, 9]}
-        fov={60}
-        ref={skillCamRef}
-        makeDefault // Registers it as the default camera system-wide (default=false)
-        /> */}
     </mesh>
   )
 }

@@ -10,6 +10,7 @@ import {
   PerspectiveCamera,
   Text,
   Center,
+  QuadraticBezierLine,
   OrbitControls,
 } from '@react-three/drei'
 import {
@@ -19,7 +20,8 @@ import {
   HologramConsole,
   Skybox,
   Trees,
-  Rhetorician,
+  AshKetchum,
+  AshWithFriends,
 } from '../Models/index.jsx'
 import Pages from '../Pages'
 import '../../App.css'
@@ -80,7 +82,7 @@ const Stage = () => {
           className="stats" // Optional className to add to the stats container dom element
         />
         {/* <OrbitControls /> */}
-        <fog attach="fog" args={['#ddddff', 0, 160]} />
+        <fog attach="fog" args={['#ddddff', 0, 80]} />
         <Text
           color="black"
           position={[0, 0.001, -2]}
@@ -95,6 +97,15 @@ const Stage = () => {
         >
           Let's Go!
         </Text>
+        <QuadraticBezierLine
+          start={[0, 0, 0]} // Starting point
+          end={[-10, 0, 10]} // Ending point
+          mid={[-8, 0, 2]} // Optional control point
+          segments={15}
+          color="white" // Default
+          lineWidth={2} // In pixels (default)
+          dashed
+        />
         <ambientLight />
         <axesHelper args={[100]} />
         <pointLight position={[-5, 10, -2]} intensity={2} />
@@ -104,9 +115,12 @@ const Stage = () => {
         <Suspense fallback={null}>
           <Skybox />
         </Suspense>
+        <Suspense fallback={null}>
+          <AshKetchum />
+        </Suspense>
         <Physics>
           <Suspense fallback={null}>
-            <Rhetorician page={page} setPage={setPage} />
+            <AshWithFriends page={page} setPage={setPage} />
           </Suspense>
           <Suspense fallback={null}>
             <HologramConsole page={page} setPage={setPage} />
@@ -138,7 +152,7 @@ function Plane(props) {
   return (
     <mesh ref={mesh} {...props} rotation={[-Math.PI / 2, 0, 0]}>
       <planeBufferGeometry args={[140, 140]} />
-      <meshStandardMaterial color={new THREE.Color(0xe65100)} />
+      <meshBasicMaterial color="#cddc39" />
     </mesh>
   )
 }

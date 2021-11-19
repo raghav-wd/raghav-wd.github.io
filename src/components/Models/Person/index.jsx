@@ -125,6 +125,10 @@ const Person = ({ page, setPage }) => {
   return (
     <mesh>
       <mesh ref={mesh} />
+      {/* <pointLight position={[1, 1, 1]} intensity={0.2} />
+      <pointLight position={[1, 1, -1]} intensity={0.2} />
+      <pointLight position={[-1, 1, 1]} intensity={0.2} />
+      <pointLight position={[-1, 1, -1]} intensity={0.2} /> */}
       <primitive scale={0.6} ref={ref} object={gltf.scene} dispose={null} />
       <Shadow
         ref={personShadowRef}
