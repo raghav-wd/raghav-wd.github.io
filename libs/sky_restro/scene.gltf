@@ -1,167 +1,140 @@
 {
-    "asset" : {
-        "generator" : "Khronos glTF Blender I/O v1.6.16",
-        "version" : "2.0"
+  "asset": {
+    "generator": "Khronos glTF Blender I/O v1.6.16",
+    "version": "2.0"
+  },
+  "extensionsUsed": ["KHR_materials_unlit"],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [3]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "name": "Mesh_2"
     },
-    "extensionsUsed" : [
-        "KHR_materials_unlit"
-    ],
-    "scene" : 0,
-    "scenes" : [
-        {
-            "name" : "Scene",
-            "nodes" : [
-                3
-            ]
-        }
-    ],
-    "nodes" : [
-        {
-            "mesh" : 0,
-            "name" : "Mesh_2"
+    {
+      "children": [0],
+      "name": "Final.obj.cleaner.materialmerger.gles"
+    },
+    {
+      "children": [1],
+      "name": "RootNode (model correction matrix)",
+      "scale": [0.095238097012043, 0.095238097012043, 0.095238097012043]
+    },
+    {
+      "children": [2],
+      "name": "RootNode (gltf orientation matrix)",
+      "rotation": [-0.7071068286895752, 0, 0, 0.7071068286895752]
+    }
+  ],
+  "materials": [
+    {
+      "extensions": {
+        "KHR_materials_unlit": {}
+      },
+      "name": "lambert30SG",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
         },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Mesh_2",
+      "primitives": [
         {
-            "children" : [
-                0
-            ],
-            "name" : "Final.obj.cleaner.materialmerger.gles"
-        },
-        {
-            "children" : [
-                1
-            ],
-            "name" : "RootNode (model correction matrix)",
-            "scale" : [
-                0.095238097012043,
-                0.095238097012043,
-                0.095238097012043
-            ]
-        },
-        {
-            "children" : [
-                2
-            ],
-            "name" : "RootNode (gltf orientation matrix)",
-            "rotation" : [
-                -0.7071068286895752,
-                0,
-                0,
-                0.7071068286895752
-            ]
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0
         }
-    ],
-    "materials" : [
-        {
-            "extensions" : {
-                "KHR_materials_unlit" : {}
-            },
-            "name" : "lambert30SG",
-            "pbrMetallicRoughness" : {
-                "baseColorTexture" : {
-                    "index" : 0
-                },
-                "metallicFactor" : 0,
-                "roughnessFactor" : 0.9
-            }
-        }
-    ],
-    "meshes" : [
-        {
-            "name" : "Mesh_2",
-            "primitives" : [
-                {
-                    "attributes" : {
-                        "POSITION" : 0,
-                        "NORMAL" : 1,
-                        "TEXCOORD_0" : 2
-                    },
-                    "indices" : 3,
-                    "material" : 0
-                }
-            ]
-        }
-    ],
-    "textures" : [
-        {
-            "sampler" : 0,
-            "source" : 0
-        }
-    ],
-    "images" : [
-        {
-            "mimeType" : "image/jpeg",
-            "name" : "lambert30SG_baseColor",
-            "uri" : "textures/lambert30SG_baseColor.jpg"
-        }
-    ],
-    "accessors" : [
-        {
-            "bufferView" : 0,
-            "componentType" : 5126,
-            "count" : 409,
-            "max" : [
-                404.8919982910156,
-                385.0751953125,
-                374.2835693359375
-            ],
-            "min" : [
-                -404.89202880859375,
-                -385.0751953125,
-                -160.06210327148438
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 1,
-            "componentType" : 5126,
-            "count" : 409,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 2,
-            "componentType" : 5126,
-            "count" : 409,
-            "type" : "VEC2"
-        },
-        {
-            "bufferView" : 3,
-            "componentType" : 5123,
-            "count" : 1056,
-            "type" : "SCALAR"
-        }
-    ],
-    "bufferViews" : [
-        {
-            "buffer" : 0,
-            "byteLength" : 4908,
-            "byteOffset" : 0
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4908,
-            "byteOffset" : 4908
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3272,
-            "byteOffset" : 9816
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 2112,
-            "byteOffset" : 13088
-        }
-    ],
-    "samplers" : [
-        {
-            "magFilter" : 9729,
-            "minFilter" : 9987
-        }
-    ],
-    "buffers" : [
-        {
-            "byteLength" : 15200,
-            "uri" : "scene.bin"
-        }
-    ]
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "images": [
+    {
+      "mimeType": "image/jpeg",
+      "name": "lambert30SG_baseColor",
+      "uri": "textures/lambert30SG_baseColor.jpg"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 409,
+      "max": [404.8919982910156, 385.0751953125, 374.2835693359375],
+      "min": [-404.89202880859375, -385.0751953125, -160.06210327148438],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 409,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 409,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5123,
+      "count": 1056,
+      "type": "SCALAR"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 4908,
+      "byteOffset": 0
+    },
+    {
+      "buffer": 0,
+      "byteLength": 4908,
+      "byteOffset": 4908
+    },
+    {
+      "buffer": 0,
+      "byteLength": 3272,
+      "byteOffset": 9816
+    },
+    {
+      "buffer": 0,
+      "byteLength": 2112,
+      "byteOffset": 13088
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 15200,
+      "uri": "scene.bin"
+    }
+  ]
 }

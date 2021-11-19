@@ -1,0 +1,194 @@
+{
+  "asset": {
+    "generator": "Khronos glTF Blender I/O v1.6.16",
+    "version": "2.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [0, 1]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "name": "pine leaves005_dark leaves_0",
+      "rotation": [
+        -0.5963677167892456, -0.3799285590648651, -0.37992849946022034,
+        0.5963675379753113
+      ],
+      "scale": [0.03081652708351612, 0.02987898886203766, 0.061333067715168],
+      "translation": [
+        0.011885643005371094, 2.5148403644561768, -0.07701341062784195
+      ]
+    },
+    {
+      "mesh": 1,
+      "name": "tree trunk005_dark tree trunk_0",
+      "rotation": [-0.7071068286895752, 0, 0, 0.7071067094802856],
+      "scale": [
+        0.027157805860042572, 0.026331664994359016, 0.02715781331062317
+      ],
+      "translation": [
+        0.02050495147705078, 0.6141567230224609, -0.06046191230416298
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "dark_leaves",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.01792551577091217, 0.057297833263874054, 0.002000297186896205, 1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.6000000238418579
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "dark_tree_trunk",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.0517662912607193, 0.021949581801891327, 0.00337822362780571, 1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.6000000238418579
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "pine leaves005_dark leaves_0",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0
+        }
+      ]
+    },
+    {
+      "name": "tree trunk005_dark tree trunk_0",
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 4,
+            "NORMAL": 5,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 1
+        }
+      ]
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 420,
+      "max": [34.822906494140625, 34.17755889892578, 32.36358642578125],
+      "min": [-33.2720947265625, -34.17755889892578, -29.53673553466797],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 420,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 420,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5123,
+      "count": 420,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 272,
+      "max": [6.790256977081299, 6.754294395446777, 22.543498992919922],
+      "min": [-6.804408550262451, -7.364882946014404, -22.543506622314453],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5126,
+      "count": 272,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 272,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 7,
+      "componentType": 5123,
+      "count": 276,
+      "type": "SCALAR"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 5040,
+      "byteOffset": 0
+    },
+    {
+      "buffer": 0,
+      "byteLength": 5040,
+      "byteOffset": 5040
+    },
+    {
+      "buffer": 0,
+      "byteLength": 3360,
+      "byteOffset": 10080
+    },
+    {
+      "buffer": 0,
+      "byteLength": 840,
+      "byteOffset": 13440
+    },
+    {
+      "buffer": 0,
+      "byteLength": 3264,
+      "byteOffset": 14280
+    },
+    {
+      "buffer": 0,
+      "byteLength": 3264,
+      "byteOffset": 17544
+    },
+    {
+      "buffer": 0,
+      "byteLength": 2176,
+      "byteOffset": 20808
+    },
+    {
+      "buffer": 0,
+      "byteLength": 552,
+      "byteOffset": 22984
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 23536,
+      "uri": "scene.bin"
+    }
+  ]
+}
