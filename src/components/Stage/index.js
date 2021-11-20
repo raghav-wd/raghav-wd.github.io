@@ -24,6 +24,8 @@ import {
   AshWithFriends,
   LaprasInLake,
   Snorlax,
+  Juice,
+  Piano,
 } from '../Models/index.jsx'
 import Pages from '../Pages'
 import '../../App.css'
@@ -58,19 +60,19 @@ const Stage = () => {
     )
   }
 
-  const Piano = (props) => {
-    const gltf = useGLTF('./libs/piano/scene.gltf')
+  // const Piano = (props) => {
+  //   const gltf = useGLTF('./libs/piano/scene.gltf')
 
-    return (
-      <primitive
-        {...props}
-        rotation={[0, -Math.PI / 2, 0]}
-        position={[4, 0.2, 7]}
-        object={gltf.scene}
-        dispose={null}
-      />
-    )
-  }
+  //   return (
+  //     <primitive
+  //       {...props}
+  //       rotation={[0, -Math.PI / 2, 0]}
+  //       position={[4, 0.2, 7]}
+  //       object={gltf.scene}
+  //       dispose={null}
+  //     />
+  //   )
+  // }
 
   return (
     <div>
@@ -83,7 +85,7 @@ const Stage = () => {
           showPanel={0} // Start-up panel (default=0)
           className="stats" // Optional className to add to the stats container dom element
         />
-        {/* <OrbitControls /> */}
+        {/* <OrbitControls target={[10, 0.2, 20]} /> */}
         <fog attach="fog" args={['#ddddff', 0, 120]} />
         <Text
           color="white"
@@ -103,9 +105,9 @@ const Stage = () => {
           start={[0, 0, 0]} // Starting point
           end={[-10, 0, 10]} // Ending point
           mid={[-8, 0, 2]} // Optional control point
-          segments={15}
+          // segments={15}
           color="white" // Default
-          lineWidth={2} // In pixels (default)
+          lineWidth={8} // In pixels (default)
           dashed
         />
         <ambientLight />
@@ -120,9 +122,12 @@ const Stage = () => {
         <Suspense fallback={null}>
           <AshKetchum />
         </Suspense>
-        {/* <Suspense fallback={null}>
-          <Snorlax />
-        </Suspense> */}
+        <Suspense fallback={null}>
+          <Juice />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Piano />
+        </Suspense>
         <Suspense fallback={null}>
           <LaprasInLake />
         </Suspense>

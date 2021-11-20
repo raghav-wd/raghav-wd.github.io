@@ -70,7 +70,7 @@ const HologramConsole = ({ page, setPage }) => {
     <mesh>
       <mesh position={[...position]} rotation={[0, Math.PI / 2, 0]}>
         <boxBufferGeometry args={[3.6, 0.5, 3.6]} />
-        <meshBasicMaterial color="white" />
+        <meshStandardMaterial color="white" />
       </mesh>
       <Billboard />
       <mesh ref={mesh} />

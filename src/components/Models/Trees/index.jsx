@@ -4,7 +4,7 @@ const SunsetGirl = () => {
   const RandTree = () => {
     const { nodes, materials } = useGLTF('./libs/tree/scene.gltf')
     const randCord = () => {
-      const r = 40
+      const r = 50
       const θ = 1 * Math.PI * Math.random() - Math.PI / 2
       const x = r * Math.sin(θ)
       const z = r * Math.cos(θ) + Math.random() * 20

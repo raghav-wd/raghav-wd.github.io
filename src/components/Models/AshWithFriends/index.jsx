@@ -64,7 +64,7 @@ const AshWithFriends = ({ page, setPage }) => {
         recieveShadow
       >
         <boxBufferGeometry args={[3, 0.5, 3]} />
-        <meshBasicMaterial color="white" />
+        <meshStandardMaterial color="white" />
       </mesh>
       <primitive
         ref={ref}
