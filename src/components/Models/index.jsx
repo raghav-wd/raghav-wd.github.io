@@ -7,11 +7,14 @@ import Skybox from './Skybox'
 import AshWithFriends from './AshWithFriends'
 import AshKetchum from './AshKetchum'
 import BillboardHoarding from './BillboardHoarding'
+import LaprasInLake from './LaprasInLake'
+import Snorlax from './Snorlax'
 
 export default SunsetGirl
 export {
   AshKetchum,
   BillboardHoarding,
+  LaprasInLake,
   Person,
   HologramConsole,
   SunsetGirl,
@@ -19,4 +22,5 @@ export {
   Trees,
   AshWithFriends,
   Skybox,
+  Snorlax,
 }

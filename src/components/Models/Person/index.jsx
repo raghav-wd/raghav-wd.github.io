@@ -113,8 +113,8 @@ const Person = ({ page, setPage }) => {
       mesh.current.getWorldPosition(camera.position)
       camera.position.z -= 6
       camera.position.y = 2
-      camera.lookAt(ref.current.position)
-      camera.fov = 45
+      camera.lookAt(ref.current.position.x, 0.6, ref.current.position.z)
+      camera.fov = 37
       camera.updateMatrix()
       camera.updateMatrixWorld()
       camera.updateWorldMatrix()

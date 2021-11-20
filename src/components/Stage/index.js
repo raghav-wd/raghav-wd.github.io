@@ -22,6 +22,8 @@ import {
   Trees,
   AshKetchum,
   AshWithFriends,
+  LaprasInLake,
+  Snorlax,
 } from '../Models/index.jsx'
 import Pages from '../Pages'
 import '../../App.css'
@@ -74,7 +76,7 @@ const Stage = () => {
     <div>
       <Canvas
         dpr={[1, 2]}
-        camera={{ fov: 65, position: [0, 0.1, -10] }}
+        camera={{ fov: 50, position: [0, 0.1, -10] }}
         style={{ height: '100vh', width: '100%' }}
       >
         <Stats
@@ -82,7 +84,7 @@ const Stage = () => {
           className="stats" // Optional className to add to the stats container dom element
         />
         {/* <OrbitControls /> */}
-        <fog attach="fog" args={['#ddddff', 0, 80]} />
+        <fog attach="fog" args={['#ddddff', 0, 120]} />
         <Text
           color="white"
           position={[0, 0.001, -2]}
@@ -117,6 +119,12 @@ const Stage = () => {
         </Suspense>
         <Suspense fallback={null}>
           <AshKetchum />
+        </Suspense>
+        {/* <Suspense fallback={null}>
+          <Snorlax />
+        </Suspense> */}
+        <Suspense fallback={null}>
+          <LaprasInLake />
         </Suspense>
         <Physics>
           <Suspense fallback={null}>
