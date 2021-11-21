@@ -1,4 +1,4 @@
-import { PerspectiveCamera, useGLTF, Text } from '@react-three/drei'
+import { PerspectiveCamera, useGLTF, Shadow, Text } from '@react-three/drei'
 import * as THREE from 'three'
 import { useEffect, useRef, useState } from 'react'
 import { useSphere } from '@react-three/cannon'
@@ -80,6 +80,12 @@ const HologramConsole = ({ page, setPage }) => {
         scale={1}
         object={gltf.scene}
         dispose={null}
+      />
+      <Shadow
+        position={[position.x, 0.001, position.z]}
+        rotation-x={-Math.PI / 2}
+        scale={6}
+        opacity={0.15} // Alpha (default:0.5)
       />
     </mesh>
   )

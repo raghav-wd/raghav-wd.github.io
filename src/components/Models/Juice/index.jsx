@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, Shadow } from '@react-three/drei'
 
 const Juice = () => {
   const gltf = useGLTF('./libs/juice_cup/scene.gltf')
@@ -30,6 +30,12 @@ const Juice = () => {
         scale={0.02}
         object={squirtle.scene}
         dispose={null}
+      />
+      <Shadow
+        position={[position.x, 0.001, position.z]}
+        rotation-x={-Math.PI / 2}
+        scale={6}
+        opacity={0.15} // Alpha (default:0.5)
       />
     </mesh>
   )

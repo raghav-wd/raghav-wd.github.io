@@ -35,6 +35,35 @@ const AshKetchum = () => {
         object={gltf.scene}
         dispose={null}
       />
+      {/* <Reflector
+        resolution={1024}
+        args={[5, 5]}
+        mirror={0.75}
+        mixBlur={0}
+        mixStrength={1}
+        position={[position.x, 0.001, position.z]}
+        rotation={[-Math.PI / 2, 0, Math.PI / 2]}
+        minDepthThreshold={0.8}
+        maxDepthThreshold={1.2}
+        depthScale={0}
+        depthToBlurRatioBias={0.2}
+        debug={0}
+        distortion={0}
+        // distortionMap={distortionMap}
+      >
+        {(Material, props) => (
+          <Material
+            color="#ddd"
+            metalness={0}
+            // roughnessMap={roughness}
+            roughness={1}
+            // normalMap={normal}
+            // normalScale={_normalScale}
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...props}
+          />
+        )}
+      </Reflector> */}
     </mesh>
   )
 }

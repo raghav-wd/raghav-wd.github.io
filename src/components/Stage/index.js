@@ -107,7 +107,7 @@ const Stage = () => {
           mid={[-8, 0, 2]} // Optional control point
           // segments={15}
           color="white" // Default
-          lineWidth={8} // In pixels (default)
+          lineWidth={4} // In pixels (default)
           dashed
         />
         <ambientLight />
