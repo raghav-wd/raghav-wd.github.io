@@ -31,6 +31,32 @@ const Trees = () => {
       </group>
     )
   }
+  // eslint-disable-next-line react/prop-types
+  const ElectricPole = ({ x }) => {
+    const { nodes, materials } = useGLTF('./libs/electricpole/scene.gltf')
+
+    return (
+      <group position={[x, 0, 50]} scale={0.26} dispose={null}>
+        <group dispose={null}>
+          <group rotation={[-Math.PI / 2, 0, 0]} />
+          <group
+            position={[0, 17.53, -1.28]}
+            rotation={[0, 0, -Math.PI / 2]}
+            scale={[0.1, 20, 0.1]}
+          >
+            <mesh
+              geometry={nodes.Cylinder001_1.geometry}
+              material={materials.elecpole1_ma}
+            />
+            <mesh
+              geometry={nodes.Cylinder001_2.geometry}
+              material={materials['elecpole1_ma.000']}
+            />
+          </group>
+        </group>
+      </group>
+    )
+  }
 
   const RandGrass = () => {
     const { nodes } = useGLTF(
@@ -61,11 +87,12 @@ const Trees = () => {
           position={[randCords[0].x, 0.001, randCords[0].z]}
           rotation-x={-Math.PI / 2}
           scale={0.2}
-          opacity={0.2} // Alpha (default:0.5)
+          opacity={0.2}
         />
       </group>
     )
   }
+
   const RandRock = () => {
     const { nodes } = useGLTF(
       './libs/low_poly_trees_grass_and_rocks/scene.gltf'
@@ -91,11 +118,12 @@ const Trees = () => {
           position={[randCords[0].x, 0.001, randCords[0].z]}
           rotation-x={-Math.PI / 2}
           scale={0.36}
-          opacity={0.15} // Alpha (default:0.5)
+          opacity={0.15}
         />
       </group>
     )
   }
+
   const Tree = () => {
     const trees = []
     for (let i = 0; i < 140; i += 1) {
@@ -120,11 +148,22 @@ const Trees = () => {
     return grasses
   }
 
+  const ElectricPoles = () => {
+    const electricpoles = []
+    const dist = 10
+    for (let i = 0; i < 5; i += 1) {
+      electricpoles.push(<ElectricPole x={i * dist} />)
+      electricpoles.push(<ElectricPole x={-i * dist} />)
+    }
+    return electricpoles
+  }
+
   return (
     <mesh>
       <Tree />
       <Grass />
       <RandRocks />
+      <ElectricPoles />
     </mesh>
   )
 }

@@ -66,14 +66,14 @@ const HologramConsole = ({ page, setPage }) => {
 
   return (
     <mesh>
-      <mesh position={[...model.position]} rotation={[model.rotation]}>
+      <mesh position={[...model.position]} rotation={[...model.rotation]}>
         <boxBufferGeometry args={[3.6, 0.5, 3.6]} />
         <meshStandardMaterial color="white" />
       </mesh>
       <Billboard />
       <mesh ref={mesh} />
       <primitive
-        rotation={[model.rotation]}
+        rotation={[...model.rotation]}
         position={[model.position.x, 0.38, model.position.z]}
         scale={1}
         object={gltf.scene}
