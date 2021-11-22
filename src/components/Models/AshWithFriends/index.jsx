@@ -85,6 +85,11 @@ const AshWithFriends = ({ page = '', setPage }) => {
   )
 }
 
+AshWithFriends.defaultProps = {
+  page: '',
+  setPage: null,
+}
+
 AshWithFriends.propTypes = {
   page: PropTypes.string,
   setPage: PropTypes.func,
