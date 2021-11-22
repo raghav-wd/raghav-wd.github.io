@@ -1,5 +1,5 @@
-import usePersonControls from './usePersonControls'
 import useModelTransition from './useModelTransition'
+import usePersonControls from './usePersonControls'
 
 export default usePersonControls
 

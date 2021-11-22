@@ -1,30 +1,24 @@
-import Person from './Person'
-import SunsetGirl from './SunsetGirl'
-import SpruceTree from './SpruceTree'
-import HologramConsole from './HologramConsole'
-import Trees from './Trees'
-import Skybox from './Skybox'
-import AshWithFriends from './AshWithFriends'
 import AshKetchum from './AshKetchum'
-import Juice from './Juice'
+import AshWithFriends from './AshWithFriends'
 import BillboardHoarding from './BillboardHoarding'
+import HologramConsole from './HologramConsole'
+import Juice from './Juice'
 import LaprasInLake from './LaprasInLake'
-import Snorlax from './Snorlax'
+import Person from './Person'
 import Piano from './Piano'
+import Skybox from './Skybox'
+import Trees from './Trees'
 
-export default SunsetGirl
+export default null
 export {
   AshKetchum,
+  AshWithFriends,
   BillboardHoarding,
-  LaprasInLake,
-  Person,
   HologramConsole,
   Juice,
-  SunsetGirl,
-  SpruceTree,
-  Trees,
-  AshWithFriends,
-  Skybox,
-  Snorlax,
+  LaprasInLake,
+  Person,
   Piano,
+  Trees,
+  Skybox,
 }
