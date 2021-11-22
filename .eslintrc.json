@@ -5,20 +5,21 @@
   },
   "extends": ["plugin:react/recommended", "airbnb", "prettier"],
   "parserOptions": {
+    "ecmaVersion": 2018,
     "ecmaFeatures": {
       "jsx": true,
       "modules": true
     },
-    "ecmaVersion": 6,
     "sourceType": "module"
   },
   "plugins": ["react"],
   "rules": {
     "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
     "semi": ["error", "never"],
     "no-unused-vars": "warn"
   },
-  // "parser": "@babel/eslint-parser",
   "settings": {
     "react": {
       "version": "latest"

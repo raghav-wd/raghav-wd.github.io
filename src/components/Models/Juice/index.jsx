@@ -1,5 +1,6 @@
 import * as THREE from 'three'
-import { useGLTF, Shadow } from '@react-three/drei'
+import { useGLTF, Shadow, Text } from '@react-three/drei'
+import BillboardHoarding from '../BillboardHoarding'
 
 const Juice = () => {
   const gltf = useGLTF('./libs/juice_cup/scene.gltf')
@@ -36,6 +37,23 @@ const Juice = () => {
         rotation-x={-Math.PI / 2}
         scale={6}
         opacity={0.15} // Alpha (default:0.5)
+      />
+      <Text
+        color="#212121"
+        position={[position.x - 1, 1.5, position.z - 6.2]}
+        fontSize={0.2}
+        letterSpacing={0.2}
+        fillOpacity={0}
+        outlineColor="#212121"
+        outlineWidth={0.01}
+        rotation={[0, -Math.PI / 1.4, 0]}
+      >
+        Hobbies
+      </Text>
+      <BillboardHoarding
+        position={[position.x - 1, 0, position.z - 6]}
+        scale={0.2}
+        rotation={[0, -Math.PI / 1.4, 0]}
       />
     </mesh>
   )
