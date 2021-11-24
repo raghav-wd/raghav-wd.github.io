@@ -5,14 +5,12 @@ import { useEffect, useState } from 'react'
 import { useSphere } from '@react-three/cannon'
 import { useModelTransition } from '../../hooks'
 
-const HologramConsole = ({ page, setPage }) => {
+const Charizard = ({ page, setPage }) => {
   const [isActive, setIsActive] = useState(false)
-  const gltf = useGLTF(
-    './libs/smol_ame_in_an_upcycled_terrarium_hololiveen/scene.gltf'
-  )
+  const gltf = useGLTF('./libs/charizard/scene.gltf')
 
   const model = {
-    position: new THREE.Vector3(-10, 0.05, 8),
+    position: new THREE.Vector3(-10, 0, 20),
     rotation: new THREE.Vector3(0, Math.PI / 2, 0),
     options: {
       focusOnPosition: new THREE.Vector3(-10, 0.8, 12),
@@ -48,22 +46,21 @@ const HologramConsole = ({ page, setPage }) => {
     )
   }
 
-  const collisionHandler = () => {
-    setPage('skills')
-  }
+  // const collisionHandler = () => {
+  //   setPage('skills')
+  // }
+  // const [mesh] = useSphere(() => ({
+  //   position: [...model.position],
+  //   type: 'Static',
+  //   args: [2.6],
+  //   onCollide: collisionHandler,
+  // }))
+  // useEffect(
+  //   () => (page === 'skills' ? setIsActive(true) : setIsActive(false)),
+  //   [page]
+  // )
 
-  const [mesh] = useSphere(() => ({
-    position: [...model.position],
-    type: 'Static',
-    args: [2.6],
-    onCollide: collisionHandler,
-  }))
-  useEffect(
-    () => (page === 'skills' ? setIsActive(true) : setIsActive(false)),
-    [page]
-  )
-
-  useModelTransition(isActive, model.options)
+  // useModelTransition(isActive, model.options)
 
   return (
     <mesh>
@@ -72,11 +69,11 @@ const HologramConsole = ({ page, setPage }) => {
         <meshStandardMaterial color="white" />
       </mesh>
       <Billboard />
-      <mesh ref={mesh} />
+      {/* <mesh ref={mesh} /> */}
       <primitive
         rotation={[...model.rotation]}
         position={[model.position.x, 0.38, model.position.z]}
-        scale={1}
+        scale={0.014}
         object={gltf.scene}
         dispose={null}
       />
@@ -90,14 +87,14 @@ const HologramConsole = ({ page, setPage }) => {
   )
 }
 
-HologramConsole.defaultProps = {
+Charizard.defaultProps = {
   page: '',
   setPage: null,
 }
 
-HologramConsole.propTypes = {
+Charizard.propTypes = {
   page: PropTypes.string,
   setPage: PropTypes.func,
 }
 
-export default HologramConsole
+export default Charizard

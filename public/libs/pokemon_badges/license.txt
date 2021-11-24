@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pokemon Badges
+* source:	https://sketchfab.com/3d-models/pokemon-badges-5f4b103a05324943b2befd4b663dbaa0
+* author:	Puff0322 (https://sketchfab.com/Puff0322)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pokemon Badges" (https://sketchfab.com/3d-models/pokemon-badges-5f4b103a05324943b2befd4b663dbaa0) by Puff0322 (https://sketchfab.com/Puff0322) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

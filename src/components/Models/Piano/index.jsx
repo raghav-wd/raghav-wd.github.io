@@ -6,7 +6,7 @@ const Piano = () => {
   const jigglypuff = useGLTF('./libs/jigllypuff/scene.gltf')
 
   const model = {
-    position: new THREE.Vector3(4, 0.2, 16),
+    position: new THREE.Vector3(12, 0.2, 16),
     rotation: new THREE.Vector3(0, -Math.PI / 2, 0),
   }
 

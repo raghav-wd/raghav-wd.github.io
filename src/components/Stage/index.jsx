@@ -12,6 +12,8 @@ import {
   LaprasInLake,
   Juice,
   Piano,
+  Charizard,
+  PokemonBadges,
 } from '../Models'
 import Pages from '../Pages'
 import '../../App.css'
@@ -51,13 +53,15 @@ const Stage = () => {
         <Suspense fallback={null}>
           <Trees />
           <Skybox />
-          <AshKetchum />
           <Juice />
           <Piano />
           <LaprasInLake />
+          <Charizard />
+          {/* <PokemonBadges /> */}
         </Suspense>
         <Physics>
           <Suspense fallback={null}>
+            <AshKetchum />
             <AshWithFriends page={page} setPage={setPage} />
             <HologramConsole page={page} setPage={setPage} />
             <Person page={page} setPage={setPage} />
@@ -65,7 +69,7 @@ const Stage = () => {
           <Plane />
         </Physics>
       </Canvas>
-      <Pages page={page} />
+      {/* <Pages page={page} /> */}
     </div>
   )
 }

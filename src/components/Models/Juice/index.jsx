@@ -42,7 +42,7 @@ const Juice = () => {
       />
       <Text
         color="#212121"
-        position={[model.position.x - 1, 1.5, model.position.z - 6.2]}
+        position={[model.position.x + 2, 1.5, model.position.z - 7.2]}
         fontSize={0.2}
         letterSpacing={0.2}
         fillOpacity={0}
@@ -53,7 +53,7 @@ const Juice = () => {
         Hobbies
       </Text>
       <BillboardHoarding
-        position={[model.position.x - 1, 0, model.position.z - 6]}
+        position={[model.position.x + 2, 0, model.position.z - 7]}
         scale={0.2}
         rotation={[...model.rotation]}
       />
