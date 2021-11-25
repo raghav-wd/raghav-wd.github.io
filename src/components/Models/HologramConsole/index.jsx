@@ -12,12 +12,12 @@ const HologramConsole = ({ page, setPage }) => {
   )
 
   const model = {
-    position: new THREE.Vector3(-10, 0.05, 8),
+    position: new THREE.Vector3(-8, 0.05, 6),
     rotation: new THREE.Vector3(0, Math.PI / 2, 0),
     options: {
-      focusOnPosition: new THREE.Vector3(-10, 0.8, 12),
+      focusOnPosition: new THREE.Vector3(-8, 0.8, 7),
       animateToPosition: new THREE.Vector3(0, 2.4, 5),
-      fov: 20,
+      fov: 30,
     },
   }
 

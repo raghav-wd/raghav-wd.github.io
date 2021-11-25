@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
-import { useGLTF, Shadow, Text } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import { useGLTF, Shadow, Text, useAnimations } from '@react-three/drei'
 import * as THREE from 'three'
-import { useEffect, useState } from 'react'
-import { useSphere } from '@react-three/cannon'
+import { useEffect, useRef, useState } from 'react'
+import { useBox, useSphere } from '@react-three/cannon'
 import { useModelTransition } from '../../hooks'
 
 const Charizard = ({ page, setPage }) => {
@@ -10,77 +11,80 @@ const Charizard = ({ page, setPage }) => {
   const gltf = useGLTF('./libs/charizard/scene.gltf')
 
   const model = {
-    position: new THREE.Vector3(-10, 0, 20),
-    rotation: new THREE.Vector3(0, Math.PI / 2, 0),
+    position: new THREE.Vector3(-6, 0, 20),
+    rotation: new THREE.Vector3(0, -Math.PI, 0),
     options: {
-      focusOnPosition: new THREE.Vector3(-10, 0.8, 12),
-      animateToPosition: new THREE.Vector3(0, 2.4, 5),
-      fov: 20,
+      focusOnPosition: new THREE.Vector3(-6, 0.4, 20),
+      animateToPosition: new THREE.Vector3(-6, 1.4, 10),
+      fov: 30,
     },
   }
 
-  const Billboard = () => {
-    const billboard = useGLTF('./libs/billboard_hoarding/scene.gltf')
+  const game = {}
+
+  const collisionHandler = () => {
+    setPage('game')
+  }
+
+  const [plane] = useBox(() => ({
+    args: [11, 11, 0.0002],
+    rotation: [-Math.PI / 2, 0, 0],
+    position: [...model.position],
+    // onCollide: collisionHandler,
+  }))
+
+  useEffect(
+    () => (page === 'game' ? setIsActive(true) : setIsActive(false)),
+    [page]
+  )
+
+  useModelTransition(isActive, model.options)
+
+  // eslint-disable-next-line react/prop-types
+  const Fireball = ({ position }) => {
+    const [fireballMesh, fireballApi] = useBox(() => ({
+      mass: 1,
+      args: [0.4, 0.4, 0.4],
+      rotation: [-Math.PI / 2, 0, 0],
+      // eslint-disable-next-line react/prop-types
+      position: [...position],
+      type: 'Dynamic',
+      // onCollide: collisionHandler,
+    }))
+
+    useFrame(() => {
+      fireballApi.velocity.set(0, 0, -1)
+    })
+
     return (
       <mesh>
-        <Text
-          color="#212121"
-          position={[model.position.x + 0.1, 1.5, model.position.z - 3]}
-          fontSize={0.2}
-          letterSpacing={0.2}
-          fillOpacity={0}
-          outlineColor="#212121"
-          outlineWidth={0.01}
-          rotation={[model.rotation]}
-        >
-          Projects
-        </Text>
-        <primitive
-          rotation={[model.rotation]}
-          position={[model.position.x, 0, model.position.z - 3]}
-          scale={0.2}
-          object={billboard.scene}
-          dispose={null}
-        />
+        <mesh ref={fireballMesh} position={position}>
+          <boxBufferGeometry args={[0.4, 0.4, 0.4]} />
+          <meshStandardMaterial />
+        </mesh>
       </mesh>
     )
   }
 
-  // const collisionHandler = () => {
-  //   setPage('skills')
-  // }
-  // const [mesh] = useSphere(() => ({
-  //   position: [...model.position],
-  //   type: 'Static',
-  //   args: [2.6],
-  //   onCollide: collisionHandler,
-  // }))
-  // useEffect(
-  //   () => (page === 'skills' ? setIsActive(true) : setIsActive(false)),
-  //   [page]
-  // )
+  // const Fireballs = () => {
 
-  // useModelTransition(isActive, model.options)
+  // }
 
   return (
     <mesh>
-      <mesh position={[...model.position]} rotation={[...model.rotation]}>
-        <boxBufferGeometry args={[3.6, 0.5, 3.6]} />
-        <meshStandardMaterial color="white" />
-      </mesh>
-      <Billboard />
-      {/* <mesh ref={mesh} /> */}
+      <mesh ref={plane} />
       <primitive
         rotation={[...model.rotation]}
-        position={[model.position.x, 0.38, model.position.z]}
+        position={[...model.position]}
         scale={0.014}
         object={gltf.scene}
         dispose={null}
       />
+      <Fireball position={[model.position.x, 0.1, model.position.z - 1]} />
       <Shadow
         position={[model.position.x, 0.001, model.position.z]}
         rotation-x={-Math.PI / 2}
-        scale={6}
+        scale={2}
         opacity={0.15}
       />
     </mesh>

@@ -33,7 +33,7 @@ const Stage = () => {
           showPanel={0} // Start-up panel (default=0)
           className="stats" // Optional className to add to the stats container dom element
         />
-        {/* <OrbitControls target={[10, 0.2, 20]} /> */}
+        {/* <OrbitControls target={[-8, 0, 16]} /> */}
         <fog attach="fog" args={['#ddddff', 0, 120]} />
         <Text
           color="white"
@@ -56,20 +56,32 @@ const Stage = () => {
           <Juice />
           <Piano />
           <LaprasInLake />
-          <Charizard />
           {/* <PokemonBadges /> */}
         </Suspense>
-        <Physics>
+        <Physics
+          iterations={20}
+          tolerance={0.0001}
+          defaultContactMaterial={{
+            friction: 0,
+            restitution: 0.7,
+            contactEquationStiffness: 1e7,
+            contactEquationRelaxation: 1,
+            frictionEquationStiffness: 1e7,
+            frictionEquationRelaxation: 2,
+          }}
+          gravity={[0, -40, 0]}
+        >
           <Suspense fallback={null}>
             <AshKetchum />
             <AshWithFriends page={page} setPage={setPage} />
+            <Charizard page={page} setPage={setPage} />
             <HologramConsole page={page} setPage={setPage} />
             <Person page={page} setPage={setPage} />
           </Suspense>
           <Plane />
         </Physics>
       </Canvas>
-      {/* <Pages page={page} /> */}
+      <Pages page={page} />
     </div>
   )
 }
