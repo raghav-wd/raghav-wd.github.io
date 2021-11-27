@@ -3,13 +3,13 @@ import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useAnimations, useGLTF, Shadow } from '@react-three/drei'
-import { useSphere } from '@react-three/cannon'
+import { useBox } from '@react-three/cannon'
 import { usePersonControls } from '../../hooks'
 
 // Importing Person
 const Person = ({ page, setPage }) => {
   const gltf = useGLTF('./libs/Pikachu.glb', true)
-  const { ref, actions } = useAnimations(gltf.animations)
+  const { ref: personRef, actions } = useAnimations(gltf.animations)
 
   const direction = new THREE.Vector3()
   const frontVector = new THREE.Vector3()
@@ -39,9 +39,10 @@ const Person = ({ page, setPage }) => {
     return rotation
   }
 
-  const [mesh, api] = useSphere(() => ({
-    mass: 10,
-    position: [0, 1, 0],
+  const [personMesh, api] = useBox(() => ({
+    args: [0.34, 0.34, 0.34],
+    mass: 1,
+    position: [0, 1.01, 0],
     type: 'Dynamic',
   }))
 
@@ -55,7 +56,7 @@ const Person = ({ page, setPage }) => {
         camera.matrixWorldInverse
       )
       frustum.setFromProjectionMatrix(matrix)
-      if (!frustum.containsPoint(ref.current.position)) {
+      if (!frustum.containsPoint(personRef.current.position)) {
         setPage('')
       }
     }
@@ -93,26 +94,30 @@ const Person = ({ page, setPage }) => {
       .multiplyScalar(model.speed)
 
     // Person shadow ...
-    personShadowRef.current.position.x = ref.current.position.x
-    personShadowRef.current.position.z = ref.current.position.z
+    personShadowRef.current.position.x = personRef.current.position.x
+    personShadowRef.current.position.z = personRef.current.position.z
     api.velocity.set(direction.x, velocity.current[1], direction.z)
 
     // Adding lerp rotation to person model ...
-    ref.current.rotation.y = THREE.MathUtils.lerp(
-      ref.current.rotation.y,
+    personRef.current.rotation.y = THREE.MathUtils.lerp(
+      personRef.current.rotation.y,
       rotatePersonWithMovement(),
       0.2
     )
 
     // Setting person model position to sphere body position ...
-    mesh.current.getWorldPosition(ref.current.position)
-    ref.current.position.y -= 1
+    personMesh.current.getWorldPosition(personRef.current.position)
+    personRef.current.position.y = 0
     if (page === '') {
       // Setting camera position to sphere body position ...
-      mesh.current.getWorldPosition(camera.position)
+      personMesh.current.getWorldPosition(camera.position)
       camera.position.z -= 6
       camera.position.y = 2
-      camera.lookAt(ref.current.position.x, 0.6, ref.current.position.z)
+      camera.lookAt(
+        personRef.current.position.x,
+        0.6,
+        personRef.current.position.z
+      )
       camera.fov = 37
       camera.updateMatrix()
       camera.updateMatrixWorld()
@@ -123,8 +128,13 @@ const Person = ({ page, setPage }) => {
 
   return (
     <mesh>
-      <mesh ref={mesh} />
-      <primitive scale={0.6} ref={ref} object={gltf.scene} dispose={null} />
+      <mesh ref={personMesh} />
+      <primitive
+        scale={0.6}
+        ref={personRef}
+        object={gltf.scene}
+        dispose={null}
+      />
       <Shadow
         ref={personShadowRef}
         position-Y={0.01}

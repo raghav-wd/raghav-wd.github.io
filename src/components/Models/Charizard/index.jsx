@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import { useGLTF, Shadow, Text, useAnimations } from '@react-three/drei'
 import * as THREE from 'three'
 import { useEffect, useRef, useState } from 'react'
-import { useBox, useSphere } from '@react-three/cannon'
+import { Debug, useBox, useSphere } from '@react-three/cannon'
 import { useModelTransition } from '../../hooks'
 
 const Charizard = ({ page, setPage }) => {
@@ -15,22 +15,35 @@ const Charizard = ({ page, setPage }) => {
     rotation: new THREE.Vector3(0, -Math.PI, 0),
     options: {
       focusOnPosition: new THREE.Vector3(-6, 0.4, 20),
-      animateToPosition: new THREE.Vector3(-6, 1.4, 10),
-      fov: 30,
+      animateToPosition: new THREE.Vector3(-6, 2, 5),
+      fov: 35,
     },
   }
 
-  const game = {}
+  const game = {
+    playArea: new THREE.Vector3(11, 0, 11),
+    laneGap: 1,
+    lanes(laneGap) {
+      return [
+        model.position.x - 2 * laneGap,
+        model.position.x - laneGap,
+        model.position.x + laneGap,
+        model.position.x + 2 * laneGap,
+      ]
+    },
+  }
 
   const collisionHandler = () => {
     setPage('game')
   }
 
   const [plane] = useBox(() => ({
-    args: [11, 11, 0.0002],
+    args: [6, 11, 0.0001],
     rotation: [-Math.PI / 2, 0, 0],
-    position: [...model.position],
-    // onCollide: collisionHandler,
+    position: [model.position.x, model.position.y, model.position.z - 5],
+    onCollide: (e) => {
+      if (e.body.constructor.name !== 'InstancedMesh') collisionHandler()
+    },
   }))
 
   useEffect(
@@ -41,34 +54,72 @@ const Charizard = ({ page, setPage }) => {
   useModelTransition(isActive, model.options)
 
   // eslint-disable-next-line react/prop-types
-  const Fireball = ({ position }) => {
+  const Fireball = () => {
+    const fireballRef = useRef(null)
     const [fireballMesh, fireballApi] = useBox(() => ({
       mass: 1,
-      args: [0.4, 0.4, 0.4],
+      args: [0.2, 0.2, 0.2],
       rotation: [-Math.PI / 2, 0, 0],
-      // eslint-disable-next-line react/prop-types
-      position: [...position],
+      position: [...model.position],
       type: 'Dynamic',
       // onCollide: collisionHandler,
     }))
 
     useFrame(() => {
-      fireballApi.velocity.set(0, 0, -1)
+      fireballApi.at(0).rotation.set(0, 0, 0)
+      fireballApi.at(0).velocity.set(0, 0, -4)
+      fireballApi.at(1).rotation.set(0, 0, 0)
+      fireballApi.at(1).velocity.set(0, 0, -4)
+      fireballApi.at(2).rotation.set(0, 0, 0)
+      fireballApi.at(2).velocity.set(0, 0, -4)
     })
 
+    const [spawnLine] = useBox(() => ({
+      args: [6, 2, 0.2], // width, height, depth
+      position: [model.position.x, 0, model.position.z - 10],
+      // rotation: [-Math.PI / 2, 0, 0],
+      onCollide: (e) => {
+        if (e.body.constructor.name !== 'InstancedMesh') return
+        fireballApi.at(0).position.set(
+          // console.log(
+          game.lanes(game.laneGap)[Math.round(Math.random() * 2)],
+          // eslint-disable-next-line react/prop-types
+          0.1,
+          // eslint-disable-next-line react/prop-types
+          model.position.z - Math.random() * 4
+        )
+        fireballApi.at(1).position.set(
+          // console.log(
+          game.lanes(game.laneGap)[Math.round(Math.random() * 2)],
+          // eslint-disable-next-line react/prop-types
+          0.1,
+          // eslint-disable-next-line react/prop-types
+          model.position.z - Math.random() * 4
+        )
+        fireballApi.at(2).position.set(
+          // console.log(
+          game.lanes(game.laneGap)[Math.round(Math.random() * 3)],
+          // eslint-disable-next-line react/prop-types
+          0.1,
+          // eslint-disable-next-line react/prop-types
+          model.position.z - Math.random() * 4
+        )
+      },
+    }))
+
     return (
-      <mesh>
-        <mesh ref={fireballMesh} position={position}>
+      <mesh ref={fireballRef}>
+        <instancedMesh ref={fireballMesh} args={[null, null, 3]}>
           <boxBufferGeometry args={[0.4, 0.4, 0.4]} />
+          <meshStandardMaterial />
+        </instancedMesh>
+        <mesh ref={spawnLine}>
+          <boxBufferGeometry args={[7.5, 0.1, 0.2]} />
           <meshStandardMaterial />
         </mesh>
       </mesh>
     )
   }
-
-  // const Fireballs = () => {
-
-  // }
 
   return (
     <mesh>
