@@ -1,3 +1,4 @@
+/* eslint-disable */
 import PropTypes from 'prop-types'
 import { useFrame } from '@react-three/fiber'
 import { useGLTF, Shadow, Text, useAnimations } from '@react-three/drei'
@@ -6,7 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Debug, useBox, useSphere } from '@react-three/cannon'
 import { useModelTransition } from '../../hooks'
 
-const Charizard = ({ page, setPage }) => {
+const Charizard = ({ page, setPage, setGameScore }) => {
   const [isActive, setIsActive] = useState(false)
   const gltf = useGLTF('./libs/charizard/scene.gltf')
 
@@ -62,7 +63,9 @@ const Charizard = ({ page, setPage }) => {
       rotation: [-Math.PI / 2, 0, 0],
       position: [...model.position],
       type: 'Dynamic',
-      // onCollide: collisionHandler,
+      onCollide: (e) => {
+        if (e.body.name === 'Pikachu') console.log('touched')
+      },
     }))
 
     useFrame(() => {
@@ -145,11 +148,13 @@ const Charizard = ({ page, setPage }) => {
 Charizard.defaultProps = {
   page: '',
   setPage: null,
+  setGameScreenData: null,
 }
 
 Charizard.propTypes = {
   page: PropTypes.string,
   setPage: PropTypes.func,
+  setGameScreenData: PropTypes.func,
 }
 
 export default Charizard

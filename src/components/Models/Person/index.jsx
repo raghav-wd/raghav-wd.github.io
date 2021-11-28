@@ -48,6 +48,7 @@ const Person = ({ page, setPage }) => {
 
   // Person movement animation ...
   useEffect(() => {
+    personMesh.current.name = 'Pikachu'
     if (page !== '') {
       // Detects person out of view ...
       const frustum = new THREE.Frustum()

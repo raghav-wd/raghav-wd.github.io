@@ -74,11 +74,11 @@ const Stage = () => {
           <Suspense fallback={null}>
             <AshKetchum />
             <AshWithFriends page={page} setPage={setPage} />
-            <Charizard page={page} setPage={setPage} />
             <HologramConsole page={page} setPage={setPage} />
+            <Charizard page={page} setPage={setPage} />
             <Person page={page} setPage={setPage} />
+            <Plane />
           </Suspense>
-          <Plane />
         </Physics>
       </Canvas>
       <Pages page={page} />
