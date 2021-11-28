@@ -11,9 +11,19 @@ export default function Model({ ...props }) {
   return (
     <group ref={group} {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]} />
-      <group position={[0, 17.53, -1.28]} rotation={[0, 0, -Math.PI / 2]} scale={[0.1, 20, 0.1]}>
-        <mesh geometry={nodes.Cylinder001_1.geometry} material={materials.elecpole1_ma} />
-        <mesh geometry={nodes.Cylinder001_2.geometry} material={materials['elecpole1_ma.000']} />
+      <group
+        position={[0, 17.53, -1.28]}
+        rotation={[0, 0, -Math.PI / 2]}
+        scale={[0.1, 20, 0.1]}
+      >
+        <mesh
+          geometry={nodes.Cylinder001_1.geometry}
+          material={materials.elecpole1_ma}
+        />
+        <mesh
+          geometry={nodes.Cylinder001_2.geometry}
+          material={materials['elecpole1_ma.000']}
+        />
       </group>
     </group>
   )

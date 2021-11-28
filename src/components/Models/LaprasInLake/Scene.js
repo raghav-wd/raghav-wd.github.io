@@ -17,7 +17,10 @@ export default function Model({ ...props }) {
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group scale={0.01}>
-            <mesh geometry={nodes.mesh_0.geometry} material={materials.material_0} />
+            <mesh
+              geometry={nodes.mesh_0.geometry}
+              material={materials.material_0}
+            />
           </group>
         </group>
       </group>
