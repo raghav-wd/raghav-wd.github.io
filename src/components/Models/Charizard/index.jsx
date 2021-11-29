@@ -7,8 +7,9 @@ import { useEffect, useRef, useState } from 'react'
 import { Debug, useBox, useSphere } from '@react-three/cannon'
 import { useModelTransition } from '../../hooks'
 
-const Charizard = ({ page, setPage, setGameScore }) => {
+const Charizard = ({ page, setPage, setIsLost }) => {
   const [isActive, setIsActive] = useState(false)
+
   const gltf = useGLTF('./libs/charizard/scene.gltf')
 
   const model = {
@@ -64,7 +65,10 @@ const Charizard = ({ page, setPage, setGameScore }) => {
       position: [...model.position],
       type: 'Dynamic',
       onCollide: (e) => {
-        if (e.body.name === 'Pikachu') console.log('touched')
+        if (e.body.name === 'Pikachu') {
+          console.log('collided')
+          setIsLost(true)
+        }
       },
     }))
 
@@ -84,7 +88,6 @@ const Charizard = ({ page, setPage, setGameScore }) => {
       onCollide: (e) => {
         if (e.body.constructor.name !== 'InstancedMesh') return
         fireballApi.at(0).position.set(
-          // console.log(
           game.lanes(game.laneGap)[Math.round(Math.random() * 2)],
           // eslint-disable-next-line react/prop-types
           0.1,
@@ -134,7 +137,9 @@ const Charizard = ({ page, setPage, setGameScore }) => {
         object={gltf.scene}
         dispose={null}
       />
-      <Fireball position={[model.position.x, 0.1, model.position.z - 1]} />
+      {isActive && (
+        <Fireball position={[model.position.x, 0.1, model.position.z - 1]} />
+      )}
       <Shadow
         position={[model.position.x, 0.001, model.position.z]}
         rotation-x={-Math.PI / 2}

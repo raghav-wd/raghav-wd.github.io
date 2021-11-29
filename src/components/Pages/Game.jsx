@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react/cjs/react.development'
 
-const Game = () => {
+// eslint-disable-next-line react/prop-types
+const Game = ({ isLost }) => {
   const [score, setScore] = useState(0)
   setTimeout(() => {
     setScore(score + 1)
@@ -8,7 +9,10 @@ const Game = () => {
 
   return (
     <div className="about-page-container">
-      <div className="page">Score: {score / 10}</div>
+      <div className="page">
+        <div>Score: {score / 10}</div>
+        <div>Progess: {isLost ? 'Lost' : 'keep'}</div>
+      </div>
     </div>
   )
 }

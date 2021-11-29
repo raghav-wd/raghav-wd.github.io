@@ -21,6 +21,7 @@ import '../../App.css'
 const Stage = () => {
   const pages = { skill: 'skills', hobbies: 'hobbies' }
   const [page, setPage] = useState('')
+  const [isLost, setIsLost] = useState(false)
 
   return (
     <div>
@@ -75,8 +76,8 @@ const Stage = () => {
             <AshKetchum />
             <AshWithFriends page={page} setPage={setPage} />
             <HologramConsole page={page} setPage={setPage} />
-            <Charizard page={page} setPage={setPage} />
-            <Person page={page} setPage={setPage} />
+            <Charizard page={page} setPage={setPage} setIsLost={setIsLost} />
+            <Person page={page} setPage={setPage} isLost={isLost} />
             <Plane />
           </Suspense>
         </Physics>
