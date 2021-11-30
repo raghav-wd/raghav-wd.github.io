@@ -69,67 +69,57 @@ const Charizard = ({ page, setPage, setIsLost }) => {
           console.log('collided')
           setIsLost(true)
         }
+        if (e.body.name === 'Respawn Line') {
+          fireballApi.position.set(
+            game.lanes(game.laneGap)[Math.round(Math.random() * 2)],
+            // eslint-disable-next-line react/prop-types
+            0.1,
+            // eslint-disable-next-line react/prop-types
+            model.position.z - Math.random() * 4
+          )
+        }
       },
     }))
 
     useFrame(() => {
-      fireballApi.at(0).rotation.set(0, 0, 0)
-      fireballApi.at(0).velocity.set(0, 0, -4)
-      fireballApi.at(1).rotation.set(0, 0, 0)
-      fireballApi.at(1).velocity.set(0, 0, -4)
-      fireballApi.at(2).rotation.set(0, 0, 0)
-      fireballApi.at(2).velocity.set(0, 0, -4)
+      fireballApi.rotation.set(0, 0, 0)
+      fireballApi.velocity.set(0, 0, -4)
     })
 
-    const [spawnLine] = useBox(() => ({
-      args: [6, 2, 0.2], // width, height, depth
-      position: [model.position.x, 0, model.position.z - 10],
-      // rotation: [-Math.PI / 2, 0, 0],
-      onCollide: (e) => {
-        if (e.body.constructor.name !== 'InstancedMesh') return
-        fireballApi.at(0).position.set(
-          game.lanes(game.laneGap)[Math.round(Math.random() * 2)],
-          // eslint-disable-next-line react/prop-types
-          0.1,
-          // eslint-disable-next-line react/prop-types
-          model.position.z - Math.random() * 4
-        )
-        fireballApi.at(1).position.set(
-          // console.log(
-          game.lanes(game.laneGap)[Math.round(Math.random() * 2)],
-          // eslint-disable-next-line react/prop-types
-          0.1,
-          // eslint-disable-next-line react/prop-types
-          model.position.z - Math.random() * 4
-        )
-        fireballApi.at(2).position.set(
-          // console.log(
-          game.lanes(game.laneGap)[Math.round(Math.random() * 3)],
-          // eslint-disable-next-line react/prop-types
-          0.1,
-          // eslint-disable-next-line react/prop-types
-          model.position.z - Math.random() * 4
-        )
-      },
-    }))
+    useEffect(() => {
+      spawnLine.current.name = 'Respawn Line'
+      console.log(fireballApi)
+    }, [])
 
     return (
       <mesh ref={fireballRef}>
-        <instancedMesh ref={fireballMesh} args={[null, null, 3]}>
+        <mesh ref={fireballMesh}>
           <boxBufferGeometry args={[0.4, 0.4, 0.4]} />
-          <meshStandardMaterial />
-        </instancedMesh>
-        <mesh ref={spawnLine}>
-          <boxBufferGeometry args={[7.5, 0.1, 0.2]} />
           <meshStandardMaterial />
         </mesh>
       </mesh>
     )
   }
 
+  const [spawnLine] = useBox(() => ({
+    args: [6, 2, 0.2], // width, height, depth
+    position: [model.position.x, 0, model.position.z - 10],
+  }))
+
+  const Fireballs = () => {
+    const fireballs = [0, 1, 2, 3]
+    return fireballs.map(() => (
+      <Fireball position={[model.position.x, 0.1, model.position.z - 1]} />
+    ))
+  }
+
   return (
     <mesh>
       <mesh ref={plane} />
+      <mesh ref={spawnLine}>
+        <boxBufferGeometry args={[7.5, 0.1, 0.2]} />
+        <meshStandardMaterial />
+      </mesh>
       <primitive
         rotation={[...model.rotation]}
         position={[...model.position]}
@@ -137,9 +127,7 @@ const Charizard = ({ page, setPage, setIsLost }) => {
         object={gltf.scene}
         dispose={null}
       />
-      {isActive && (
-        <Fireball position={[model.position.x, 0.1, model.position.z - 1]} />
-      )}
+      {isActive && <Fireballs />}
       <Shadow
         position={[model.position.x, 0.001, model.position.z]}
         rotation-x={-Math.PI / 2}
