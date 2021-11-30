@@ -14,6 +14,7 @@ import {
   Piano,
   Charizard,
   PokemonBadges,
+  Projects,
 } from '../Models'
 import Pages from '../Pages'
 import '../../App.css'
@@ -58,6 +59,7 @@ const Stage = () => {
           <Juice />
           <Piano />
           <LaprasInLake />
+          <Projects />
           {/* <PokemonBadges /> */}
         </Suspense>
         <Physics

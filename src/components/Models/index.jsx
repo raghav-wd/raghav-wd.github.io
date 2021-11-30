@@ -8,6 +8,7 @@ import LaprasInLake from './LaprasInLake'
 import Person from './Person'
 import Piano from './Piano'
 import PokemonBadges from './PokemonBadges'
+import Projects from './Projects'
 import Skybox from './Skybox'
 import Trees from './Trees'
 
@@ -23,6 +24,7 @@ export {
   Person,
   Piano,
   PokemonBadges,
+  Projects,
   Trees,
   Skybox,
 }
