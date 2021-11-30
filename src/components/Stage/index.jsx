@@ -27,6 +27,7 @@ const Stage = () => {
     <div>
       <Canvas
         dpr={[1, 2]}
+        mode="concurrent"
         camera={{ fov: 50, position: [0, 0.1, -10] }}
         style={{ height: '100vh', width: '100%' }}
       >
@@ -54,9 +55,9 @@ const Stage = () => {
         <Suspense fallback={null}>
           <Trees />
           <Skybox />
-          {/* <Juice />
+          <Juice />
           <Piano />
-          <LaprasInLake /> */}
+          <LaprasInLake />
           {/* <PokemonBadges /> */}
         </Suspense>
         <Physics
@@ -73,12 +74,10 @@ const Stage = () => {
           gravity={[0, -40, 0]}
         >
           <Suspense fallback={null}>
-            <Debug>
-              <AshKetchum />
-            </Debug>
-            {/* <AshWithFriends page={page} setPage={setPage} />
+            <AshKetchum />
+            <AshWithFriends page={page} setPage={setPage} />
             <HologramConsole page={page} setPage={setPage} />
-            <Charizard page={page} setPage={setPage} setIsLost={setIsLost} /> */}
+            <Charizard page={page} setPage={setPage} setIsLost={setIsLost} />
             <Person page={page} setPage={setPage} />
             <Plane />
           </Suspense>

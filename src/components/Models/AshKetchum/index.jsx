@@ -59,6 +59,10 @@ const AshKetchum = () => {
       >
         Rock&apos;n Roll
       </Text>
+      <mesh position={[model.position.x - 2, 0, model.position.z]}>
+        <boxBufferGeometry args={[0.05, 0.05, 4]} />
+        <meshStandardMaterial />
+      </mesh>
       <primitive
         ref={ref}
         rotation={[...model.rotation]}
