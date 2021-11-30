@@ -77,12 +77,12 @@ const Stage = () => {
             <AshWithFriends page={page} setPage={setPage} />
             <HologramConsole page={page} setPage={setPage} />
             <Charizard page={page} setPage={setPage} setIsLost={setIsLost} />
-            <Person page={page} setPage={setPage} isLost={isLost} />
+            <Person page={page} setPage={setPage} />
             <Plane />
           </Suspense>
         </Physics>
       </Canvas>
-      <Pages page={page} />
+      <Pages page={page} isLost={isLost} setIsLost={setIsLost} />
     </div>
   )
 }

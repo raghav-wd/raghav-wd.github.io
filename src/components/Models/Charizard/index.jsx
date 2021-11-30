@@ -24,11 +24,12 @@ const Charizard = ({ page, setPage, setIsLost }) => {
 
   const game = {
     playArea: new THREE.Vector3(11, 0, 11),
-    laneGap: 1,
+    laneGap: 0.9,
     lanes(laneGap) {
       return [
         model.position.x - 2 * laneGap,
         model.position.x - laneGap,
+        model.position.x,
         model.position.x + laneGap,
         model.position.x + 2 * laneGap,
       ]
@@ -57,7 +58,10 @@ const Charizard = ({ page, setPage, setIsLost }) => {
 
   // eslint-disable-next-line react/prop-types
   const Fireball = () => {
+    const { nodes, materials } = useGLTF('./libs/fireball_vfx/scene.gltf')
     const fireballRef = useRef(null)
+    const fb = useRef(null)
+    const fireballShadow = useRef(null)
     const [fireballMesh, fireballApi] = useBox(() => ({
       mass: 1,
       args: [0.2, 0.2, 0.2],
@@ -71,7 +75,7 @@ const Charizard = ({ page, setPage, setIsLost }) => {
         }
         if (e.body.name === 'Respawn Line') {
           fireballApi.position.set(
-            game.lanes(game.laneGap)[Math.round(Math.random() * 2)],
+            game.lanes(game.laneGap)[Math.round(Math.random() * 3)],
             // eslint-disable-next-line react/prop-types
             0.1,
             // eslint-disable-next-line react/prop-types
@@ -84,19 +88,47 @@ const Charizard = ({ page, setPage, setIsLost }) => {
     useFrame(() => {
       fireballApi.rotation.set(0, 0, 0)
       fireballApi.velocity.set(0, 0, -4)
+      fb.current.rotation.z -= 0.1
+      fireballMesh.current.getWorldPosition(fireballShadow.current.position)
+      fireballShadow.current.position.y = -0.17
     })
 
     useEffect(() => {
       spawnLine.current.name = 'Respawn Line'
-      console.log(fireballApi)
+      fireballRef.current.position.y = 0.19
     }, [])
 
     return (
       <mesh ref={fireballRef}>
-        <mesh ref={fireballMesh}>
-          <boxBufferGeometry args={[0.4, 0.4, 0.4]} />
-          <meshStandardMaterial />
-        </mesh>
+        <group ref={fireballMesh} scale={0.4} dispose={null}>
+          <group ref={fb} rotation={[-Math.PI / 2, 0, 0]}>
+            <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
+              <group rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 100]}>
+                <mesh
+                  geometry={nodes['����������_����������������_0'].geometry}
+                  material={materials.material}
+                />
+              </group>
+              <group
+                rotation={[-Math.PI / 2, 0, 0]}
+                scale={[90.48, 90.48, 90.48]}
+              >
+                <mesh
+                  geometry={
+                    nodes['����������001_����������������001_0'].geometry
+                  }
+                  material={materials['.001']}
+                />
+              </group>
+            </group>
+          </group>
+        </group>
+        <Shadow
+          ref={fireballShadow}
+          rotation-x={-Math.PI / 2}
+          scale={1}
+          opacity={0.12}
+        />
       </mesh>
     )
   }

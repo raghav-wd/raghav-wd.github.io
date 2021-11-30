@@ -1,0 +1,11 @@
+Model Information:
+* title:	Fireball vfx
+* source:	https://sketchfab.com/3d-models/fireball-vfx-911322f594b2480e8c3f9d49ff7619c6
+* author:	Animegod (https://sketchfab.com/Himiko2355)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Fireball vfx" (https://sketchfab.com/3d-models/fireball-vfx-911322f594b2480e8c3f9d49ff7619c6) by Animegod (https://sketchfab.com/Himiko2355) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
