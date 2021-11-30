@@ -17,6 +17,8 @@ const Person = ({ page, setPage }) => {
   const velocity = useRef([0, 0, 0])
 
   const personShadowRef = useRef(null)
+  const personLight = useRef(null)
+
   const { camera } = useThree()
   const { forward, backward, left, right, jump } = usePersonControls()
 
@@ -99,6 +101,9 @@ const Person = ({ page, setPage }) => {
     personShadowRef.current.position.z = personRef.current.position.z
     api.velocity.set(direction.x, velocity.current[1], direction.z)
 
+    personRef.current.getWorldPosition(personLight.current.position)
+    personLight.current.position.z += -1
+
     // Adding lerp rotation to person model ...
     personRef.current.rotation.y = THREE.MathUtils.lerp(
       personRef.current.rotation.y,
@@ -130,6 +135,7 @@ const Person = ({ page, setPage }) => {
   return (
     <mesh>
       <mesh ref={personMesh} />
+      <pointLight ref={personLight} intensity={0.2} />
       <primitive
         scale={0.6}
         ref={personRef}

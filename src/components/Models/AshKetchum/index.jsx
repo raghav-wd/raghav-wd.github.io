@@ -1,11 +1,12 @@
 import * as THREE from 'three'
-import { useEffect, useState } from 'react'
-import { useGLTF, Text, useAnimations } from '@react-three/drei'
+import { useEffect, useState, useRef } from 'react'
+import { useGLTF, Text, useAnimations, Shadow } from '@react-three/drei'
 import { useBox } from '@react-three/cannon'
 import BillboardHoarding from '../BillboardHoarding'
 
 const AshKetchum = () => {
   const [isActive, setIsActive] = useState(false)
+  const ashShadow = useRef(null)
   const gltf = useGLTF('./libs/ash_ketchum/scene.gltf')
   const { ref, actions } = useAnimations(gltf.animations)
 
@@ -15,30 +16,20 @@ const AshKetchum = () => {
     rotation: new THREE.Vector3(0, -Math.PI / 2, 0),
   }
 
-  const collisionHandler = () => {
-    setIsActive(true)
-  }
-
-  const collisionHandlerLeave = () => {
-    setIsActive(false)
-  }
-
-  const [mesh] = useBox(() => ({
+  const [activateMesh] = useBox(() => ({
     args: [4, 4, 0.0002],
     rotation: [-Math.PI / 2, 0, 0],
     position: [...model.position],
-    onCollide: collisionHandler,
-  }))
-
-  const [outerPlane] = useBox(() => ({
-    args: [1, 1, 0.0001],
-    rotation: [-Math.PI / 2, 0, 0],
-    position: [model.position.x - 2, model.position.y, model.position.z],
-    onCollide: collisionHandlerLeave,
+    onCollide: (e) => {
+      if (e.body.name === 'Pikachu') {
+        setIsActive(true)
+      }
+    },
   }))
 
   useEffect(() => {
     actions.laying_idle.play()
+    activateMesh.current.name = 'Ash actmesh'
   }, [])
 
   useEffect(() => {
@@ -46,28 +37,19 @@ const AshKetchum = () => {
       actions.laying_idle.reset().fadeOut(model.blendDuration)
       actions.gangnam_style.play()
     }
-    // else {
-    //   actions.gangnam_style.reset().fadeOut(model.blendDuration)
-    //   actions.laying_idle.play()
-    // }
   }, [isActive])
 
   return (
     <mesh>
-      {/* <mesh position={[...model.position]} rotation={[...model.rotation]}>
-        <boxBufferGeometry args={[3.6, 0.01, 3.6]} />
-        <meshBasicMaterial color="white" wireframe />
-      </mesh> */}
       <BillboardHoarding
-        position={[model.position.x, 0, model.position.z + 2]}
+        position={[model.position.x, 0, model.position.z + 3]}
         scale={0.2}
         rotation={[...model.rotation]}
       />
-      <mesh ref={mesh} />
-      <mesh ref={outerPlane} />
+      <mesh ref={activateMesh} />
       <Text
         color="#212121"
-        position={[model.position.x - 0.2, 1.5, model.position.z + 1.8]}
+        position={[model.position.x - 0.2, 1.5, model.position.z + 2.8]}
         fontSize={0.2}
         letterSpacing={0.2}
         fillOpacity={0}
@@ -83,6 +65,13 @@ const AshKetchum = () => {
         position={[...model.position]}
         object={gltf.scene}
         dispose={null}
+      />
+      <Shadow
+        ref={ashShadow}
+        position={[...model.position]}
+        rotation-x={-Math.PI / 2}
+        scale={1}
+        opacity={0.08}
       />
     </mesh>
   )

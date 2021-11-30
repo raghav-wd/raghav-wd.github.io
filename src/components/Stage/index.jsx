@@ -1,6 +1,6 @@
 import React, { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Physics, usePlane } from '@react-three/cannon'
+import { Physics, usePlane, Debug } from '@react-three/cannon'
 import { Stats, Text, OrbitControls } from '@react-three/drei'
 import {
   Person,
@@ -54,9 +54,9 @@ const Stage = () => {
         <Suspense fallback={null}>
           <Trees />
           <Skybox />
-          <Juice />
+          {/* <Juice />
           <Piano />
-          <LaprasInLake />
+          <LaprasInLake /> */}
           {/* <PokemonBadges /> */}
         </Suspense>
         <Physics
@@ -73,10 +73,12 @@ const Stage = () => {
           gravity={[0, -40, 0]}
         >
           <Suspense fallback={null}>
-            <AshKetchum />
-            <AshWithFriends page={page} setPage={setPage} />
+            <Debug>
+              <AshKetchum />
+            </Debug>
+            {/* <AshWithFriends page={page} setPage={setPage} />
             <HologramConsole page={page} setPage={setPage} />
-            <Charizard page={page} setPage={setPage} setIsLost={setIsLost} />
+            <Charizard page={page} setPage={setPage} setIsLost={setIsLost} /> */}
             <Person page={page} setPage={setPage} />
             <Plane />
           </Suspense>
