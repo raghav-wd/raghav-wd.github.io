@@ -23,13 +23,17 @@ const Projects = () => {
       </group>
     )
   }
-  const musifireTexture = useTexture('./projects/musifire.jpg')
-  const skimaTexture = useTexture('./projects/skima.jpg')
-  const portfolioTexture = useTexture('./projects/portfolio.jpg')
-  const boyWithSkyTexture = useTexture('./projects/boy_with_sky.jpg')
+
+  const [musifireTexture, skimaTexture, portfolioTexture, boyWithSkyTexture] =
+    useTexture([
+      './projects/musifire.jpg',
+      './projects/skima.jpg',
+      './projects/portfolio.jpg',
+      './projects/boy_with_sky.jpg',
+    ])
 
   return (
-    <group>
+    <group position={[-10, 0, 0]}>
       <Billboard
         texture={musifireTexture}
         position={[0, 0.9, 0]}
