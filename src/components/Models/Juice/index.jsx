@@ -7,7 +7,7 @@ const Juice = () => {
   const squirtle = useGLTF('./libs/squirtle/scene.gltf')
 
   const model = {
-    position: new THREE.Vector3(10, 1.2, 20),
+    position: new THREE.Vector3(10, 1.2, 22),
     rotation: new THREE.Vector3(0, -Math.PI / 1.4, 0),
   }
 
@@ -42,7 +42,7 @@ const Juice = () => {
       />
       <Text
         color="#212121"
-        position={[model.position.x + 2, 1.5, model.position.z - 7.2]}
+        position={[model.position.x + 2, 1.5, model.position.z - 2.2]}
         fontSize={0.2}
         letterSpacing={0.2}
         fillOpacity={0}
@@ -53,7 +53,7 @@ const Juice = () => {
         Hobbies
       </Text>
       <BillboardHoarding
-        position={[model.position.x + 2, 0, model.position.z - 7]}
+        position={[model.position.x + 2, 0, model.position.z - 2]}
         scale={0.2}
         rotation={[...model.rotation]}
       />
