@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react/cjs/react.development'
+import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import './game.css'
 
-// eslint-disable-next-line react/prop-types
 const Game = ({ isLost, setIsLost }) => {
   const [score, setScore] = useState(0)
   let scoreBoardTimer = setTimeout(() => {
@@ -9,7 +9,6 @@ const Game = ({ isLost, setIsLost }) => {
   }, 100)
 
   useEffect(() => {
-    console.log('Score: ', score)
     clearTimeout(scoreBoardTimer)
     scoreBoardTimer = 0
   }, [isLost])
@@ -30,4 +29,15 @@ const Game = ({ isLost, setIsLost }) => {
     </div>
   )
 }
+
+Game.defaultProps = {
+  isLost: false,
+  setIsLost: null,
+}
+
+Game.propTypes = {
+  isLost: PropTypes.bool,
+  setIsLost: PropTypes.func,
+}
+
 export default Game

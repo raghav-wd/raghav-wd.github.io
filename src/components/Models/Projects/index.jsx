@@ -1,5 +1,5 @@
 import { useTexture } from '@react-three/drei'
-import { useEffect, useRef } from 'react/cjs/react.development'
+import { useEffect, useRef } from 'react'
 
 const Projects = () => {
   // eslint-disable-next-line react/prop-types

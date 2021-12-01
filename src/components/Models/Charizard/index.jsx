@@ -1,4 +1,3 @@
-/* eslint-disable */
 import PropTypes from 'prop-types'
 import { useFrame } from '@react-three/fiber'
 import { useGLTF, Shadow, Text, useAnimations } from '@react-three/drei'
@@ -47,7 +46,9 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
     onCollide: (e) => {
       try {
         if (e.body.name === 'Pikachu') collisionHandler()
-      } catch (e) {}
+      } catch (exception) {
+        // empty
+      }
     },
   }))
 
@@ -101,7 +102,6 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
     })
 
     useEffect(() => {
-      rearSpawnLine.current.name = 'Respawn Line'
       fireballRef.current.position.y = 0.19
     }, [])
 
@@ -202,6 +202,10 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
     }
   }, [isActive, isLost])
 
+  useEffect(() => {
+    rearSpawnLine.current.name = 'Respawn Line'
+  }, [])
+
   const Fireballs = () => {
     const fireballs = [0, 1, 2, 3]
     return fireballs.map(() => (
@@ -253,13 +257,15 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
 Charizard.defaultProps = {
   page: '',
   setPage: null,
-  setGameScreenData: null,
+  isLost: false,
+  setIsLost: null,
 }
 
 Charizard.propTypes = {
   page: PropTypes.string,
   setPage: PropTypes.func,
-  setGameScreenData: PropTypes.func,
+  isLost: PropTypes.bool,
+  setIsLost: PropTypes.func,
 }
 
 export default Charizard
