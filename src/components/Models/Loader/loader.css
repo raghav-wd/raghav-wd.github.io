@@ -1,0 +1,178 @@
+body {
+  background-color: #cddc39;
+}
+
+.loader {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes blur {
+  0% {
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+  }
+  50% {
+    -webkit-filter: blur(1px);
+    filter: blur(1px);
+  }
+  100% {
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+  }
+}
+
+#top1 {
+  transform-origin: bottom center;
+  animation: move_top1 ease-out 1.2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes move_top1 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-1.5%, -25%) scale(1.3) rotate(-0.5deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+#top2 {
+  transform-origin: bottom left;
+  animation: move_top2 ease-out 1.2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes move_top2 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-10%, 1%) scale(1.1) rotate(-2.1deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+#bottom1 {
+  transform-origin: top center;
+  animation: move_bottom1 ease-out 1.2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes move_bottom1 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(0%, 45%) scale(1.3) rotate(0deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+#bottom2 {
+  transform-origin: top left;
+  animation: move_bottom2 ease-out 1.2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes move_bottom2 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(38%, 1%) scale(1.3) rotate(-3.5deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+#bottom3 {
+  transform-origin: top right;
+  animation: move_bottom3 ease-out 1.2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes move_bottom3 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(12%, 5%) scale(1.1) rotate(-1deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+#bottom4 {
+  transform-origin: top left;
+  animation: move_bottom4 ease-out 1.2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes move_bottom4 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-12%, 5%) scale(1.1) rotate(0deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+#Ebene_1 {
+  width: 300px;
+  animation: animationFrames ease-in-out 1.2s;
+  animation-delay: 0.05s;
+  animation-iteration-count: infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes animationFrames {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-720deg);
+  }
+}
+
+/* Circle Rulers
+.centerWrapper:before {
+  display: block;
+  content: '';
+  width: 280px;
+  height: 280px;
+  border-radius: 100%;
+  border: 1px solid red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.centerWrapper:after {
+  display: block;
+  content: '';
+  width: 180px;
+  height: 180px;
+  border-radius: 100%;
+  border: 1px solid red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+*/

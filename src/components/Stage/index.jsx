@@ -10,72 +10,68 @@ import {
   AshKetchum,
   AshWithFriends,
   LaprasInLake,
+  Loader,
   Juice,
   Piano,
   Charizard,
-  PokemonBadges,
   Projects,
 } from '../Models'
 import Pages from '../Pages'
 import '../../App.css'
 
 const Stage = () => {
-  const pages = { skill: 'skills', hobbies: 'hobbies' }
   const [page, setPage] = useState('')
   const [isLost, setIsLost] = useState(false)
 
   return (
     <div>
-      <Canvas
-        dpr={[1, 2]}
-        mode="concurrent"
-        camera={{ fov: 50, position: [0, 0.1, -10] }}
-        style={{ height: '100vh', width: '100%' }}
-      >
-        <Stats
-          showPanel={0} // Start-up panel (default=0)
-          className="stats" // Optional className to add to the stats container dom element
-        />
-        {/* <OrbitControls target={[-8, 0, 16]} /> */}
-        <fog attach="fog" args={['#ddddff', 0, 120]} />
-        <Text
-          color="white"
-          position={[0, 0.001, -2]}
-          fontSize={0.2}
-          letterSpacing={0.2}
-          fillOpacity={0}
-          outlineColor="white"
-          outlineWidth={0.01}
-          rotation={[Math.PI / 2, Math.PI, 0]}
+      <Suspense fallback={<Loader />}>
+        <Canvas
+          dpr={[1, 2]}
+          mode="concurrent"
+          camera={{ fov: 50, position: [0, 0.1, -10] }}
+          style={{ height: '100vh', width: '100%' }}
         >
-          Let&apos;s Go!
-        </Text>
-        <ambientLight />
-        <axesHelper args={[100]} />
-        <pointLight position={[-5, 10, -2]} intensity={2} />
-        <Suspense fallback={null}>
+          <pointLight position={[-5, 10, -2]} intensity={2} />
+          <Stats
+            showPanel={0} // Start-up panel (default=0)
+            className="stats" // Optional className to add to the stats container dom element
+          />
+          {/* <OrbitControls target={[-8, 0, 16]} />
+          <axesHelper args={[100]} /> */}
+          <fog attach="fog" args={['#ddddff', 0, 120]} />
+          <Text
+            color="white"
+            position={[0, 0.001, -2]}
+            fontSize={0.2}
+            letterSpacing={0.2}
+            fillOpacity={0}
+            outlineColor="white"
+            outlineWidth={0.01}
+            rotation={[Math.PI / 2, Math.PI, 0]}
+          >
+            Let&apos;s Go!
+          </Text>
+          <ambientLight />
           <Trees />
           <Skybox />
           <Juice />
           <Piano />
           <LaprasInLake />
           <Projects />
-          {/* <PokemonBadges /> */}
-        </Suspense>
-        <Physics
-          iterations={20}
-          tolerance={0.0001}
-          defaultContactMaterial={{
-            friction: 0,
-            restitution: 0.7,
-            contactEquationStiffness: 1e7,
-            contactEquationRelaxation: 1,
-            frictionEquationStiffness: 1e7,
-            frictionEquationRelaxation: 2,
-          }}
-          gravity={[0, -40, 0]}
-        >
-          <Suspense fallback={null}>
+          <Physics
+            iterations={20}
+            tolerance={0.0001}
+            defaultContactMaterial={{
+              friction: 0,
+              restitution: 0.7,
+              contactEquationStiffness: 1e7,
+              contactEquationRelaxation: 1,
+              frictionEquationStiffness: 1e7,
+              frictionEquationRelaxation: 2,
+            }}
+            gravity={[0, -40, 0]}
+          >
             <AshKetchum />
             <AshWithFriends page={page} setPage={setPage} />
             <HologramConsole page={page} setPage={setPage} />
@@ -87,9 +83,10 @@ const Stage = () => {
             />
             <Person page={page} setPage={setPage} />
             <Plane />
-          </Suspense>
-        </Physics>
-      </Canvas>
+          </Physics>
+          {/* </Suspense> */}
+        </Canvas>
+      </Suspense>
       <Pages page={page} isLost={isLost} setIsLost={setIsLost} />
     </div>
   )

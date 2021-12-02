@@ -5,6 +5,7 @@ import Charizard from './Charizard'
 import HologramConsole from './HologramConsole'
 import Juice from './Juice'
 import LaprasInLake from './LaprasInLake'
+import Loader from './Loader'
 import Person from './Person'
 import Piano from './Piano'
 import PokemonBadges from './PokemonBadges'
@@ -21,6 +22,7 @@ export {
   HologramConsole,
   Juice,
   LaprasInLake,
+  Loader,
   Person,
   Piano,
   PokemonBadges,
