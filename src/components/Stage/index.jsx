@@ -1,20 +1,20 @@
 import React, { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Physics, usePlane } from '@react-three/cannon'
-import { Stats, Text, OrbitControls, Preload, Html } from '@react-three/drei'
+import { Stats, Text, OrbitControls, Preload } from '@react-three/drei'
 import {
-  Person,
-  HologramConsole,
-  Skybox,
-  Trees,
   AshKetchum,
   AshWithFriends,
+  Charizard,
+  HologramConsole,
+  Juice,
   LaprasInLake,
   Loader,
-  Juice,
+  Person,
   Piano,
-  Charizard,
   Projects,
+  SideProps,
+  Skybox,
 } from '../Models'
 import Pages from '../Pages'
 import '../../App.css'
@@ -55,7 +55,7 @@ const Stage = () => {
             Let&apos;s Go!
           </Text>
           <ambientLight />
-          <Trees />
+          <SideProps />
           <Skybox />
           <Juice />
           <Piano />

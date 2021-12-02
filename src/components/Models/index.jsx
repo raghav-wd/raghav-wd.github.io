@@ -10,8 +10,8 @@ import Person from './Person'
 import Piano from './Piano'
 import PokemonBadges from './PokemonBadges'
 import Projects from './Projects'
+import SideProps from './SideProps'
 import Skybox from './Skybox'
-import Trees from './Trees'
 
 export default null
 export {
@@ -27,6 +27,6 @@ export {
   Piano,
   PokemonBadges,
   Projects,
-  Trees,
+  SideProps,
   Skybox,
 }
