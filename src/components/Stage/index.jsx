@@ -1,7 +1,7 @@
 import React, { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Physics, usePlane } from '@react-three/cannon'
-import { Stats, Text, OrbitControls } from '@react-three/drei'
+import { Stats, Text, OrbitControls, Preload, Html } from '@react-three/drei'
 import {
   Person,
   HologramConsole,
@@ -25,13 +25,15 @@ const Stage = () => {
 
   return (
     <div>
-      <Suspense fallback={<Loader />}>
-        <Canvas
-          dpr={[1, 2]}
-          mode="concurrent"
-          camera={{ fov: 50, position: [0, 0.1, -10] }}
-          style={{ height: '100vh', width: '100%' }}
-        >
+      {/* <Suspense fallback={<Loader />}> */}
+      <Canvas
+        dpr={[1, 2]}
+        mode="concurrent"
+        frameloop="demand"
+        camera={{ fov: 50, position: [0, 0.1, -10] }}
+        style={{ height: '100vh', width: '100%' }}
+      >
+        <Suspense fallback={<Loader />}>
           <pointLight position={[-5, 10, -2]} intensity={2} />
           <Stats
             showPanel={0} // Start-up panel (default=0)
@@ -84,8 +86,9 @@ const Stage = () => {
             <Person page={page} setPage={setPage} />
             <Plane />
           </Physics>
-        </Canvas>
-      </Suspense>
+          <Preload all />
+        </Suspense>
+      </Canvas>
       <Pages page={page} isLost={isLost} setIsLost={setIsLost} />
     </div>
   )

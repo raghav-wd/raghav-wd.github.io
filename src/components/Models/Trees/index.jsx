@@ -1,8 +1,10 @@
 import { useGLTF, Shadow } from '@react-three/drei'
+import { useLoader } from '@react-three/fiber'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const Trees = () => {
   const RandTree = () => {
-    const { nodes, materials } = useGLTF('./libs/tree/scene.gltf')
+    const { nodes, materials } = useLoader(GLTFLoader, './libs/tree/scene.gltf')
     const randCord = () => {
       const r = 50
       const θ = 1 * Math.PI * Math.random() - Math.PI / 2
@@ -33,7 +35,10 @@ const Trees = () => {
   }
   // eslint-disable-next-line react/prop-types
   const ElectricPole = ({ x }) => {
-    const { nodes, materials } = useGLTF('./libs/electricpole/scene.gltf')
+    const { nodes, materials } = useLoader(
+      GLTFLoader,
+      './libs/electricpole/scene.gltf'
+    )
 
     return (
       <group position={[x, 0, 50]} scale={0.26} dispose={null}>
@@ -59,7 +64,8 @@ const Trees = () => {
   }
 
   const RandGrass = () => {
-    const { nodes } = useGLTF(
+    const { nodes } = useLoader(
+      GLTFLoader,
       './libs/low_poly_trees_grass_and_rocks/scene.gltf'
     )
     const randCord = () => {
@@ -94,7 +100,8 @@ const Trees = () => {
   }
 
   const RandRock = () => {
-    const { nodes } = useGLTF(
+    const { nodes } = useLoader(
+      GLTFLoader,
       './libs/low_poly_trees_grass_and_rocks/scene.gltf'
     )
     const randCord = () => {

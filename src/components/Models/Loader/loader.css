@@ -10,6 +10,14 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.progress-text {
+  width: 100%;
+  line-height: 2em;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+}
+
 @keyframes blur {
   0% {
     -webkit-filter: blur(0px);
