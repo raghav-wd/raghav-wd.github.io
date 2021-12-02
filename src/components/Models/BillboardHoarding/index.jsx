@@ -1,9 +1,14 @@
 import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import { useLoader } from '@react-three/fiber'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 export default function BillboardHoarding({ ...props }) {
   const group = useRef()
-  const { nodes, materials } = useGLTF('./libs/billboard_hoarding/scene.gltf')
+  const { nodes, materials } = useLoader(
+    GLTFLoader,
+    './libs/billboard_hoarding/scene.gltf'
+  )
+
   return (
     <group ref={group} {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
@@ -112,4 +117,8 @@ export default function BillboardHoarding({ ...props }) {
   )
 }
 
-useGLTF.preload('/scene.gltf')
+/*
+Preloading assets
+https://docs.pmnd.rs/react-three-fiber/API/hooks#pre-loading-assets
+*/
+useLoader.preload(GLTFLoader, './libs/billboard_hoarding/scene.gltf')

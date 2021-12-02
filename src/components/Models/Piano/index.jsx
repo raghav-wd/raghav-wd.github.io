@@ -1,9 +1,11 @@
 import * as THREE from 'three'
-import { useGLTF, Shadow } from '@react-three/drei'
+import { useLoader } from '@react-three/fiber'
+import { Shadow } from '@react-three/drei'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 const Piano = () => {
-  const gltf = useGLTF('./libs/chunky_synth/scene.gltf')
-  const jigglypuff = useGLTF('./libs/jigllypuff/scene.gltf')
+  const gltf = useLoader(GLTFLoader, './libs/chunky_synth/scene.gltf')
+  const jigglypuff = useLoader(GLTFLoader, './libs/jigllypuff/scene.gltf')
 
   const model = {
     position: new THREE.Vector3(12, 0.2, 14),
@@ -42,5 +44,12 @@ const Piano = () => {
     </mesh>
   )
 }
+
+/*
+Preloading assets
+https://docs.pmnd.rs/react-three-fiber/API/hooks#pre-loading-assets
+*/
+useLoader.preload(GLTFLoader, './libs/chunky_synth/scene.gltf')
+useLoader.preload(GLTFLoader, './libs/jigllypuff/scene.gltf')
 
 export default Piano

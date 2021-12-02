@@ -1,19 +1,15 @@
 import { useState, useEffect } from 'react'
-import { useSpring, animated, useTransition } from 'react-spring'
+import { useSpring, animated } from 'react-spring'
+import './index.css'
 
-const ControlsGuide = ({
-  // eslint-disable-next-line react/prop-types
-  activeControlIntroduction,
-  // eslint-disable-next-line react/prop-types
-  setActiveControlIntroduction,
-}) => {
+const ControlsGuide = () => {
   const [isActive, setIsActive] = useState(true)
   const fade = useSpring({
     opacity: isActive ? 1 : 0,
   })
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = () => {
       setIsActive(false)
     }
     document.addEventListener('keydown', handleKeyDown)

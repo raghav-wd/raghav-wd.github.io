@@ -1,10 +1,12 @@
 import * as THREE from 'three'
-import { useGLTF, Shadow, Text } from '@react-three/drei'
+import { useLoader } from '@react-three/fiber'
+import { Shadow, Text } from '@react-three/drei'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import BillboardHoarding from '../BillboardHoarding'
 
 const Juice = () => {
-  const gltf = useGLTF('./libs/juice_cup/scene.gltf')
-  const squirtle = useGLTF('./libs/squirtle/scene.gltf')
+  const gltf = useLoader(GLTFLoader, './libs/juice_cup/scene.gltf')
+  const squirtle = useLoader(GLTFLoader, './libs/squirtle/scene.gltf')
 
   const model = {
     position: new THREE.Vector3(10, 1.2, 22),
@@ -60,5 +62,13 @@ const Juice = () => {
     </mesh>
   )
 }
+
+/*
+Preloading assets
+https://docs.pmnd.rs/react-three-fiber/API/hooks#pre-loading-assets
+*/
+
+useLoader.preload(GLTFLoader, './libs/juice_cup/scene.gltf')
+useLoader.preload(GLTFLoader, './libs/squirtle/scene.gltf')
 
 export default Juice

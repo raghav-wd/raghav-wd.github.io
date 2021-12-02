@@ -1,0 +1,57 @@
+.ControlsIntroduction {
+  position: fixed;
+  width: 100%;
+  height: 130px;
+  bottom: 0;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.KeyboardGFX {
+  width: 61px;
+  height: 40px;
+}
+
+.ControlsWrapper {
+  position: relative;
+}
+
+.ControlsWrapper span {
+  position: absolute;
+  display: inline-block;
+}
+
+.ControlsTextForward {
+  text-align: center;
+  top: -16px;
+  left: 0;
+  width: 100%;
+  transform: translate3d(0, -100%, 0);
+}
+
+.ControlsTextBackward {
+  text-align: center;
+  bottom: -60px;
+  left: 0;
+  width: 100%;
+  transform: translate3d(0, -100%, 0);
+}
+
+.ControlsTextLeft {
+  top: 40px;
+  left: -50px;
+  transform: translate3d(0, -100%, 0);
+}
+
+.ControlsTextRight {
+  top: 40px;
+  left: 80px;
+  transform: translate3d(0, -100%, 0);
+}
+
+.KeyboardDescription {
+  text-align: center;
+  margin-top: 50px;
+  max-width: 500px;
+}

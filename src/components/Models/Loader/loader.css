@@ -1,21 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
 body {
   background-color: #cddc39;
 }
 
 .loader {
   position: absolute;
-  z-index: 3;
+  z-index: 2;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .progress-text {
+  position: absolute;
+  top: -35%;
   width: 100%;
   line-height: 2em;
+  font-weight: 800;
+  font-family: 'Orbitron', sans-serif;
   color: white;
   font-size: 2em;
   text-align: center;
+}
+
+/* Intro text */
+
+.intro-text {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  line-height: 6em;
+  font-weight: 800;
+  font-family: 'Orbitron', sans-serif;
+  color: white;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.one {
+  opacity: 0;
+  -webkit-animation: dot 1.3s infinite;
+  -webkit-animation-delay: 0s;
+  animation: dot 1.3s infinite;
+  animation-delay: 0s;
+}
+
+.two {
+  opacity: 0;
+  -webkit-animation: dot 1.3s infinite;
+  -webkit-animation-delay: 0.2s;
+  animation: dot 1.3s infinite;
+  animation-delay: 0.2s;
+}
+
+.three {
+  opacity: 0;
+  -webkit-animation: dot 1.3s infinite;
+  -webkit-animation-delay: 0.3s;
+  animation: dot 1.3s infinite;
+  animation-delay: 0.3s;
+}
+
+/* Pokeball logo */
+
+@-webkit-keyframes dot {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes dot {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes blur {
@@ -142,7 +212,7 @@ body {
 }
 
 #Ebene_1 {
-  width: 300px;
+  width: 250px;
   animation: animationFrames ease-in-out 1.2s;
   animation-delay: 0.05s;
   animation-iteration-count: infinite;

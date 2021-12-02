@@ -1,12 +1,20 @@
 import { Html, useProgress } from '@react-three/drei'
+import { useEffect } from 'react'
 import './loader.css'
 
+// eslint-disable-next-line react/prop-types
 const Loader = () => {
   const { progress } = useProgress()
+
   return (
     <Html>
       <div className="loader">
         <div className="progress-text">{Math.round(progress)}%</div>
+        <div className="intro-text">
+          Portfolio Loading<span className="one">.</span>
+          <span className="two">.</span>
+          <span className="three">.</span>
+        </div>
         <svg
           id="Ebene_1"
           version="1.1"
