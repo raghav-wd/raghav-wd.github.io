@@ -1,22 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import './game.css'
 
 const Game = ({ isLost, setIsLost }) => {
   const [score, setScore] = useState(0)
-  let scoreBoardTimer = setTimeout(() => {
-    if (!isLost) setScore(score + 1)
-  }, 100)
-
-  useEffect(() => {
-    clearTimeout(scoreBoardTimer)
-    scoreBoardTimer = 0
-  }, [isLost])
+  const countRef = useRef(null)
 
   useEffect(() => {
     setIsLost(false)
-    return () => setIsLost(false)
+    countRef.current = setInterval(() => {
+      setScore((s) => s + 1)
+    }, 100)
+    return () => {
+      setIsLost(false)
+      // clearTimeout(countRef.current)
+    }
   }, [])
+
+  useEffect(() => {
+    if (isLost) clearInterval(countRef.current)
+    // countRef.current = 0
+  }, [isLost])
 
   const addZero = (num) => (num % 1 === 0 ? `${num}.0` : num)
 

@@ -149,30 +149,3 @@ body {
     transform: rotate(-720deg);
   }
 }
-
-/* Circle Rulers
-.centerWrapper:before {
-  display: block;
-  content: '';
-  width: 280px;
-  height: 280px;
-  border-radius: 100%;
-  border: 1px solid red;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.centerWrapper:after {
-  display: block;
-  content: '';
-  width: 180px;
-  height: 180px;
-  border-radius: 100%;
-  border: 1px solid red;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-*/

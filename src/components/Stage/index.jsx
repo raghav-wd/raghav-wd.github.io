@@ -1,6 +1,6 @@
 import React, { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Physics, usePlane, Debug } from '@react-three/cannon'
+import { Physics, usePlane } from '@react-three/cannon'
 import { Stats, Text, OrbitControls } from '@react-three/drei'
 import {
   Person,
@@ -84,7 +84,6 @@ const Stage = () => {
             <Person page={page} setPage={setPage} />
             <Plane />
           </Physics>
-          {/* </Suspense> */}
         </Canvas>
       </Suspense>
       <Pages page={page} isLost={isLost} setIsLost={setIsLost} />
