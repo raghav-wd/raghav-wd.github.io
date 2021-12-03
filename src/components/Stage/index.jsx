@@ -1,7 +1,13 @@
 import React, { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Physics, usePlane } from '@react-three/cannon'
-import { Stats, Text, OrbitControls, Preload } from '@react-three/drei'
+import {
+  Stats,
+  Text,
+  OrbitControls,
+  Preload,
+  BakeShadows,
+} from '@react-three/drei'
 import {
   AshKetchum,
   AshWithFriends,
@@ -13,6 +19,7 @@ import {
   Person,
   Piano,
   Projects,
+  PokemonBadges,
   SideProps,
   Skybox,
 } from '../Models'
@@ -35,8 +42,8 @@ const Stage = () => {
         <Suspense fallback={<Loader />}>
           <pointLight position={[-5, 10, -2]} intensity={2} />
           <Stats showPanel={0} className="stats" />
-          {/* <OrbitControls target={[-8, 0, 16]} />
-          <axesHelper args={[100]} /> */}
+          <OrbitControls target={[-8, 0, 16]} />
+          {/* <axesHelper args={[100]} /> */}
           <fog attach="fog" args={['#ddddff', 0, 120]} />
           <Text
             color="white"
@@ -51,6 +58,7 @@ const Stage = () => {
             Let&apos;s Go!
           </Text>
           <ambientLight />
+          <PokemonBadges />
           <SideProps />
           <Skybox />
           <Juice />

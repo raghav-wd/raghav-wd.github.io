@@ -12,7 +12,7 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
   const gltf = useGLTF('./libs/charizard/scene.gltf')
 
   const model = {
-    position: new THREE.Vector3(-8, 0, 25),
+    position: new THREE.Vector3(-9, 0, 30),
     rotation: new THREE.Vector3(0, -Math.PI, 0),
     options: {
       focusOnPosition: new THREE.Vector3(-8, 0.4, 25),

@@ -1,17 +1,16 @@
-import PropTypes from 'prop-types'
 import { useGLTF, Shadow, Text } from '@react-three/drei'
 import * as THREE from 'three'
 import { useEffect, useState } from 'react'
-import { useSphere } from '@react-three/cannon'
-import { useModelTransition } from '../../hooks'
+import BillboardHoarding from '../BillboardHoarding'
 
-const PokemonBadges = ({ page, setPage }) => {
-  const [isActive, setIsActive] = useState(false)
-  const gltf = useGLTF('./libs/pokemon_badges/scene.gltf')
+const PokemonBadges = () => {
+  const gltf = useGLTF('./libs/pokemon_masters_cap/scene.gltf')
+  const [githubStats, setGithubStats] = useState('')
+  const [sketchfabStats, setSketchfabStats] = useState('')
 
   const model = {
-    position: new THREE.Vector3(-1, 0, 1),
-    rotation: new THREE.Vector3(0, Math.PI / 2, 0),
+    position: new THREE.Vector3(-16, 0, 10),
+    rotation: new THREE.Vector3(0, Math.PI, 0),
     options: {
       focusOnPosition: new THREE.Vector3(-1, 0.8, 1),
       animateToPosition: new THREE.Vector3(0, 2.4, 5),
@@ -19,82 +18,133 @@ const PokemonBadges = ({ page, setPage }) => {
     },
   }
 
-  const Billboard = () => {
-    const billboard = useGLTF('./libs/billboard_hoarding/scene.gltf')
-    return (
-      <mesh>
-        <Text
-          color="#212121"
-          position={[model.position.x + 0.1, 1.5, model.position.z - 3]}
-          fontSize={0.2}
-          letterSpacing={0.2}
-          fillOpacity={0}
-          outlineColor="#212121"
-          outlineWidth={0.01}
-          rotation={[model.rotation]}
-        >
-          Projects
-        </Text>
-        <primitive
-          rotation={[model.rotation]}
-          position={[model.position.x, 0, model.position.z - 3]}
-          scale={0.2}
-          object={billboard.scene}
-          dispose={null}
-        />
-      </mesh>
-    )
+  // Api data handlers...
+
+  const setGithubStatsHandler = (data) => {
+    const githubStat = `
+    Github@raghav-wd\n
+    Works at: ${data.company}
+    Repos: ${data.public_repos}
+    Followers: ${data.followers}
+    Location: ${data.location}
+    `
+    setGithubStats(githubStat)
   }
 
-  // const collisionHandler = () => {
-  //   setPage('skills')
-  // }
-  // const [mesh] = useSphere(() => ({
-  //   position: [...model.position],
-  //   type: 'Static',
-  //   args: [2.6],
-  //   onCollide: collisionHandler,
-  // }))
-  // useEffect(
-  //   () => (page === 'skills' ? setIsActive(true) : setIsActive(false)),
-  //   [page]
-  // )
+  const setSketchfabStatsHandler = (data) => {
+    const sketchfabStat = `
+    Sketchfab@raghav-wd\n
+    Likes: ${data.likes}
+    Views: ${data.views}
+    Followers: ${data.followers}
+    `
+    setSketchfabStats(sketchfabStat)
+  }
 
-  // useModelTransition(isActive, model.options)
+  useEffect(() => {
+    // Github api calls...
+    fetch('https://api.github.com/users/raghav-wd')
+      .then((res) => res.json())
+      .then((json) => setGithubStatsHandler(json))
+
+    // Sketchfab api calls...
+    let likes = 0
+    let views = 0
+    let followers = 0
+    const sum = (like, view) => {
+      likes += like
+      views += view
+    }
+
+    const dataHandler = (json) => {
+      followers = json.followerCount
+    }
+
+    // Waits until data from two sketchfab api endpoint returns
+    setTimeout(
+      () => setSketchfabStatsHandler({ likes, views, followers }),
+      2000
+    )
+
+    fetch('https://api.sketchfab.com/v3/me', {
+      headers: new Headers({
+        authorization: 'Token 51d0a31fb5c743548ad94cebe5c7a6cb',
+      }),
+    })
+      .then((res) => res.json())
+      .then((json) => dataHandler(json))
+
+    fetch('https://api.sketchfab.com/v3/me/models ', {
+      headers: new Headers({
+        authorization: 'Token 51d0a31fb5c743548ad94cebe5c7a6cb',
+      }),
+    })
+      .then((res) => res.json())
+      .then((json) => json.results.map((i) => sum(i.likeCount, i.viewCount)))
+  }, [])
 
   return (
     <mesh>
-      {/* <mesh position={[...model.position]} rotation={[...model.rotation]}>
-        <boxBufferGeometry args={[3.6, 0.5, 3.6]} />
+      <mesh position={[...model.position]} rotation={[...model.rotation]}>
+        <boxBufferGeometry args={[1.6, 0.5, 1.6]} />
         <meshStandardMaterial color="white" />
-      </mesh> */}
-      <Billboard />
-      {/* <mesh ref={mesh} /> */}
+      </mesh>
       <primitive
-        position={[model.position.x, 0.38, model.position.z]}
-        rotation={[...model.rotation]}
-        scale={1000}
+        position={[model.position.x, 0.3, model.position.z]}
+        rotation={[0, -Math.PI / 4, 0]}
+        scale={0.0005}
         object={gltf.scene}
         dispose={null}
       />
+      <BillboardHoarding
+        position={[model.position.x - 5, 0, model.position.z - 3]}
+        scale={0.2}
+        rotation={[...model.rotation]}
+      />
+      <Text
+        color="#212121"
+        position={[model.position.x - 5, 1.5, model.position.z - 3.3]}
+        fontSize={0.2}
+        letterSpacing={0.2}
+        fillOpacity={0}
+        outlineColor="#212121"
+        outlineWidth={0.01}
+        rotation={[...model.rotation]}
+      >
+        Stats
+      </Text>
+      <Text
+        color="red"
+        position={[model.position.x + 0.2, 1.5, model.position.z + 3.3]}
+        fontSize={0.2}
+        letterSpacing={0.2}
+        fillOpacity={0}
+        outlineColor="#fff"
+        outlineWidth={0.01}
+        rotation={[...model.rotation]}
+      >
+        {githubStats}
+      </Text>
+      <Text
+        color="red"
+        position={[model.position.x - 3, 0.5, model.position.z]}
+        fontSize={0.2}
+        letterSpacing={0.2}
+        fillOpacity={0}
+        outlineColor="#fff"
+        outlineWidth={0.01}
+        rotation={[Math.PI / 6, model.rotation.y, 0]}
+      >
+        {sketchfabStats}
+      </Text>
       <Shadow
         position={[model.position.x, 0.001, model.position.z]}
         rotation-x={-Math.PI / 2}
-        scale={6}
+        scale={3}
         opacity={0.15}
       />
     </mesh>
   )
-}
-
-PokemonBadges.defaultProps = {
-  page: '',
-  setPage: null,
-}
-
-PokemonBadges.propTypes = {
-  page: PropTypes.string,
-  setPage: PropTypes.func,
 }
 
 export default PokemonBadges

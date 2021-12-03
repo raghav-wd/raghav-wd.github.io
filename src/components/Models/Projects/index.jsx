@@ -33,7 +33,7 @@ const Projects = () => {
     ])
 
   return (
-    <group position={[-10, 0, 0]}>
+    <group position={[-10, 0, 1]}>
       <Billboard
         texture={musifireTexture}
         position={[0, 0.9, 0]}

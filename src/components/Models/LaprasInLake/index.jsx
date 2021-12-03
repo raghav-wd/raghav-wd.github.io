@@ -8,8 +8,8 @@ const LaprasInLake = () => {
   return (
     <mesh>
       <primitive
-        rotation={[0, Math.PI / 2, 0]}
-        position={[-20, 0, 35]}
+        rotation={[0, Math.PI, 0]}
+        position={[20, 0, 35]}
         scale={1}
         object={gltf.scene}
         dispose={null}

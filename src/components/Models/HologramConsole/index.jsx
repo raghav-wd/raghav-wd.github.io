@@ -15,7 +15,7 @@ const HologramConsole = ({ page, setPage }) => {
     useAnimations(gltf.animations)
 
   const model = {
-    position: new THREE.Vector3(-8, 0.05, 6),
+    position: new THREE.Vector3(-10, 0.05, 9),
     rotation: new THREE.Vector3(0, Math.PI / 2, 0),
     blendDuration: 0.4,
     options: {

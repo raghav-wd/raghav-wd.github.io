@@ -11,7 +11,7 @@ const AshWithFriends = ({ page = '', setPage }) => {
   const gltf = useGLTF('./libs/red_pokemon/scene.gltf')
   const ref = useRef()
   const model = {
-    position: new THREE.Vector3(2, 0.1, 26),
+    position: new THREE.Vector3(1, 0.1, 26),
     rotation: new THREE.Vector3(0, (6 * Math.PI) / 5, 0),
     options: {
       focusOnPosition: new THREE.Vector3(0, 1.4, 22),

@@ -9,7 +9,7 @@ const Juice = () => {
   const squirtle = useLoader(GLTFLoader, './libs/squirtle/scene.gltf')
 
   const model = {
-    position: new THREE.Vector3(10, 1.2, 22),
+    position: new THREE.Vector3(9, 1.2, 22),
     rotation: new THREE.Vector3(0, -Math.PI / 1.4, 0),
   }
 
