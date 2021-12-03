@@ -102,4 +102,8 @@ HologramConsole.propTypes = {
   setPage: PropTypes.func,
 }
 
+useGLTF.preload(
+  './libs/smol_ame_in_an_upcycled_terrarium_hololiveen/scene.gltf'
+)
+
 export default HologramConsole

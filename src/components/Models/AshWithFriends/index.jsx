@@ -95,4 +95,6 @@ AshWithFriends.propTypes = {
   setPage: PropTypes.func,
 }
 
+useGLTF.preload('./libs/red_pokemon/scene.gltf')
+
 export default AshWithFriends

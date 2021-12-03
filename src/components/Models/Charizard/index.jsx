@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import { useFrame } from '@react-three/fiber'
-import { useGLTF, Shadow, Text, useAnimations } from '@react-three/drei'
+import { useGLTF, Shadow } from '@react-three/drei'
 import * as THREE from 'three'
 import { useEffect, useRef, useState } from 'react'
-import { Debug, useBox, useSphere } from '@react-three/cannon'
+import { useBox } from '@react-three/cannon'
 import { useModelTransition } from '../../hooks'
 
 const Charizard = ({ page, setPage, isLost, setIsLost }) => {
@@ -267,5 +267,10 @@ Charizard.propTypes = {
   isLost: PropTypes.bool,
   setIsLost: PropTypes.func,
 }
+
+useGLTF.preload([
+  './libs/charizard/scene.gltf',
+  './libs/fireball_vfx/scene.gltf',
+])
 
 export default Charizard

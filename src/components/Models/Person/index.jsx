@@ -98,6 +98,7 @@ const Person = ({ page, setPage }) => {
 
     // Person shadow ...
     personShadowRef.current.position.x = personRef.current.position.x
+    personShadowRef.current.position.y = 0.005
     personShadowRef.current.position.z = personRef.current.position.z
     api.velocity.set(direction.x, velocity.current[1], direction.z)
 
@@ -135,7 +136,7 @@ const Person = ({ page, setPage }) => {
   return (
     <mesh>
       <mesh ref={personMesh} />
-      <pointLight ref={personLight} intensity={0.2} />
+      <pointLight ref={personLight} intensity={1} />
       <primitive
         scale={0.6}
         ref={personRef}
@@ -143,9 +144,9 @@ const Person = ({ page, setPage }) => {
         dispose={null}
       />
       <Shadow
+        opacity={0.15}
         ref={personShadowRef}
-        position-Y={0.01}
-        scale={[0.5, 0.5, 0.5]}
+        scale={0.6}
         rotation-x={-Math.PI / 2}
       />
     </mesh>
@@ -161,5 +162,7 @@ Person.propTypes = {
   page: PropTypes.string,
   setPage: PropTypes.func,
 }
+
+useGLTF.preload('./libs/Pikachu.glb')
 
 export default Person

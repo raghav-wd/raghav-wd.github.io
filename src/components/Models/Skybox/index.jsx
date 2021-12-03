@@ -10,4 +10,6 @@ const Skybox = () => {
   )
 }
 
+useGLTF.preload('./libs/sky_restro/scene.gltf')
+
 export default Skybox

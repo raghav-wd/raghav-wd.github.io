@@ -81,4 +81,6 @@ const AshKetchum = () => {
   )
 }
 
+useGLTF.preload('./libs/ash_ketchum/scene.gltf')
+
 export default AshKetchum

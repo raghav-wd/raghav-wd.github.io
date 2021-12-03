@@ -18,4 +18,6 @@ const LaprasInLake = () => {
   )
 }
 
+useGLTF.preload('./libs/lapras_in_lake/scene.gltf')
+
 export default LaprasInLake
