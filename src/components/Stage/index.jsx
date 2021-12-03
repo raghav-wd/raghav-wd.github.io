@@ -41,8 +41,8 @@ const Stage = () => {
       >
         <Suspense fallback={<Loader />}>
           <pointLight position={[-5, 10, -2]} intensity={2} />
-          <Stats showPanel={0} className="stats" />
-          <OrbitControls target={[-8, 0, 16]} />
+          {/* <Stats showPanel={0} className="stats" /> */}
+          {/* <OrbitControls target={[-8, 0, 16]} /> */}
           {/* <axesHelper args={[100]} /> */}
           <fog attach="fog" args={['#ddddff', 0, 120]} />
           <Text
