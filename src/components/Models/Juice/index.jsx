@@ -1,17 +1,43 @@
 import * as THREE from 'three'
+import { useState, useEffect } from 'react'
 import { useLoader } from '@react-three/fiber'
 import { Shadow, Text } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { useSpring, a } from '@react-spring/three'
 import BillboardHoarding from '../BillboardHoarding'
 
 const Juice = () => {
   const gltf = useLoader(GLTFLoader, './libs/juice_cup/scene.gltf')
   const squirtle = useLoader(GLTFLoader, './libs/squirtle/scene.gltf')
+  const pokeball = useLoader(GLTFLoader, './libs/pokeball/scene.gltf')
 
   const model = {
     position: new THREE.Vector3(9, 1.2, 22),
     rotation: new THREE.Vector3(0, -Math.PI / 1.4, 0),
   }
+
+  const [floating, setFloating] = useState(false)
+  const [rotation, setRotation] = useState([0, 0, 0])
+
+  const positionSpring = useSpring({
+    position: [0, floating ? 0.2 : 0, 0],
+    config: { friction: 80 },
+  })
+  const rotationSpring = useSpring({ rotation, config: { friction: 40 } })
+  useEffect(() => {
+    let timeout
+    // eslint-disable-next-line no-shadow
+    const rotation = [0, 0]
+    const bounce = () => {
+      rotation[0] += Math.ceil(Math.random() * 3)
+      rotation[1] += Math.ceil(Math.random() * 3)
+      setFloating((v) => !v)
+      setRotation([rotation[0] * Math.PI * 0.5, rotation[1] * Math.PI * 0.5, 0])
+      timeout = setTimeout(bounce, 1.5 * 1000)
+    }
+    bounce()
+    return () => clearTimeout(timeout)
+  }, [])
 
   return (
     <mesh>
@@ -36,6 +62,15 @@ const Juice = () => {
         object={squirtle.scene}
         dispose={null}
       />
+      <a.group {...positionSpring}>
+        <a.primitive
+          {...rotationSpring}
+          position={[model.position.x, 0.5, model.position.z - 1]}
+          scale={0.002}
+          object={pokeball.scene}
+          dispose={null}
+        />
+      </a.group>
       <Shadow
         position={[model.position.x, 0.001, model.position.z]}
         rotation-x={-Math.PI / 2}
@@ -70,5 +105,6 @@ https://docs.pmnd.rs/react-three-fiber/API/hooks#pre-loading-assets
 
 useLoader.preload(GLTFLoader, './libs/juice_cup/scene.gltf')
 useLoader.preload(GLTFLoader, './libs/squirtle/scene.gltf')
+useLoader.preload(GLTFLoader, './libs/pokeball/scene.gltf')
 
 export default Juice

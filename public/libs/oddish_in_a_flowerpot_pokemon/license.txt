@@ -1,0 +1,11 @@
+Model Information:
+* title:	Oddish in a Flowerpot (Pokemon)
+* source:	https://sketchfab.com/3d-models/oddish-in-a-flowerpot-pokemon-868cf7face2e49c3954ede36d0f40b34
+* author:	Citron Legacy (https://sketchfab.com/CitronLegacy)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Oddish in a Flowerpot (Pokemon)" (https://sketchfab.com/3d-models/oddish-in-a-flowerpot-pokemon-868cf7face2e49c3954ede36d0f40b34) by Citron Legacy (https://sketchfab.com/CitronLegacy) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

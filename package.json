@@ -5,6 +5,7 @@
   "homepage": "https://raghav-wd.github.io",
   "dependencies": {
     "@babel/eslint-parser": "^7.16.3",
+    "@react-spring/three": "^9.3.1",
     "@react-three/cannon": "^4.0.1",
     "@react-three/drei": "^7.17.1",
     "@react-three/fiber": "^7.0.17",

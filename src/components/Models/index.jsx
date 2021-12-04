@@ -6,6 +6,7 @@ import HologramConsole from './HologramConsole'
 import Juice from './Juice'
 import LaprasInLake from './LaprasInLake'
 import Loader from './Loader'
+import Oddish from './Oddish'
 import Person from './Person'
 import Piano from './Piano'
 import PokemonBadges from './PokemonBadges'
@@ -23,6 +24,7 @@ export {
   Juice,
   LaprasInLake,
   Loader,
+  Oddish,
   Person,
   Piano,
   PokemonBadges,

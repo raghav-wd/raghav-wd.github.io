@@ -1824,10 +1824,10 @@
     "@react-spring/rafz" "~9.3.0"
     "@react-spring/types" "~9.3.0"
 
-"@react-spring/three@~9.3.0":
-  "integrity" "sha512-RKMXXdcNK0nbwLbmle/0KT/idGGpOxvI5lT1KtN8R3cgJWQBKYWVtzg+B/RgmQVNxO/QNlsKGWTjURockTRSVQ=="
-  "resolved" "https://registry.npmjs.org/@react-spring/three/-/three-9.3.0.tgz"
-  "version" "9.3.0"
+"@react-spring/three@^9.3.1", "@react-spring/three@~9.3.0":
+  "integrity" "sha512-40iRIX2DrY+a81hIliOog6TMg/ZAtHGeZr95r0vKAsl+iX1g9Hs8XCS4wTeQIUgydZpbpShk/JL6mkcstEfBdw=="
+  "resolved" "https://registry.npmjs.org/@react-spring/three/-/three-9.3.1.tgz"
+  "version" "9.3.1"
   dependencies:
     "@react-spring/animated" "~9.3.0"
     "@react-spring/core" "~9.3.0"
