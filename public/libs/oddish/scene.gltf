@@ -1,258 +1,210 @@
 {
-    "asset" : {
-        "generator" : "Khronos glTF Blender I/O v1.6.16",
-        "version" : "2.0"
+  "asset": {
+    "generator": "Khronos glTF Blender I/O v1.6.16",
+    "version": "2.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Scene",
+      "nodes": [5]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "name": "Oddish.002_Oddish_0"
     },
-    "scene" : 0,
-    "scenes" : [
+    {
+      "mesh": 1,
+      "name": "Oddish.002_Oddish_0.001"
+    },
+    {
+      "children": [0, 1],
+      "name": "Oddish.002",
+      "rotation": [-0.7071068286895752, 0, 0, 0.7071067094802856],
+      "scale": [100, 100, 100]
+    },
+    {
+      "children": [2],
+      "name": "RootNode"
+    },
+    {
+      "children": [3],
+      "name": "7385857228fe4860bd49549b24333f4e.fbx",
+      "rotation": [0.7071068286895752, 0, 0, 0.7071068286895752],
+      "scale": [
+        0.009999999776482582, 0.009999999776482582, 0.009999999776482582
+      ]
+    },
+    {
+      "children": [4],
+      "name": "Sketchfab_model",
+      "rotation": [-0.7071068286895752, 0, 0, 0.7071068286895752]
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "Oddish",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.7763931751251221
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Oddish.002_Oddish_0",
+      "primitives": [
         {
-            "name" : "Scene",
-            "nodes" : [
-                5
-            ]
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0
         }
-    ],
-    "nodes" : [
+      ]
+    },
+    {
+      "name": "Oddish.002_Oddish_0.001",
+      "primitives": [
         {
-            "mesh" : 0,
-            "name" : "Oddish.002_Oddish_0"
-        },
-        {
-            "mesh" : 1,
-            "name" : "Oddish.002_Oddish_0.001"
-        },
-        {
-            "children" : [
-                0,
-                1
-            ],
-            "name" : "Oddish.002",
-            "rotation" : [
-                -0.7071068286895752,
-                0,
-                0,
-                0.7071067094802856
-            ],
-            "scale" : [
-                100,
-                100,
-                100
-            ]
-        },
-        {
-            "children" : [
-                2
-            ],
-            "name" : "RootNode"
-        },
-        {
-            "children" : [
-                3
-            ],
-            "name" : "7385857228fe4860bd49549b24333f4e.fbx",
-            "rotation" : [
-                0.7071068286895752,
-                0,
-                0,
-                0.7071068286895752
-            ],
-            "scale" : [
-                0.009999999776482582,
-                0.009999999776482582,
-                0.009999999776482582
-            ]
-        },
-        {
-            "children" : [
-                4
-            ],
-            "name" : "Sketchfab_model",
-            "rotation" : [
-                -0.7071068286895752,
-                0,
-                0,
-                0.7071068286895752
-            ]
+          "attributes": {
+            "POSITION": 4,
+            "NORMAL": 5,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 0
         }
-    ],
-    "materials" : [
-        {
-            "doubleSided" : true,
-            "name" : "Oddish",
-            "pbrMetallicRoughness" : {
-                "baseColorTexture" : {
-                    "index" : 0
-                },
-                "metallicFactor" : 0,
-                "roughnessFactor" : 0.7763931751251221
-            }
-        }
-    ],
-    "meshes" : [
-        {
-            "name" : "Oddish.002_Oddish_0",
-            "primitives" : [
-                {
-                    "attributes" : {
-                        "POSITION" : 0,
-                        "NORMAL" : 1,
-                        "TEXCOORD_0" : 2
-                    },
-                    "indices" : 3,
-                    "material" : 0
-                }
-            ]
-        },
-        {
-            "name" : "Oddish.002_Oddish_0.001",
-            "primitives" : [
-                {
-                    "attributes" : {
-                        "POSITION" : 4,
-                        "NORMAL" : 5,
-                        "TEXCOORD_0" : 6
-                    },
-                    "indices" : 7,
-                    "material" : 0
-                }
-            ]
-        }
-    ],
-    "textures" : [
-        {
-            "sampler" : 0,
-            "source" : 0
-        }
-    ],
-    "images" : [
-        {
-            "mimeType" : "image/png",
-            "name" : "Oddish_baseColor",
-            "uri" : "textures/Oddish_baseColor.png"
-        }
-    ],
-    "accessors" : [
-        {
-            "bufferView" : 0,
-            "componentType" : 5126,
-            "count" : 1933,
-            "max" : [
-                1.3833301067352295,
-                1.3833298683166504,
-                1
-            ],
-            "min" : [
-                -1.3833301067352295,
-                -1.3833301067352295,
-                -2.583650827407837
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 1,
-            "componentType" : 5126,
-            "count" : 1933,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 2,
-            "componentType" : 5126,
-            "count" : 1933,
-            "type" : "VEC2"
-        },
-        {
-            "bufferView" : 3,
-            "componentType" : 5123,
-            "count" : 10188,
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 4,
-            "componentType" : 5126,
-            "count" : 748,
-            "max" : [
-                2.008667469024658,
-                1.4014027118682861,
-                3.7422704696655273
-            ],
-            "min" : [
-                -1.869526743888855,
-                0.2602965831756592,
-                0.6355916857719421
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 5,
-            "componentType" : 5126,
-            "count" : 748,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 6,
-            "componentType" : 5126,
-            "count" : 748,
-            "type" : "VEC2"
-        },
-        {
-            "bufferView" : 7,
-            "componentType" : 5123,
-            "count" : 3345,
-            "type" : "SCALAR"
-        }
-    ],
-    "bufferViews" : [
-        {
-            "buffer" : 0,
-            "byteLength" : 23196,
-            "byteOffset" : 0
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 23196,
-            "byteOffset" : 23196
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 15464,
-            "byteOffset" : 46392
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 20376,
-            "byteOffset" : 61856
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 8976,
-            "byteOffset" : 82232
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 8976,
-            "byteOffset" : 91208
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 5984,
-            "byteOffset" : 100184
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 6690,
-            "byteOffset" : 106168
-        }
-    ],
-    "samplers" : [
-        {
-            "magFilter" : 9729,
-            "minFilter" : 9987
-        }
-    ],
-    "buffers" : [
-        {
-            "byteLength" : 112860,
-            "uri" : "scene.bin"
-        }
-    ]
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "images": [
+    {
+      "mimeType": "image/png",
+      "name": "Oddish_baseColor",
+      "uri": "textures/Oddish_baseColor.png"
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 1933,
+      "max": [1.3833301067352295, 1.3833298683166504, 1],
+      "min": [-1.3833301067352295, -1.3833301067352295, -2.583650827407837],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 1933,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 1933,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5123,
+      "count": 10188,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 748,
+      "max": [2.008667469024658, 1.4014027118682861, 3.7422704696655273],
+      "min": [-1.869526743888855, 0.2602965831756592, 0.6355916857719421],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5126,
+      "count": 748,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 748,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 7,
+      "componentType": 5123,
+      "count": 3345,
+      "type": "SCALAR"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 23196,
+      "byteOffset": 0
+    },
+    {
+      "buffer": 0,
+      "byteLength": 23196,
+      "byteOffset": 23196
+    },
+    {
+      "buffer": 0,
+      "byteLength": 15464,
+      "byteOffset": 46392
+    },
+    {
+      "buffer": 0,
+      "byteLength": 20376,
+      "byteOffset": 61856
+    },
+    {
+      "buffer": 0,
+      "byteLength": 8976,
+      "byteOffset": 82232
+    },
+    {
+      "buffer": 0,
+      "byteLength": 8976,
+      "byteOffset": 91208
+    },
+    {
+      "buffer": 0,
+      "byteLength": 5984,
+      "byteOffset": 100184
+    },
+    {
+      "buffer": 0,
+      "byteLength": 6690,
+      "byteOffset": 106168
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 112860,
+      "uri": "scene.bin"
+    }
+  ]
 }

@@ -4,15 +4,9 @@
       "bufferView": 1,
       "componentType": 5126,
       "count": 35939,
-      "max": [
-        109.880615234375,
-        -106.2301025390625,
-        12.00999927520752
-      ],
+      "max": [109.880615234375, -106.2301025390625, 12.00999927520752],
       "min": [
-        -4.3364667892456055,
-        -220.44718933105469,
-        -4.4408920985006262e-16
+        -4.3364667892456055, -220.44718933105469, -4.4408920985006262e-16
       ],
       "type": "VEC3"
     },
@@ -21,28 +15,16 @@
       "byteOffset": 431268,
       "componentType": 5126,
       "count": 35939,
-      "max": [
-        0.9999995231628418,
-        1,
-        1
-      ],
-      "min": [
-        -0.9999995231628418,
-        -1,
-        -1
-      ],
+      "max": [0.9999995231628418, 1, 1],
+      "min": [-0.9999995231628418, -1, -1],
       "type": "VEC3"
     },
     {
       "bufferView": 0,
       "componentType": 5125,
       "count": 58572,
-      "max": [
-        35938
-      ],
-      "min": [
-        0
-      ],
+      "max": [35938],
+      "min": [0],
       "type": "SCALAR"
     }
   ],
@@ -82,19 +64,10 @@
   "materials": [
     {
       "doubleSided": true,
-      "emissiveFactor": [
-        0,
-        0,
-        0
-      ],
+      "emissiveFactor": [0, 0, 0],
       "name": "Scene_-_Root",
       "pbrMetallicRoughness": {
-        "baseColorFactor": [
-          0.5,
-          0.5,
-          0.5,
-          1
-        ],
+        "baseColorFactor": [0.5, 0.5, 0.5, 1],
         "metallicFactor": 0,
         "roughnessFactor": 0.59999999999999998
       }
@@ -117,27 +90,16 @@
   ],
   "nodes": [
     {
-      "children": [
-        1
-      ],
+      "children": [1],
       "name": "RootNode (gltf orientation matrix)",
-      "rotation": [
-        -0.70710678118654746,
-        -0,
-        -0,
-        0.70710678118654757
-      ]
+      "rotation": [-0.70710678118654746, -0, -0, 0.70710678118654757]
     },
     {
-      "children": [
-        2
-      ],
+      "children": [2],
       "name": "RootNode (model correction matrix)"
     },
     {
-      "children": [
-        3
-      ],
+      "children": [3],
       "name": "d8a95c7b1c0149cf859f302f98e8a429.stl.cleaner"
     },
     {
@@ -149,10 +111,7 @@
   "scenes": [
     {
       "name": "OSG_Scene",
-      "nodes": [
-        0
-      ]
+      "nodes": [0]
     }
   ]
 }
-
