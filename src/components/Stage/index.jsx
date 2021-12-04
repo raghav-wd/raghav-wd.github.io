@@ -1,5 +1,6 @@
 import React, { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
+import * as THREE from 'three'
 import { Physics, usePlane } from '@react-three/cannon'
 import {
   Stats,
@@ -7,6 +8,7 @@ import {
   OrbitControls,
   Preload,
   BakeShadows,
+  AdaptiveDpr,
 } from '@react-three/drei'
 import {
   AshKetchum,
@@ -32,15 +34,21 @@ const Stage = () => {
 
   return (
     <div>
-      <Canvas
-        dpr={[1, 2]}
-        mode="concurrent"
-        frameloop="demand"
-        camera={{ fov: 50, position: [0, 0.1, -10] }}
-        style={{ height: '100vh', width: '100%' }}
-      >
-        <Suspense fallback={<Loader />}>
-          <pointLight position={[-5, 10, -2]} intensity={2} />
+      <Suspense fallback={<Loader />}>
+        <Canvas
+          dpr={[1, 2]}
+          mode="concurrent"
+          frameloop="demand"
+          onCreated={({ gl }) => {
+            // eslint-disable-next-line no-param-reassign
+            gl.toneMapping = THREE.CineonToneMapping
+          }}
+          performance={{ min: 0.5 }}
+          camera={{ fov: 50, position: [0, 0.1, -10] }}
+          style={{ height: '100vh', width: '100%' }}
+        >
+          <pointLight position={[0, 10, -5]} intensity={2} color="#fff" />
+          <ambientLight />
           {/* <Stats showPanel={0} className="stats" /> */}
           {/* <OrbitControls target={[-8, 0, 16]} /> */}
           {/* <axesHelper args={[100]} /> */}
@@ -57,7 +65,6 @@ const Stage = () => {
           >
             Let&apos;s Go!
           </Text>
-          <ambientLight />
           <PokemonBadges />
           <SideProps />
           <Skybox />
@@ -91,8 +98,9 @@ const Stage = () => {
             <Plane />
           </Physics>
           <Preload all />
-        </Suspense>
-      </Canvas>
+          <AdaptiveDpr />
+        </Canvas>
+      </Suspense>
       <Pages page={page} isLost={isLost} setIsLost={setIsLost} />
     </div>
   )

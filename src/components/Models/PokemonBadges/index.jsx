@@ -7,6 +7,7 @@ const PokemonBadges = () => {
   const gltf = useGLTF('./libs/pokemon_masters_cap/scene.gltf')
   const [githubStats, setGithubStats] = useState('')
   const [sketchfabStats, setSketchfabStats] = useState('')
+  const [leetcodeStats, setLeetcodeStats] = useState('')
 
   const model = {
     position: new THREE.Vector3(-16, 0, 10),
@@ -39,6 +40,16 @@ const PokemonBadges = () => {
     Followers: ${data.followers}
     `
     setSketchfabStats(sketchfabStat)
+  }
+
+  const setLeetcodeStatsHandler = (data) => {
+    const leetcodeStat = `
+    Leetcode@raghav-wd\n
+    Solved: ${data.likes}
+    Submissions: ${data.views}
+    Rating: ${data.followers}
+    `
+    setLeetcodeStats(leetcodeStat)
   }
 
   useEffect(() => {
@@ -81,6 +92,16 @@ const PokemonBadges = () => {
     })
       .then((res) => res.json())
       .then((json) => json.results.map((i) => sum(i.likeCount, i.viewCount)))
+
+    // Leetcode
+
+    // fetch('xxxx', {
+    //   headers: new Headers({
+    //     Host: 'en.wikipedia.org',
+    //   }),
+    // }).then((res) => console.log(res))
+
+    setLeetcodeStatsHandler('')
   }, [])
 
   return (
@@ -136,6 +157,18 @@ const PokemonBadges = () => {
         rotation={[Math.PI / 6, model.rotation.y, 0]}
       >
         {sketchfabStats}
+      </Text>
+      <Text
+        color="red"
+        position={[model.position.x, 0.3, model.position.z - 3.5]}
+        fontSize={0.2}
+        letterSpacing={0.2}
+        fillOpacity={0}
+        outlineColor="#fff"
+        outlineWidth={0.01}
+        rotation={[Math.PI / 2.5, model.rotation.y, 0]}
+      >
+        {leetcodeStats}
       </Text>
       <Shadow
         position={[model.position.x, 0.001, model.position.z]}
