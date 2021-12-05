@@ -8,8 +8,9 @@ import { usePersonControls } from '../../hooks'
 
 // Importing Person
 const Person = ({ page, setPage }) => {
-  const gltf = useGLTF('./libs/Pikachu.glb', true)
+  const gltf = useGLTF('./libs/pikachuu.glb', true)
   const { ref: personRef, actions } = useAnimations(gltf.animations)
+  const voiceline = useRef(null)
 
   const direction = new THREE.Vector3()
   const frontVector = new THREE.Vector3()
@@ -17,10 +18,9 @@ const Person = ({ page, setPage }) => {
   const velocity = useRef([0, 0, 0])
 
   const personShadowRef = useRef(null)
-  const personLight = useRef(null)
 
   const { camera } = useThree()
-  const { forward, backward, left, right, jump } = usePersonControls()
+  const { forward, backward, left, right, speech, jump } = usePersonControls()
 
   const model = {
     blendDuration: 0.15,
@@ -66,19 +66,31 @@ const Person = ({ page, setPage }) => {
 
     // animation clips for movement ...
     if (forward || right || left || backward) {
-      actions['Happy Idle'].reset().fadeOut(model.blendDuration)
+      actions.Idle.reset().fadeOut(model.blendDuration)
       actions.Walking.reset().fadeIn(model.blendDuration).play()
     }
     return () => {
       if (forward || right || left || backward) {
-        actions['Happy Idle'].reset().fadeIn(model.blendDuration).play()
+        actions.Idle.reset().fadeIn(model.blendDuration).play()
         actions.Walking.reset().fadeOut(model.blendDuration)
       }
     }
   }, [forward, backward, right, left, jump])
 
   useEffect(() => {
-    actions['Happy Idle'].play()
+    if (speech && voiceline.current.paused) {
+      const voicelineSrc = `./audios/pikachu/${
+        Math.round(Math.random() * 8) + 1
+      }.mp3`
+      voiceline.current.volume = 0.2
+      voiceline.current.src = voicelineSrc
+      voiceline.current.play()
+    }
+  }, [speech])
+
+  useEffect(() => {
+    actions.Idle.play()
+    voiceline.current = new Audio()
     camera.position.set(0, 2, -6)
     camera.lookAt(0, 1, 0)
     api.velocity.subscribe((v) => {
@@ -101,9 +113,6 @@ const Person = ({ page, setPage }) => {
     personShadowRef.current.position.y = 0.0005
     personShadowRef.current.position.z = personRef.current.position.z
     api.velocity.set(direction.x, velocity.current[1], direction.z)
-
-    personRef.current.getWorldPosition(personLight.current.position)
-    personLight.current.position.z += -1
 
     // Adding lerp rotation to person model ...
     personRef.current.rotation.y = THREE.MathUtils.lerp(
@@ -136,7 +145,6 @@ const Person = ({ page, setPage }) => {
   return (
     <mesh>
       <mesh ref={personMesh} />
-      <pointLight ref={personLight} intensity={1} />
       <primitive
         scale={0.6}
         ref={personRef}

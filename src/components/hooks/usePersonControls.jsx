@@ -6,6 +6,7 @@ const usePersonControls = () => {
     KeyS: 'backward',
     KeyA: 'left',
     KeyD: 'right',
+    KeyP: 'speech',
     Space: 'jump',
   }
 
@@ -16,6 +17,7 @@ const usePersonControls = () => {
     backward: false,
     left: false,
     right: false,
+    voiceline: false,
     jump: false,
   })
 

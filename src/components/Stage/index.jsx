@@ -48,9 +48,9 @@ const Stage = () => {
           camera={{ fov: 50, position: [0, 0.1, -10] }}
           style={{ height: '100vh', width: '100%' }}
         >
-          <pointLight position={[0, 10, -5]} intensity={2} color="#fff" />
+          <pointLight position={[0, 10, -5]} intensity={1} color="#fff" />
           <ambientLight />
-          <Stats showPanel={0} className="stats" />
+          {/* <Stats showPanel={0} className="stats" /> */}
           {/* <OrbitControls target={[-8, 0, 16]} /> */}
           {/* <axesHelper args={[100]} /> */}
           <fog attach="fog" args={['#ddddff', 0, 120]} />
