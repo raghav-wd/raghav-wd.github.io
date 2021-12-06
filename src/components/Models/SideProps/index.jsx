@@ -2,8 +2,8 @@ import { Torus, Box, Shadow, Text } from '@react-three/drei'
 import { useSpring, a } from '@react-spring/three'
 import { useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { useEffect, useState } from 'react'
-import { BoxBufferGeometry } from 'three'
+import { useEffect, useMemo, useState } from 'react'
+import * as THREE from 'three'
 
 const SideProps = () => {
   /*
@@ -138,40 +138,39 @@ const SideProps = () => {
       scale,
       config: { mass: 1, tension: 180, friction: 12, bounce: 2 },
     })
+    const mat = useMemo(() => new THREE.MeshBasicMaterial(), [])
+    const boxGeom = useMemo(
+      () => new THREE.BoxBufferGeometry(0.8, 0.0005, 0.2),
+      []
+    )
 
     useEffect(() => {
-      setScale(1)
+      const timeout = setTimeout(() => setScale(1), 1000)
+      return () => clearTimeout(timeout)
     }, [])
 
     return (
       <a.mesh {...scaleSpring}>
         <Torus
           args={[1, 0.05, 2, 100]}
+          material={mat}
           position={[0, 0.001, 0]}
           rotation={[Math.PI / 2, 0, 0]}
-        >
-          <meshBasicMaterial color="white" />
-        </Torus>
+        />
         <Torus
           args={[0.2, 0.05, 2, 100]}
+          material={mat}
           position={[0, 0.001, 0]}
           rotation={[Math.PI / 2, 0, 0]}
-        >
-          <meshBasicMaterial color="white" />
-        </Torus>
+        />
         <Torus
           args={[0, 0.05, 2, 100]}
+          material={mat}
           position={[0, 0.001, 0]}
           rotation={[Math.PI / 2, 0, 0]}
-        >
-          <meshBasicMaterial color="white" />
-        </Torus>
-        <Box args={[0.8, 0.0005, 0.2]} position={[0.6, 0, 0]}>
-          <meshBasicMaterial color="white" />
-        </Box>
-        <Box args={[0.8, 0.0005, 0.2]} position={[-0.6, 0, 0]}>
-          <meshBasicMaterial color="white" />
-        </Box>
+        />
+        <mesh geometry={boxGeom} material={mat} position={[0.6, 0, 0]} />
+        <mesh geometry={boxGeom} material={mat} position={[-0.6, 0, 0]} />
       </a.mesh>
     )
   }
@@ -184,7 +183,7 @@ const SideProps = () => {
     })
 
     useEffect(() => {
-      const timeout = setTimeout(() => setPosition([0, 0.001, -2]), 1500)
+      const timeout = setTimeout(() => setPosition([0, 0.001, -2]), 1800)
       return () => clearTimeout(timeout)
     }, [])
 
