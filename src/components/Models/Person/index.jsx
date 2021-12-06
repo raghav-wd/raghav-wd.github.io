@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useAnimations, useGLTF, Shadow } from '@react-three/drei'
@@ -10,6 +10,7 @@ import { usePersonControls } from '../../hooks'
 const Person = ({ page, setPage }) => {
   const gltf = useGLTF('./libs/pikachuu.glb', true)
   const { ref: personRef, actions } = useAnimations(gltf.animations)
+  const [currentlyActive, setCurrentlyActive] = useState('')
   const voiceline = useRef(null)
 
   const direction = new THREE.Vector3()
@@ -46,12 +47,18 @@ const Person = ({ page, setPage }) => {
     mass: 1,
     position: [0, 1.01, 0],
     type: 'Dynamic',
+    onCollide: (e) => {
+      // setCurrentlyActive(e.body.name)
+      // if (e.body.name === 'activitymesh.ashketchum') setPage('')
+    },
   }))
 
   // Person movement animation ...
   useEffect(() => {
     personMesh.current.name = 'Pikachu'
     if (page !== '') {
+      // api.col
+
       // Detects person out of view ...
       const frustum = new THREE.Frustum()
       const matrix = new THREE.Matrix4().multiplyMatrices(

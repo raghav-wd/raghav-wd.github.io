@@ -1,15 +1,8 @@
-import React, { Suspense, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Physics, usePlane } from '@react-three/cannon'
-import {
-  Stats,
-  Text,
-  OrbitControls,
-  Preload,
-  BakeShadows,
-  AdaptiveDpr,
-} from '@react-three/drei'
+import { Stats, OrbitControls, Preload, AdaptiveDpr } from '@react-three/drei'
 import {
   AshKetchum,
   AshWithFriends,
@@ -50,22 +43,10 @@ const Stage = () => {
         >
           <pointLight position={[0, 10, -5]} intensity={1} color="#fff" />
           <ambientLight />
-          {/* <Stats showPanel={0} className="stats" /> */}
+          <Stats showPanel={0} className="stats" />
           {/* <OrbitControls target={[-8, 0, 16]} /> */}
           {/* <axesHelper args={[100]} /> */}
           <fog attach="fog" args={['#ddddff', 0, 120]} />
-          <Text
-            color="white"
-            position={[0, 0.001, -2]}
-            fontSize={0.2}
-            letterSpacing={0.2}
-            fillOpacity={0}
-            outlineColor="white"
-            outlineWidth={0.01}
-            rotation={[Math.PI / 2, Math.PI, 0]}
-          >
-            Let&apos;s Go!
-          </Text>
           <PokemonBadges />
           <SideProps />
           <Skybox />
@@ -87,7 +68,7 @@ const Stage = () => {
             }}
             gravity={[0, -40, 0]}
           >
-            <AshKetchum />
+            <AshKetchum page={page} setPage={setPage} />
             <AshWithFriends page={page} setPage={setPage} />
             <HologramConsole page={page} setPage={setPage} />
             <Charizard

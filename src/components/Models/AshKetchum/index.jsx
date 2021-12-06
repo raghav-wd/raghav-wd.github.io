@@ -1,10 +1,12 @@
+import PropTypes from 'prop-types'
 import * as THREE from 'three'
 import { useEffect, useState, useRef } from 'react'
 import { useGLTF, Text, useAnimations, Shadow } from '@react-three/drei'
 import { useBox } from '@react-three/cannon'
 import BillboardHoarding from '../BillboardHoarding'
+import { useModelTransition } from '../../hooks'
 
-const AshKetchum = () => {
+const AshKetchum = ({ page, setPage }) => {
   const [isActive, setIsActive] = useState(false)
   const ashShadow = useRef(null)
   const gltf = useGLTF('./libs/ash_ketchum/scene.gltf')
@@ -14,6 +16,11 @@ const AshKetchum = () => {
     blendDuration: 0.4,
     position: new THREE.Vector3(10, 0, 2),
     rotation: new THREE.Vector3(0, -Math.PI / 2, 0),
+    options: {
+      focusOnPosition: new THREE.Vector3(10, 2, 2),
+      animateToPosition: new THREE.Vector3(0, 2, 2),
+      fov: 30,
+    },
   }
 
   const [activateMesh] = useBox(() => ({
@@ -22,15 +29,22 @@ const AshKetchum = () => {
     position: [...model.position],
     onCollide: (e) => {
       if (e.body.name === 'Pikachu') {
-        setIsActive(true)
+        setPage('rocknroll')
       }
     },
   }))
 
+  useEffect(
+    () => (page === 'rocknroll' ? setIsActive(true) : setIsActive(false)),
+    [page]
+  )
+
   useEffect(() => {
     actions.laying_idle.play()
-    activateMesh.current.name = 'Ash actmesh'
+    activateMesh.current.name = 'activitymesh.ashketchum'
   }, [])
+
+  useModelTransition(isActive, model.options)
 
   useEffect(() => {
     if (isActive) {
@@ -79,6 +93,16 @@ const AshKetchum = () => {
       />
     </mesh>
   )
+}
+
+AshKetchum.defaultProps = {
+  page: '',
+  setPage: null,
+}
+
+AshKetchum.propTypes = {
+  page: PropTypes.string,
+  setPage: PropTypes.func,
 }
 
 useGLTF.preload('./libs/ash_ketchum/scene.gltf')

@@ -35,6 +35,7 @@ const HologramConsole = ({ page, setPage }) => {
     args: [2.6],
     onCollide: collisionHandler,
   }))
+
   useEffect(
     () => (page === 'skills' ? setIsActive(true) : setIsActive(false)),
     [page]

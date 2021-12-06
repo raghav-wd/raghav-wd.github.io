@@ -1,6 +1,9 @@
-import { Shadow } from '@react-three/drei'
+import { Torus, Box, Shadow, Text } from '@react-three/drei'
+import { useSpring, a } from '@react-spring/three'
 import { useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { useEffect, useState } from 'react'
+import { BoxBufferGeometry } from 'three'
 
 const SideProps = () => {
   /*
@@ -129,6 +132,79 @@ const SideProps = () => {
     )
   }
 
+  const Pokeball = () => {
+    const [scale, setScale] = useState(0)
+    const scaleSpring = useSpring({
+      scale,
+      config: { mass: 1, tension: 180, friction: 12, bounce: 2 },
+    })
+
+    useEffect(() => {
+      setScale(1)
+    }, [])
+
+    return (
+      <a.mesh {...scaleSpring}>
+        <Torus
+          args={[1, 0.05, 2, 100]}
+          position={[0, 0.001, 0]}
+          rotation={[Math.PI / 2, 0, 0]}
+        >
+          <meshBasicMaterial color="white" />
+        </Torus>
+        <Torus
+          args={[0.2, 0.05, 2, 100]}
+          position={[0, 0.001, 0]}
+          rotation={[Math.PI / 2, 0, 0]}
+        >
+          <meshBasicMaterial color="white" />
+        </Torus>
+        <Torus
+          args={[0, 0.05, 2, 100]}
+          position={[0, 0.001, 0]}
+          rotation={[Math.PI / 2, 0, 0]}
+        >
+          <meshBasicMaterial color="white" />
+        </Torus>
+        <Box args={[0.8, 0.0005, 0.2]} position={[0.6, 0, 0]}>
+          <meshBasicMaterial color="white" />
+        </Box>
+        <Box args={[0.8, 0.0005, 0.2]} position={[-0.6, 0, 0]}>
+          <meshBasicMaterial color="white" />
+        </Box>
+      </a.mesh>
+    )
+  }
+
+  const LetsGo = () => {
+    const [position, setPosition] = useState([0, 0.001, -4])
+    const positionSpring = useSpring({
+      position,
+      config: { mass: 1, tension: 180, friction: 12 },
+    })
+
+    useEffect(() => {
+      const timeout = setTimeout(() => setPosition([0, 0.001, -2]), 1500)
+      return () => clearTimeout(timeout)
+    }, [])
+
+    return (
+      <a.group {...positionSpring}>
+        <Text
+          color="white"
+          fontSize={0.2}
+          letterSpacing={0.2}
+          fillOpacity={0}
+          outlineColor="white"
+          outlineWidth={0.01}
+          rotation={[Math.PI / 2, Math.PI, 0]}
+        >
+          Let&apos;s Go!
+        </Text>
+      </a.group>
+    )
+  }
+
   /*
   Generating sideprops
   */
@@ -174,6 +250,8 @@ const SideProps = () => {
       <Grasses />
       <RandRocks />
       <ElectricPoles />
+      <Pokeball />
+      <LetsGo />
     </mesh>
   )
 }

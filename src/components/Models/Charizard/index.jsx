@@ -15,14 +15,26 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
     position: new THREE.Vector3(-9, 0, 30),
     rotation: new THREE.Vector3(0, -Math.PI, 0),
     options: {
-      focusOnPosition: new THREE.Vector3(-8, 0.4, 25),
-      animateToPosition: new THREE.Vector3(-8, 2, 9),
-      fov: 28,
+      focusOnPosition: null,
+      animateToPosition: null,
+      fov: 26,
     },
   }
+  model.options.focusOnPosition = new THREE.Vector3(
+    model.position.x,
+    model.position.y + 2,
+    model.position.z
+  )
+  model.options.animateToPosition = new THREE.Vector3(
+    model.position.x,
+    model.position.y + 2.5,
+    model.position.z - 20
+  )
 
   const game = {
-    playArea: new THREE.Vector3(11, 0, 11),
+    fireball: {
+      speed: -4,
+    },
     laneGap: 1,
     lanes(laneGap) {
       return [
@@ -33,6 +45,7 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
         model.position.x + 2 * laneGap,
       ]
     },
+    playArea: new THREE.Vector3(11, 0, 11),
   }
 
   const collisionHandler = () => {
@@ -95,7 +108,7 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
 
     useFrame(() => {
       fireballApi.rotation.set(0, 0, 0)
-      fireballApi.velocity.set(0, 0, -5)
+      fireballApi.velocity.set(0, 0, game.fireball.speed)
       fb.current.rotation.z -= 0.1
       fireballMesh.current.getWorldPosition(fireballShadow.current.position)
       fireballShadow.current.position.y = -0.17
@@ -239,7 +252,7 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
       <primitive
         rotation={[...model.rotation]}
         position={[...model.position]}
-        scale={0.014}
+        scale={0.018}
         object={gltf.scene}
         dispose={null}
       />
