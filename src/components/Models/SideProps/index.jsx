@@ -1,4 +1,11 @@
-import { Torus, Box, Shadow, Text } from '@react-three/drei'
+import {
+  Torus,
+  Box,
+  Shadow,
+  Text,
+  Instance,
+  Instances,
+} from '@react-three/drei'
 import { useSpring, a } from '@react-spring/three'
 import { useLoader } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
@@ -32,23 +39,39 @@ const SideProps = () => {
       return { x, z }
     }
     const randCords = []
-    for (let x = 0; x < 1; x += 1) randCords.push(randCord())
+    for (let x = 0; x < 140; x += 1) randCords.push(randCord())
     return (
       <group dispose={null}>
-        <mesh
+        <Instances
+          limit={140}
           geometry={treeNodes.pine_leaves005_dark_leaves_0.geometry}
           material={treeMaterial.dark_leaves}
-          position={[randCords[0].x, 2.51, randCords[0].z]}
-          rotation={[-Math.PI / 2, 0, 2 * Math.PI * Math.random()]}
-          scale={[0.03, 0.03, 0.06]}
-        />
-        <mesh
+        >
+          {randCords.map((cords, i) => (
+            <Instance
+              // eslint-disable-next-line react/no-array-index-key
+              key={i}
+              scale={[0.03, 0.03, 0.06]}
+              position={[cords.x, 2.51, cords.z]}
+              rotation={[-Math.PI / 2, 0, 0]}
+            />
+          ))}
+        </Instances>
+        <Instances
+          limit={140}
           geometry={treeNodes.tree_trunk005_dark_tree_trunk_0.geometry}
           material={treeMaterial.dark_tree_trunk}
-          position={[randCords[0].x, 0.61, randCords[0].z]}
-          rotation={[-Math.PI / 2, 0, 0]}
-          scale={[0.03, 0.03, 0.03]}
-        />
+        >
+          {randCords.map((cords, i) => (
+            <Instance
+              // eslint-disable-next-line react/no-array-index-key
+              key={i}
+              scale={[0.03, 0.03, 0.03]}
+              rotation={[-Math.PI / 2, 0, 0]}
+              position={[cords.x, 0.61, cords.z]}
+            />
+          ))}
+        </Instances>
       </group>
     )
   }
@@ -77,58 +100,62 @@ const SideProps = () => {
   )
 
   const RandGrass = () => {
-    const randCord = () => {
-      const x = (Math.random() - 0.5) * 50
-      const z = (Math.random() - 0.5) * 50
-      return { x, z }
-    }
     const randCords = []
-    for (let x = 0; x < 1; x += 1) randCords.push(randCord())
+    const nos = 60
+    for (let i = 0; i < nos; i += 1) {
+      randCords.push({
+        x: (Math.random() - 0.5) * 50,
+        y: 0,
+        z: (Math.random() - 0.5) * 50,
+      })
+    }
 
     return (
-      <group dispose={null}>
-        <mesh
-          rotation={[-Math.PI / 2, 0, 0]}
-          scale={0.02}
-          position={[randCords[0].x, 0, randCords[0].z]}
-          geometry={grassandrockNodes.Grass2_Grass1_1001_0.geometry}
-          material={grassandrockNodes.Grass2_Grass1_1001_0.material}
-        />
-        <Shadow
-          position={[randCords[0].x, 0.001, randCords[0].z]}
-          rotation-x={-Math.PI / 2}
-          scale={0.2}
-          opacity={0.2}
-        />
-      </group>
+      <Instances
+        limit={nos}
+        geometry={grassandrockNodes.Grass2_Grass1_1001_0.geometry}
+        material={grassandrockNodes.Grass2_Grass1_1001_0.material}
+      >
+        {randCords.map((cords, i) => (
+          <Instance
+            // eslint-disable-next-line react/no-array-index-key
+            key={i}
+            scale={0.02}
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[cords.x, 0, cords.z]}
+          />
+        ))}
+      </Instances>
     )
   }
 
   const RandRock = () => {
-    const randCord = () => {
-      const x = (Math.random() - 0.5) * 50
-      const z = (Math.random() - 0.5) * 50
-      return { x, z }
-    }
     const randCords = []
-    for (let x = 0; x < 1; x += 1) randCords.push(randCord())
+    const nos = 80
+    for (let i = 0; i < nos; i += 1) {
+      randCords.push({
+        x: (Math.random() - 0.5) * 50,
+        y: 0,
+        z: (Math.random() - 0.5) * 50,
+      })
+    }
 
     return (
-      <group dispose={null}>
-        <mesh
-          rotation={[-Math.PI / 2, 0, 0]}
-          scale={0.4}
-          position={[randCords[0].x, 0, randCords[0].z]}
-          geometry={grassandrockNodes.Rock2_Rock1_1_0.geometry}
-          material={grassandrockNodes.Rock2_Rock1_1_0.material}
-        />
-        <Shadow
-          position={[randCords[0].x, 0.001, randCords[0].z]}
-          rotation-x={-Math.PI / 2}
-          scale={0.36}
-          opacity={0.15}
-        />
-      </group>
+      <Instances
+        limit={nos}
+        geometry={grassandrockNodes.Rock2_Rock1_1_0.geometry}
+        material={grassandrockNodes.Rock2_Rock1_1_0.material}
+      >
+        {randCords.map((cords, i) => (
+          <Instance
+            // eslint-disable-next-line react/no-array-index-key
+            key={i}
+            scale={0.4}
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[cords.x, 0, cords.z]}
+          />
+        ))}
+      </Instances>
     )
   }
 
@@ -210,7 +237,7 @@ const SideProps = () => {
 
   const Trees = () => {
     const trees = []
-    for (let i = 0; i < 140; i += 1) {
+    for (let i = 0; i < 1; i += 1) {
       trees.push(<RandTree key={i} />)
     }
     return trees
@@ -218,7 +245,7 @@ const SideProps = () => {
 
   const RandRocks = () => {
     const rocks = []
-    for (let i = 0; i < 80; i += 1) {
+    for (let i = 0; i < 1; i += 1) {
       rocks.push(<RandRock key={i} />)
     }
     return rocks
@@ -226,7 +253,7 @@ const SideProps = () => {
 
   const Grasses = () => {
     const grasses = []
-    for (let i = 0; i < 60; i += 1) {
+    for (let i = 0; i < 1; i += 1) {
       grasses.push(<RandGrass key={i} />)
     }
     return grasses
