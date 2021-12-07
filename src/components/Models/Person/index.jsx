@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import PropTypes from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
@@ -8,9 +9,9 @@ import { usePersonControls } from '../../hooks'
 
 // Importing Person
 const Person = ({ page, setPage }) => {
-  const gltf = useGLTF('./libs/pikachuu.glb', true)
+  const gltf = useGLTF('./libs/pikachu2.glb', true)
   const { ref: personRef, actions } = useAnimations(gltf.animations)
-  const [currentlyActive, setCurrentlyActive] = useState('')
+  const [selectedAction, setSelectedAction] = useState('Idle')
   const voiceline = useRef(null)
 
   const direction = new THREE.Vector3()
@@ -24,7 +25,7 @@ const Person = ({ page, setPage }) => {
   const { forward, backward, left, right, speech, jump } = usePersonControls()
 
   const model = {
-    blendDuration: 0.15,
+    blendDuration: 0.25,
     speed: 3,
   }
 
@@ -42,23 +43,27 @@ const Person = ({ page, setPage }) => {
     return rotation
   }
 
+  useEffect(() => {
+    if (actions[selectedAction])
+      actions[selectedAction].reset().fadeIn(model.blendDuration).play()
+
+    return () => {
+      if (actions[selectedAction])
+        actions[selectedAction].fadeOut(model.blendDuration)
+    }
+  }, [actions, selectedAction])
+
   const [personMesh, api] = useBox(() => ({
     args: [0.34, 0.34, 0.34],
     mass: 1,
     position: [0, 1.01, 0],
     type: 'Dynamic',
-    onCollide: (e) => {
-      // setCurrentlyActive(e.body.name)
-      // if (e.body.name === 'activitymesh.ashketchum') setPage('')
-    },
   }))
 
   // Person movement animation ...
   useEffect(() => {
     personMesh.current.name = 'Pikachu'
     if (page !== '') {
-      // api.col
-
       // Detects person out of view ...
       const frustum = new THREE.Frustum()
       const matrix = new THREE.Matrix4().multiplyMatrices(
@@ -73,13 +78,11 @@ const Person = ({ page, setPage }) => {
 
     // animation clips for movement ...
     if (forward || right || left || backward) {
-      actions.Idle.reset().fadeOut(model.blendDuration)
-      actions.Walking.reset().fadeIn(model.blendDuration).play()
+      setSelectedAction('Walking')
     }
     return () => {
       if (forward || right || left || backward) {
-        actions.Idle.reset().fadeIn(model.blendDuration).play()
-        actions.Walking.reset().fadeOut(model.blendDuration)
+        setSelectedAction('Idle')
       }
     }
   }, [forward, backward, right, left, jump])
@@ -92,6 +95,10 @@ const Person = ({ page, setPage }) => {
       voiceline.current.volume = 0.2
       voiceline.current.src = voicelineSrc
       voiceline.current.play()
+      setSelectedAction('Jump')
+    }
+    return () => {
+      if (speech) setSelectedAction('Idle')
     }
   }, [speech])
 
