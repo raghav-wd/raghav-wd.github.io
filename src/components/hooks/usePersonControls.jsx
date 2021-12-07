@@ -7,6 +7,8 @@ const usePersonControls = () => {
     KeyA: 'left',
     KeyD: 'right',
     KeyP: 'speech',
+    KeyE: 'dance',
+    KeyR: 'reset',
     Space: 'jump',
   }
 
@@ -18,6 +20,8 @@ const usePersonControls = () => {
     left: false,
     right: false,
     voiceline: false,
+    dance: false,
+    reset: false,
     jump: false,
   })
 

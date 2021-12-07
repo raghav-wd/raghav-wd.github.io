@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
+import { useSpring, a } from '@react-spring/three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useAnimations, useGLTF, Shadow } from '@react-three/drei'
 import { useBox } from '@react-three/cannon'
@@ -12,7 +13,8 @@ const Person = ({ page, setPage }) => {
   const gltf = useGLTF('./libs/pikachu2.glb', true)
   const { ref: personRef, actions } = useAnimations(gltf.animations)
   const [selectedAction, setSelectedAction] = useState('Idle')
-  const voiceline = useRef(null)
+  const [drop, setDrop] = useState([0, 3, 0])
+  const audioChannel = useRef(null)
 
   const direction = new THREE.Vector3()
   const frontVector = new THREE.Vector3()
@@ -22,7 +24,8 @@ const Person = ({ page, setPage }) => {
   const personShadowRef = useRef(null)
 
   const { camera } = useThree()
-  const { forward, backward, left, right, speech, jump } = usePersonControls()
+  const { forward, backward, left, right, speech, dance, reset, jump } =
+    usePersonControls()
 
   const model = {
     blendDuration: 0.25,
@@ -88,29 +91,52 @@ const Person = ({ page, setPage }) => {
   }, [forward, backward, right, left, jump])
 
   useEffect(() => {
-    if (speech && voiceline.current.paused) {
-      const voicelineSrc = `./audios/pikachu/${
+    if (speech && audioChannel.current.paused) {
+      const audioChannelSrc = `./audios/pikachu/${
         Math.round(Math.random() * 8) + 1
       }.mp3`
-      voiceline.current.volume = 0.2
-      voiceline.current.src = voicelineSrc
-      voiceline.current.play()
+      audioChannel.current.volume = 0.2
+      audioChannel.current.src = audioChannelSrc
+      audioChannel.current.play()
       setSelectedAction('Jump')
+    } else if (dance) {
+      const musicSrc = './audios/rickroll.mp3'
+      audioChannel.current.volume = 0.5
+      audioChannel.current.src = musicSrc
+      audioChannel.current.play()
+      setSelectedAction('Dance')
     }
     return () => {
       if (speech) setSelectedAction('Idle')
+      else if (dance) {
+        audioChannel.current.pause()
+        setSelectedAction('Idle')
+      }
     }
-  }, [speech])
+  }, [speech, dance])
 
   useEffect(() => {
-    actions.Idle.play()
-    voiceline.current = new Audio()
+    if (reset) api.position.set(0, 0, 0)
+  }, [reset])
+
+  const dropSpring = useSpring({
+    position: drop,
+    config: { mass: 1, tension: 180, friction: 40 },
+  })
+
+  useEffect(() => {
+    audioChannel.current = new Audio()
     camera.position.set(0, 2, -6)
     camera.lookAt(0, 1, 0)
     api.velocity.subscribe((v) => {
       velocity.current = v
       return velocity.current
     })
+  }, [])
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setDrop([0, 0, 0]), 1000)
+    return () => clearTimeout(timeout)
   }, [])
 
   useFrame(() => {
@@ -157,7 +183,7 @@ const Person = ({ page, setPage }) => {
   })
 
   return (
-    <mesh>
+    <a.mesh {...dropSpring}>
       <mesh ref={personMesh} />
       <primitive
         scale={0.6}
@@ -171,7 +197,7 @@ const Person = ({ page, setPage }) => {
         scale={0.6}
         rotation-x={-Math.PI / 2}
       />
-    </mesh>
+    </a.mesh>
   )
 }
 

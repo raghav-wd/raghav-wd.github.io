@@ -43,9 +43,9 @@ const Stage = () => {
         >
           <pointLight position={[0, 10, -5]} intensity={1} color="#fff" />
           <ambientLight />
-          <Stats showPanel={0} className="stats" />
+          {/* <Stats showPanel={0} className="stats" /> */}
           {/* <OrbitControls target={[-8, 0, 16]} /> */}
-          {/* <axesHelper args={[100]} /> */}
+          <axesHelper args={[100]} />
           <fog attach="fog" args={['#ddddff', 0, 120]} />
           <PokemonBadges />
           <SideProps />
