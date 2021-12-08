@@ -159,13 +159,13 @@ const SideProps = () => {
     )
   }
 
+  const whiteMaterial = useMemo(() => new THREE.MeshBasicMaterial(), [])
   const Pokeball = () => {
     const [scale, setScale] = useState(0)
     const scaleSpring = useSpring({
       scale,
       config: { mass: 1, tension: 180, friction: 12, bounce: 2 },
     })
-    const mat = useMemo(() => new THREE.MeshBasicMaterial(), [])
     const boxGeom = useMemo(
       () => new THREE.BoxBufferGeometry(0.8, 0.0005, 0.2),
       []
@@ -180,24 +180,32 @@ const SideProps = () => {
       <a.mesh {...scaleSpring}>
         <Torus
           args={[1, 0.05, 2, 100]}
-          material={mat}
+          material={whiteMaterial}
           position={[0, 0.001, 0]}
           rotation={[Math.PI / 2, 0, 0]}
         />
         <Torus
           args={[0.2, 0.05, 2, 100]}
-          material={mat}
+          material={whiteMaterial}
           position={[0, 0.001, 0]}
           rotation={[Math.PI / 2, 0, 0]}
         />
         <Torus
           args={[0, 0.05, 2, 100]}
-          material={mat}
+          material={whiteMaterial}
           position={[0, 0.001, 0]}
           rotation={[Math.PI / 2, 0, 0]}
         />
-        <mesh geometry={boxGeom} material={mat} position={[0.6, 0, 0]} />
-        <mesh geometry={boxGeom} material={mat} position={[-0.6, 0, 0]} />
+        <mesh
+          geometry={boxGeom}
+          material={whiteMaterial}
+          position={[0.6, 0, 0]}
+        />
+        <mesh
+          geometry={boxGeom}
+          material={whiteMaterial}
+          position={[-0.6, 0, 0]}
+        />
       </a.mesh>
     )
   }
@@ -228,6 +236,124 @@ const SideProps = () => {
           Let&apos;s Go!
         </Text>
       </a.group>
+    )
+  }
+
+  const KeyTooltip = () => {
+    const squareGeo = useMemo(
+      () => new THREE.TorusBufferGeometry(0.8, 0.05, 2, 4),
+      []
+    )
+    const KeyP = () => {
+      const [tooltipText, setTooltipText] = useState('Press E')
+      useEffect(() => {
+        const timeout = setInterval(() => {
+          setTooltipText((tt) => (tt === 'Press E' ? 'To Dance' : 'Press E'))
+        }, 2000)
+        return () => clearInterval(timeout)
+      }, [])
+      return (
+        <group position={[7, 0.5, 6]} rotation={[Math.PI / 2, 0.001, 0]}>
+          <mesh geometry={squareGeo} material={whiteMaterial} />
+          <mesh
+            geometry={squareGeo}
+            material={whiteMaterial}
+            position={[0, 0.2, 0]}
+            fillOpacity={0.1}
+          />
+
+          <Text
+            position={[0, 0, -0.3]}
+            color="white"
+            fontSize={0.15}
+            letterSpacing={0.2}
+            fillOpacity={0}
+            outlineColor="white"
+            outlineWidth={0.01}
+            rotation={[Math.PI / 2, 0, Math.PI]}
+          >
+            {tooltipText}
+          </Text>
+        </group>
+      )
+    }
+
+    const KeySpace = () => {
+      const [tooltipText, setTooltipText] = useState('Press Space')
+      useEffect(() => {
+        const timeout = setInterval(() => {
+          setTooltipText((tt) =>
+            tt === 'Press Space' ? 'To Jump' : 'Press Space'
+          )
+        }, 2000)
+        return () => clearInterval(timeout)
+      }, [])
+      return (
+        <group position={[-7, 0.5, 0]} rotation={[Math.PI / 2, 0.001, 0]}>
+          <mesh geometry={squareGeo} material={whiteMaterial} />
+          <mesh
+            geometry={squareGeo}
+            material={whiteMaterial}
+            position={[0, 0.2, 0]}
+            fillOpacity={0.1}
+          />
+
+          <Text
+            position={[0, 0, -0.3]}
+            color="white"
+            fontSize={0.15}
+            letterSpacing={0.2}
+            fillOpacity={0}
+            outlineColor="white"
+            outlineWidth={0.01}
+            rotation={[Math.PI / 2, 0, Math.PI]}
+          >
+            {tooltipText}
+          </Text>
+        </group>
+      )
+    }
+
+    const KeyR = () => {
+      const [tooltipText, setTooltipText] = useState('Press R')
+      useEffect(() => {
+        const timeout = setInterval(() => {
+          setTooltipText((tt) => (tt === 'Press R' ? 'To Reset' : 'Press R'))
+        }, 2000)
+        return () => clearInterval(timeout)
+      }, [])
+      return (
+        <group position={[-3, 0.5, 22]} rotation={[Math.PI / 2, 0.001, 0]}>
+          <mesh geometry={squareGeo} material={whiteMaterial} />
+          <mesh
+            geometry={squareGeo}
+            material={whiteMaterial}
+            position={[0, 0.2, 0]}
+            fillOpacity={0.1}
+          />
+
+          <Text
+            position={[0, 0, -0.3]}
+            color="white"
+            fontSize={0.15}
+            letterSpacing={0.2}
+            fillOpacity={0}
+            outlineColor="white"
+            outlineWidth={0.01}
+            rotation={[Math.PI / 2, 0, Math.PI]}
+          >
+            {tooltipText}
+          </Text>
+        </group>
+      )
+    }
+
+    return (
+      <mesh>
+        <KeyP />
+        <KeyR />
+        <KeySpace />
+      </mesh>
     )
   }
 
@@ -278,6 +404,7 @@ const SideProps = () => {
       <ElectricPoles />
       <Pokeball />
       <LetsGo />
+      <KeyTooltip />
     </mesh>
   )
 }
