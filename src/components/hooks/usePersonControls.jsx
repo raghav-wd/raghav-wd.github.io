@@ -6,7 +6,6 @@ const usePersonControls = () => {
     KeyS: 'backward',
     KeyA: 'left',
     KeyD: 'right',
-    KeyP: 'speech',
     KeyE: 'dance',
     KeyR: 'reset',
     Space: 'jump',

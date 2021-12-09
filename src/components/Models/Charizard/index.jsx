@@ -3,10 +3,10 @@ import { useFrame } from '@react-three/fiber'
 import { useGLTF, Shadow } from '@react-three/drei'
 import * as THREE from 'three'
 import { useEffect, useRef, useState } from 'react'
-import { useBox } from '@react-three/cannon'
+import { useBox, useSphere } from '@react-three/cannon'
 import { useModelTransition } from '../../hooks'
 
-const Charizard = ({ page, setPage, isLost, setIsLost }) => {
+const Charizard = ({ page, isLost, setIsLost }) => {
   const [isActive, setIsActive] = useState(false)
 
   const gltf = useGLTF('./libs/charizard/scene.gltf')
@@ -48,21 +48,10 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
     playArea: new THREE.Vector3(11, 0, 11),
   }
 
-  const collisionHandler = () => {
-    setPage('game')
-  }
-
-  const [plane] = useBox(() => ({
-    args: [5, 10, 0.0001],
+  const [activateMesh] = useBox(() => ({
+    args: [6, 11, 0.05],
     rotation: [-Math.PI / 2, 0, 0],
     position: [model.position.x, model.position.y, model.position.z - 5],
-    onCollide: (e) => {
-      try {
-        if (e.body.name === 'Pikachu') collisionHandler()
-      } catch (exception) {
-        // empty
-      }
-    },
   }))
 
   useEffect(
@@ -70,23 +59,24 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
     [page]
   )
 
+  useEffect(() => {
+    activateMesh.current.name = 'activitymesh.game'
+  }, [])
+
   useModelTransition(isActive, model.options)
 
-  // eslint-disable-next-line react/prop-types
   const Fireball = () => {
     const { nodes, materials } = useGLTF('./libs/fireball_vfx/scene.gltf')
     const fireballRef = useRef(null)
     const fb = useRef(null)
     const fireballShadow = useRef(null)
-    const [fireballMesh, fireballApi] = useBox(() => ({
+    const [fireballMesh, fireballApi] = useSphere(() => ({
       mass: 1,
-      args: [0.62, 0.62, 0.62],
+      args: [0.4],
       rotation: [-Math.PI / 2, 0, 0],
       position: [
         game.lanes(game.laneGap)[Math.round(Math.random() * 4)],
-        // eslint-disable-next-line react/prop-types
         0.1,
-        // eslint-disable-next-line react/prop-types
         model.position.z - Math.random() * 4,
       ],
       type: 'Dynamic',
@@ -97,9 +87,7 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
         if (e.body.name === 'Respawn Line') {
           fireballApi.position.set(
             game.lanes(game.laneGap)[Math.round(Math.random() * 4)],
-            // eslint-disable-next-line react/prop-types
             0.1,
-            // eslint-disable-next-line react/prop-types
             model.position.z - Math.random() * 4 - 0.1
           )
         }
@@ -198,20 +186,16 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
       rightFoulLine.current.visible = false
       frontFoulLineApi.position.set(model.position.x, 2, model.position.z)
       leftFoulLineApi.position.set(
-        model.position.x + 2.7,
+        model.position.x + 2.5,
         2,
         model.position.z - 5
       )
       rightFoulLineApi.position.set(
-        model.position.x - 2.7,
+        model.position.x - 2.5,
         2,
         model.position.z - 5
       )
-      rearSpawnLineApi.position.set(
-        model.position.x,
-        2,
-        model.position.z - 10.2
-      )
+      rearSpawnLineApi.position.set(model.position.x, 2, model.position.z - 10)
     }
   }, [isActive, isLost])
 
@@ -221,14 +205,17 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
 
   const Fireballs = () => {
     const fireballs = [0, 1, 2, 3]
-    return fireballs.map(() => (
-      <Fireball position={[model.position.x, 0.1, model.position.z - 1]} />
+    return fireballs.map((i) => (
+      <Fireball
+        key={i}
+        position={[model.position.x, 0.1, model.position.z - 1]}
+      />
     ))
   }
 
   return (
     <mesh>
-      <mesh ref={plane} />
+      <mesh ref={activateMesh} />
       <mesh position={[model.position.x, 0, model.position.z - 10.2]}>
         <boxBufferGeometry args={[5.6, 0.1, 0.2]} />
         <meshStandardMaterial />
@@ -269,14 +256,12 @@ const Charizard = ({ page, setPage, isLost, setIsLost }) => {
 
 Charizard.defaultProps = {
   page: '',
-  setPage: null,
   isLost: false,
   setIsLost: null,
 }
 
 Charizard.propTypes = {
   page: PropTypes.string,
-  setPage: PropTypes.func,
   isLost: PropTypes.bool,
   setIsLost: PropTypes.func,
 }

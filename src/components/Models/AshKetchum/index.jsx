@@ -14,24 +14,19 @@ const AshKetchum = ({ page, setPage }) => {
 
   const model = {
     blendDuration: 0.4,
-    position: new THREE.Vector3(10, 0, 2),
-    rotation: new THREE.Vector3(0, -Math.PI / 2, 0),
+    position: new THREE.Vector3(10, 0, 0),
+    rotation: new THREE.Vector3(0, -Math.PI, 0),
     options: {
       focusOnPosition: new THREE.Vector3(10, 2, 2),
-      animateToPosition: new THREE.Vector3(0, 2, 2),
+      animateToPosition: new THREE.Vector3(10, 2, -15),
       fov: 30,
     },
   }
 
   const [activateMesh] = useBox(() => ({
-    args: [4, 4, 0.0002],
+    args: [4, 4, 0.05],
     rotation: [-Math.PI / 2, 0, 0],
-    position: [...model.position],
-    onCollide: (e) => {
-      if (e.body.name === 'Pikachu') {
-        setPage('rocknroll')
-      }
-    },
+    position: [model.position.x, 0.001, model.position.z],
   }))
 
   useEffect(
@@ -41,7 +36,7 @@ const AshKetchum = ({ page, setPage }) => {
 
   useEffect(() => {
     actions.laying_idle.play()
-    activateMesh.current.name = 'activitymesh.ashketchum'
+    activateMesh.current.name = 'activitymesh.rocknroll'
   }, [])
 
   useModelTransition(isActive, model.options)

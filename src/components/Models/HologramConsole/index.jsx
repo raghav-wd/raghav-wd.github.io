@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useAnimations, useGLTF, Shadow, Text } from '@react-three/drei'
 import * as THREE from 'three'
 import { useEffect, useState } from 'react'
-import { useSphere } from '@react-three/cannon'
+import { useBox, useSphere } from '@react-three/cannon'
 import { useModelTransition } from '../../hooks'
 import BillboardHoarding from '../BillboardHoarding'
 
@@ -19,27 +19,26 @@ const HologramConsole = ({ page, setPage }) => {
     rotation: new THREE.Vector3(0, Math.PI / 2, 0),
     blendDuration: 0.4,
     options: {
-      focusOnPosition: new THREE.Vector3(-8, 0.8, 7),
-      animateToPosition: new THREE.Vector3(0, 2.4, 5),
-      fov: 30,
+      focusOnPosition: new THREE.Vector3(-8, 1.5, 9.6),
+      animateToPosition: new THREE.Vector3(0, 3, 5),
+      fov: 28,
     },
   }
 
-  const collisionHandler = () => {
-    setPage('skills')
-  }
-
-  const [mesh] = useSphere(() => ({
-    position: [...model.position],
-    type: 'Static',
-    args: [2.6],
-    onCollide: collisionHandler,
+  const [activateMesh] = useBox(() => ({
+    args: [5, 5, 0.05],
+    rotation: [-Math.PI / 2, 0, 0],
+    position: [model.position.x, 0.001, model.position.z],
   }))
 
   useEffect(
     () => (page === 'skills' ? setIsActive(true) : setIsActive(false)),
     [page]
   )
+
+  useEffect(() => {
+    activateMesh.current.name = 'activitymesh.skills'
+  }, [])
 
   useModelTransition(isActive, model.options)
 
@@ -74,7 +73,7 @@ const HologramConsole = ({ page, setPage }) => {
       >
         Projects
       </Text>
-      <mesh ref={mesh} />
+      <mesh ref={activateMesh} />
       <primitive
         ref={hologramConsoleRef}
         rotation={[...model.rotation]}

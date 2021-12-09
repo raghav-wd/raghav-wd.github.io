@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Physics, usePlane } from '@react-three/cannon'
@@ -45,7 +45,7 @@ const Stage = () => {
           <ambientLight />
           {/* <Stats showPanel={0} className="stats" /> */}
           {/* <OrbitControls target={[-8, 0, 16]} /> */}
-          <axesHelper args={[100]} />
+          {/* <axesHelper args={[100]} /> */}
           <fog attach="fog" args={['#ddddff', 0, 120]} />
           <PokemonBadges />
           <SideProps />
@@ -55,22 +55,10 @@ const Stage = () => {
           <Oddish />
           <LaprasInLake />
           <Projects />
-          <Physics
-            iterations={20}
-            tolerance={0.0001}
-            defaultContactMaterial={{
-              friction: 0,
-              restitution: 0.7,
-              contactEquationStiffness: 1e7,
-              contactEquationRelaxation: 1,
-              frictionEquationStiffness: 1e7,
-              frictionEquationRelaxation: 2,
-            }}
-            gravity={[0, -40, 0]}
-          >
-            <AshKetchum page={page} setPage={setPage} />
-            <AshWithFriends page={page} setPage={setPage} />
-            <HologramConsole page={page} setPage={setPage} />
+          <Physics iterations={20} tolerance={0.0001} gravity={[0, -40, 0]}>
+            <AshKetchum page={page} />
+            <AshWithFriends page={page} />
+            <HologramConsole page={page} />
             <Charizard
               page={page}
               setPage={setPage}
@@ -92,6 +80,9 @@ const Stage = () => {
 function Plane(props) {
   // This reference will give us direct access to the mesh
   const [mesh] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], ...props }))
+  useEffect(() => {
+    mesh.current.name = 'activitymesh.ground'
+  }, [])
   return (
     <mesh ref={mesh} rotation={[-Math.PI / 2, 0, 0]}>
       <planeBufferGeometry args={[140, 140]} />

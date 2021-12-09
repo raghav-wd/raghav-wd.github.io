@@ -323,7 +323,7 @@ const SideProps = () => {
         return () => clearInterval(timeout)
       }, [])
       return (
-        <group position={[-3, 0.5, 22]} rotation={[Math.PI / 2, 0.001, 0]}>
+        <group position={[4, 0.5, 20]} rotation={[Math.PI / 2, 0.001, 0]}>
           <mesh geometry={squareGeo} material={whiteMaterial} />
           <mesh
             geometry={squareGeo}

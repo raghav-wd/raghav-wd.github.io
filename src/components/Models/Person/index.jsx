@@ -5,7 +5,7 @@ import * as THREE from 'three'
 import { useSpring, a } from '@react-spring/three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useAnimations, useGLTF, Shadow } from '@react-three/drei'
-import { useBox } from '@react-three/cannon'
+import { useBox, useSphere } from '@react-three/cannon'
 import { usePersonControls } from '../../hooks'
 
 // Importing Person
@@ -13,6 +13,7 @@ const Person = ({ page, setPage }) => {
   const gltf = useGLTF('./libs/pikachu2.glb', true)
   const { ref: personRef, actions } = useAnimations(gltf.animations)
   const [selectedAction, setSelectedAction] = useState('Idle')
+  const [activeMesh, setActiveMesh] = useState('')
   const [drop, setDrop] = useState([0, 3, 0])
   const audioChannel = useRef(null)
 
@@ -24,7 +25,7 @@ const Person = ({ page, setPage }) => {
   const personShadowRef = useRef(null)
 
   const { camera } = useThree()
-  const { forward, backward, left, right, speech, dance, reset, jump } =
+  const { forward, backward, left, right, dance, reset, jump } =
     usePersonControls()
 
   const model = {
@@ -56,28 +57,30 @@ const Person = ({ page, setPage }) => {
     }
   }, [actions, selectedAction])
 
-  const [personMesh, api] = useBox(() => ({
-    args: [0.34, 0.34, 0.34],
+  const [personMesh, personApi] = useSphere(() => ({
+    args: [0.34],
     mass: 1,
     position: [0, 1.01, 0],
     type: 'Dynamic',
+    onCollideBegin: (e) => {
+      try {
+        const currentlyActiveMesh = e.body.name.split('.')
+        if (currentlyActiveMesh[0] !== 'activitymesh') return
+        if (currentlyActiveMesh[1] === 'ground') setPage('')
+        else setPage(currentlyActiveMesh[1])
+      } catch (exp) {
+        // Empty
+      }
+    },
   }))
+
+  useEffect(() => {
+    if (page === 'game') personApi.position.set(-9, 0, 21)
+  }, [page])
 
   // Person movement animation ...
   useEffect(() => {
     personMesh.current.name = 'Pikachu'
-    if (page !== '') {
-      // Detects person out of view ...
-      const frustum = new THREE.Frustum()
-      const matrix = new THREE.Matrix4().multiplyMatrices(
-        camera.projectionMatrix,
-        camera.matrixWorldInverse
-      )
-      frustum.setFromProjectionMatrix(matrix)
-      if (!frustum.containsPoint(personRef.current.position)) {
-        setPage('')
-      }
-    }
 
     // animation clips for movement ...
     if (forward || right || left || backward) {
@@ -91,7 +94,7 @@ const Person = ({ page, setPage }) => {
   }, [forward, backward, right, left, jump])
 
   useEffect(() => {
-    if (speech && audioChannel.current.paused) {
+    if (jump && audioChannel.current.paused) {
       const audioChannelSrc = `./audios/pikachu/${
         Math.round(Math.random() * 8) + 1
       }.mp3`
@@ -107,16 +110,17 @@ const Person = ({ page, setPage }) => {
       setSelectedAction('Dance')
     }
     return () => {
-      if (speech) setSelectedAction('Idle')
+      if (jump) setSelectedAction('Idle')
       else if (dance) {
         audioChannel.current.pause()
         setSelectedAction('Idle')
       }
     }
-  }, [speech, dance])
+  }, [jump, dance])
 
   useEffect(() => {
-    if (reset) api.position.set(0, 0, 0)
+    if (reset) personApi.position.set(0, 0.05, 0)
+    setPage('')
   }, [reset])
 
   const dropSpring = useSpring({
@@ -125,10 +129,11 @@ const Person = ({ page, setPage }) => {
   })
 
   useEffect(() => {
+    personApi.position.set(0, 0, 20)
     audioChannel.current = new Audio()
     camera.position.set(0, 2, -6)
     camera.lookAt(0, 1, 0)
-    api.velocity.subscribe((v) => {
+    personApi.velocity.subscribe((v) => {
       velocity.current = v
       return velocity.current
     })
@@ -152,7 +157,7 @@ const Person = ({ page, setPage }) => {
     personShadowRef.current.position.x = personRef.current.position.x
     personShadowRef.current.position.y = 0.0005
     personShadowRef.current.position.z = personRef.current.position.z
-    api.velocity.set(direction.x, velocity.current[1], direction.z)
+    personApi.velocity.set(direction.x, velocity.current[1], direction.z)
 
     // Adding lerp rotation to person model ...
     personRef.current.rotation.y = THREE.MathUtils.lerp(

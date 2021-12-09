@@ -2,11 +2,11 @@ import PropTypes from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { useGLTF, Shadow, Text } from '@react-three/drei'
-import { useSphere } from '@react-three/cannon'
+import { useBox, useSphere } from '@react-three/cannon'
 import { useModelTransition } from '../../hooks'
 import BillboardHoarding from '../BillboardHoarding'
 
-const AshWithFriends = ({ page = '', setPage }) => {
+const AshWithFriends = ({ page = '' }) => {
   const [isActive, setIsActive] = useState(false)
   const gltf = useGLTF('./libs/red_pokemon/scene.gltf')
   const ref = useRef()
@@ -14,21 +14,16 @@ const AshWithFriends = ({ page = '', setPage }) => {
     position: new THREE.Vector3(1, 0.1, 26),
     rotation: new THREE.Vector3(0, (6 * Math.PI) / 5, 0),
     options: {
-      focusOnPosition: new THREE.Vector3(0, 1.4, 22),
-      animateToPosition: new THREE.Vector3(-2, 2.4, 5),
-      fov: 12,
+      focusOnPosition: new THREE.Vector3(-2, 1.4, 26),
+      animateToPosition: new THREE.Vector3(1, 2.4, 5),
+      fov: 15,
     },
   }
 
-  const collisionHandler = () => {
-    setPage('about')
-  }
-
-  const [mesh] = useSphere(() => ({
-    position: [...model.position],
-    type: 'Static',
-    args: [2.6],
-    onCollide: collisionHandler,
+  const [activateMesh] = useBox(() => ({
+    args: [5, 5, 0.05],
+    rotation: [-Math.PI / 2, 0, 0],
+    position: [model.position.x, 0.001, model.position.z],
   }))
 
   useEffect(
@@ -36,18 +31,22 @@ const AshWithFriends = ({ page = '', setPage }) => {
     [page]
   )
 
+  useEffect(() => {
+    activateMesh.current.name = 'activitymesh.about'
+  }, [])
+
   useModelTransition(isActive, model.options)
 
   return (
     <mesh>
       <BillboardHoarding
-        position={[model.position.x - 2, 0, model.position.z - 2]}
+        position={[model.position.x - 3, 0, model.position.z + 1.2]}
         scale={0.2}
         rotation={[...model.rotation]}
       />
       <Text
         color="#212121"
-        position={[model.position.x - 2, 1.5, model.position.z - 2.2]}
+        position={[model.position.x - 3, 1.5, model.position.z + 1]}
         fontSize={0.2}
         letterSpacing={0.2}
         fillOpacity={0}
@@ -57,7 +56,7 @@ const AshWithFriends = ({ page = '', setPage }) => {
       >
         Connect
       </Text>
-      <mesh ref={mesh} />
+      <mesh ref={activateMesh} />
       <mesh
         rotation={[...model.rotation]}
         position={[model.position.x, 0, model.position.z]}
@@ -87,12 +86,10 @@ const AshWithFriends = ({ page = '', setPage }) => {
 
 AshWithFriends.defaultProps = {
   page: '',
-  setPage: null,
 }
 
 AshWithFriends.propTypes = {
   page: PropTypes.string,
-  setPage: PropTypes.func,
 }
 
 useGLTF.preload('./libs/red_pokemon/scene.gltf')
