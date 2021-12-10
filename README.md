@@ -42,3 +42,15 @@
    ```sh
    npm run build
    ```
+   
+## Dependencies
+1. react.js
+2. three.js
+3. react-three-fiber
+4. cannon.js
+5. react-spring
+6. zustand
+7. react-joystick-component
+
+Thanks to all people who built these libraries!!!
+
