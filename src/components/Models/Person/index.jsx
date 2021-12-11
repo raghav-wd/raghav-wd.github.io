@@ -5,17 +5,18 @@ import * as THREE from 'three'
 import { useSpring, a } from '@react-spring/three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useAnimations, useGLTF, Shadow } from '@react-three/drei'
-import { useBox, useSphere } from '@react-three/cannon'
+import { useSphere } from '@react-three/cannon'
 import { usePersonControls } from '../../hooks'
+import { useStore } from '../../../store'
 
 // Importing Person
 const Person = ({ page, setPage }) => {
   const gltf = useGLTF('./libs/pikachu2.glb', true)
   const { ref: personRef, actions } = useAnimations(gltf.animations)
   const [selectedAction, setSelectedAction] = useState('Idle')
-  const [activeMesh, setActiveMesh] = useState('')
   const [drop, setDrop] = useState([0, 3, 0])
   const audioChannel = useRef(null)
+  const movement = useStore((state) => state.movement)
 
   const direction = new THREE.Vector3()
   const frontVector = new THREE.Vector3()
@@ -25,13 +26,14 @@ const Person = ({ page, setPage }) => {
   const personShadowRef = useRef(null)
 
   const { camera } = useThree()
-  const { forward, backward, left, right, dance, reset, jump } =
-    usePersonControls()
+  const { forward, backward, left, right, dance, reset, jump } = movement
 
   const model = {
     blendDuration: 0.25,
     speed: 3,
   }
+
+  usePersonControls()
 
   const rotatePersonWithMovement = () => {
     let rotation = 0
@@ -129,7 +131,6 @@ const Person = ({ page, setPage }) => {
   })
 
   useEffect(() => {
-    personApi.position.set(0, 0, 20)
     audioChannel.current = new Audio()
     camera.position.set(0, 2, -6)
     camera.lookAt(0, 1, 0)

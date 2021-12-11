@@ -9,7 +9,6 @@ import {
   Charizard,
   HologramConsole,
   Juice,
-  LaprasInLake,
   Loader,
   Person,
   Piano,
@@ -30,7 +29,7 @@ const Stage = () => {
     <div>
       <Suspense fallback={<Loader />}>
         <Canvas
-          dpr={[1, 2]}
+          dpr={[1, 1.5]}
           mode="concurrent"
           frameloop="demand"
           onCreated={({ gl }) => {
@@ -53,7 +52,6 @@ const Stage = () => {
           <Juice />
           <Piano />
           <Oddish />
-          <LaprasInLake />
           <Projects />
           <Physics iterations={20} tolerance={0.0001} gravity={[0, -40, 0]}>
             <AshKetchum page={page} />

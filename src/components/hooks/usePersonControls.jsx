@@ -1,35 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useStore } from '../../store'
 
 const usePersonControls = () => {
-  const keys = {
-    KeyW: 'forward',
-    KeyS: 'backward',
-    KeyA: 'left',
-    KeyD: 'right',
-    KeyE: 'dance',
-    KeyR: 'reset',
-    Space: 'jump',
-  }
-
-  const moveFieldByKey = (key) => keys[key]
-
-  const [movement, setMovement] = useState({
-    forward: false,
-    backward: false,
-    left: false,
-    right: false,
-    voiceline: false,
-    dance: false,
-    reset: false,
-    jump: false,
-  })
+  const [setMovementUp, setMovementDown] = useStore((state) => [
+    state.setMovementUp,
+    state.setMovementDown,
+  ])
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      setMovement((m) => ({ ...m, [moveFieldByKey(e.code)]: true }))
+      setMovementDown(e)
     }
     const handleKeyUp = (e) => {
-      setMovement((m) => ({ ...m, [moveFieldByKey(e.code)]: false }))
+      setMovementUp(e)
     }
     document.addEventListener('keydown', handleKeyDown)
     document.addEventListener('keyup', handleKeyUp)
@@ -38,7 +21,6 @@ const usePersonControls = () => {
       document.removeEventListener('keyup', handleKeyUp)
     }
   }, [])
-  return movement
 }
 
 export default usePersonControls

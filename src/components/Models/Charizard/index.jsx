@@ -72,12 +72,12 @@ const Charizard = ({ page, isLost, setIsLost }) => {
     const fireballShadow = useRef(null)
     const [fireballMesh, fireballApi] = useSphere(() => ({
       mass: 1,
-      args: [0.4],
+      args: [0.35],
       rotation: [-Math.PI / 2, 0, 0],
       position: [
         game.lanes(game.laneGap)[Math.round(Math.random() * 4)],
         0.1,
-        model.position.z - Math.random() * 4,
+        model.position.z - Math.random() * 4 - 0.5,
       ],
       type: 'Dynamic',
       onCollide: (e) => {
@@ -95,9 +95,9 @@ const Charizard = ({ page, isLost, setIsLost }) => {
     }))
 
     useFrame(() => {
-      fireballApi.rotation.set(0, 0, 0)
+      // fireballApi.rotation.set(0, 0, 0)
       fireballApi.velocity.set(0, 0, game.fireball.speed)
-      fb.current.rotation.z -= 0.1
+      // fb.current.rotation.z -= 0.1
       fireballMesh.current.getWorldPosition(fireballShadow.current.position)
       fireballShadow.current.position.y = -0.17
     })
