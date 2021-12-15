@@ -245,10 +245,10 @@ const SideProps = () => {
       []
     )
     const KeyP = () => {
-      const [tooltipText, setTooltipText] = useState('Press E')
+      const [tooltipText, setTooltipText] = useState('Hold E')
       useEffect(() => {
         const timeout = setInterval(() => {
-          setTooltipText((tt) => (tt === 'Press E' ? 'To Dance' : 'Press E'))
+          setTooltipText((tt) => (tt === 'Hold E' ? 'To Dance' : 'Hold E'))
         }, 2000)
         return () => clearInterval(timeout)
       }, [])
@@ -279,11 +279,11 @@ const SideProps = () => {
     }
 
     const KeySpace = () => {
-      const [tooltipText, setTooltipText] = useState('Press Space')
+      const [tooltipText, setTooltipText] = useState('Hold Space')
       useEffect(() => {
         const timeout = setInterval(() => {
           setTooltipText((tt) =>
-            tt === 'Press Space' ? 'To Jump' : 'Press Space'
+            tt === 'Hold Space' ? 'To Jump' : 'Hold Space'
           )
         }, 2000)
         return () => clearInterval(timeout)
