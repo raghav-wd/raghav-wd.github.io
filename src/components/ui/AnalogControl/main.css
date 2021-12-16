@@ -14,3 +14,18 @@
   flex-flow: column;
   align-items: center;
 }
+
+/* Activity Keys */
+.activity-keys-container {
+  margin-top: 24px;
+}
+
+.activity-keys {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+}
+
+.activity-key img {
+  width: 52px;
+}

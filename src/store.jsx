@@ -31,6 +31,49 @@ const filter = (obj) => {
 
 const useStore = create((set) => ({
   movement: defaultMovement,
+  setPersonActivityState: (activity) => {
+    switch (activity) {
+      case 'dance': {
+        set((state) => ({
+          movement: {
+            ...filter(state.movement),
+            dance: true,
+          },
+        }))
+        break
+      }
+      case 'jump': {
+        set((state) => ({
+          movement: {
+            ...filter(state.movement),
+            jump: true,
+          },
+        }))
+        break
+      }
+      case 'reset': {
+        set((state) => ({
+          movement: {
+            ...filter(state.movement),
+            reset: true,
+          },
+        }))
+        break
+      }
+      default:
+        break
+    }
+  },
+  setPersonActivityStateDefault: () => {
+    set((state) => ({
+      movement: {
+        ...filter(state.movement),
+        dance: false,
+        reset: false,
+        jump: false,
+      },
+    }))
+  },
   setMovementDown: (e) => {
     set((state) => ({
       movement: { ...filter(state.movement), [moveFieldByKey(e.code)]: true },
