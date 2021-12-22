@@ -31,18 +31,7 @@ const Skills = () => {
       <div className="page">
         <div className="container">
           <Trail>
-            <div className="jumbo">Devansh Gupta</div>
-            <div className="featured-text">Education and Projects...</div>
-            <div>
-              <ul>
-                <li>
-                  Went to SRM Institute of Science and Technology - Apr&apos;18
-                </li>
-                <li>Front-end Inter @Advertyzement - Jun&apos;21</li>
-                <li>AI Developer @State Street - Jan&apos;22</li>
-              </ul>
-            </div>
-            <div className="jumbo-2">Projects</div>
+            <div className="jumbo">Projects</div>
             <div className="featured-text">A peek on my works</div>
             <div className="card-container">
               <div className="card">

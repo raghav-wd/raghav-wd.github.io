@@ -32,14 +32,17 @@ const About = () => {
         <div className="container">
           <Trail>
             <div className="jumbo">Devansh Gupta</div>
-            <div className="featured-text">Tatakae</div>
+            <div className="featured-text">Coder | Developer</div>
             <div>
               <ul>
                 <li>
                   Went to SRM Institute of Science and Technology - Apr&apos;18
                 </li>
-                <li>Front-end Inter @Advertyzement - Jun&apos;21</li>
-                <li>AI Developer @State Street - Jan&apos;22</li>
+                <li>Front-end Intern @Advertyzement - Jun&apos;21</li>
+                <li>
+                  Trainee in Robotic Process Automation @State Street -
+                  Jan&apos;22
+                </li>
               </ul>
             </div>
             <div className="jumbo-2">Connect</div>
@@ -48,31 +51,20 @@ const About = () => {
               Github: <a href="https://github.com/raghav-wd">raghav-wd</a>
             </div>
             <div>
-              LinkedIn: <a href="https://github.com/raghav-wd">Devansh Gupta</a>
+              LeetCode: <a href="https://leetcode.com/raghav-wd/">raghav-wd</a>
             </div>
+            <div>
+              LinkedIn:{' '}
+              <a href="https://www.linkedin.com/in/devanshgupta-/">
+                Devansh Gupta
+              </a>
+            </div>
+            <div>
+              Sketchfab: <a href="https://sketchfab.com/raghav-wd">raghav-wd</a>
+            </div>
+            <br />
             <div>Phone no: +91 6387658003</div>
             <div>Email: raghav.gupta.gpt@gmail.com</div>
-            <div className="card-container">
-              <div className="card">
-                <h1 className="title">Skima</h1>
-                <p className="text">
-                  Revamped college&apos;s academic website to a more UI
-                  intensive and analytical PW. Available as an installable web
-                  app on android, ios, windows and macOS.
-                </p>
-                <div className="label">React.js</div>
-                <div className="label">Material</div>
-              </div>
-              <div className="card">
-                <h1 className="title">Musifire</h1>
-                <p className="text">
-                  Musicplayer app on android devices, smoothly fetches
-                  lyrics/track info/album art and saves it.
-                </p>
-                <div className="label">Android</div>
-                <div className="label">Php</div>
-              </div>
-            </div>
           </Trail>
         </div>
       </div>

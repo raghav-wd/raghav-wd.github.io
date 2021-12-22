@@ -6,27 +6,6 @@
   /* flex-direction: row-reverse; */
 }
 
-.page {
-  padding: 24px 12px 24px 48px;
-  width: 50vw;
-}
-
-.jumbo {
-  font-size: 3.4em;
-  font-weight: 800;
-  text-decoration: underline;
-}
-
-.jumbo-2 {
-  font-size: 2.4em;
-  font-weight: 400;
-}
-
-.featured-text {
-  padding-left: 1.4em;
-  font-size: 1em;
-}
-
 .trailsText {
   position: relative;
   width: 100%;
@@ -38,13 +17,6 @@
 
 .trailsText > div {
   overflow: hidden;
-}
-
-.container {
-  /* display: flex;
-  align-items: center;
-  height: 100%;
-  justify-content: center; */
 }
 
 .card-container {
